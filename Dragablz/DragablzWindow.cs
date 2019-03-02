@@ -74,8 +74,8 @@ namespace Dragablz
 
         public bool IsBeingDraggedByTab
         {
-            get { return (bool) GetValue(IsBeingDraggedByTabProperty); }
-            private set { SetValue(IS_WINDOW_BEING_DRAGGED_BY_TAB_PROPERTY_KEY, value); }
+            get => (bool) GetValue(IsBeingDraggedByTabProperty);
+          private set => SetValue(IS_WINDOW_BEING_DRAGGED_BY_TAB_PROPERTY_KEY, value);
         }
 
         private void ItemDragCompleted(object sender, DragablzDragCompletedEventArgs e)

@@ -35,11 +35,8 @@ namespace Dragablz.Referenceless
         /// </remarks>
         public IDisposable Disposable
         {
-            get
-            {
-                return this.m_current;
-            }
-            set
+            get => this.m_current;
+          set
             {
                 bool flag = false;
                 IDisposable disposable = (IDisposable)null;

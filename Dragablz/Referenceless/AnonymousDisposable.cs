@@ -7,15 +7,9 @@ namespace Dragablz.Referenceless
     {
         private volatile Action m_dispose;
 
-        public bool IsDisposed
-        {
-            get
-            {
-                return this.m_dispose == null;
-            }
-        }
+        public bool IsDisposed => this.m_dispose == null;
 
-        public AnonymousDisposable(Action dispose)
+      public AnonymousDisposable(Action dispose)
         {
             this.m_dispose = dispose;
         }

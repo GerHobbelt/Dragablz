@@ -41,14 +41,8 @@ namespace Dragablz
             m_dragCompletedEventArgs = dragCompletedEventArgs;
         }
 
-        public DragablzItem DragablzItem
-        {
-            get { return m_dragablzItem; }
-        }
+        public DragablzItem DragablzItem => m_dragablzItem;
 
-        public DragCompletedEventArgs DragCompletedEventArgs
-        {
-            get { return m_dragCompletedEventArgs; }
-        }        
+      public DragCompletedEventArgs DragCompletedEventArgs => m_dragCompletedEventArgs;
     }
 }

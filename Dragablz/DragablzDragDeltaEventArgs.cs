@@ -34,11 +34,8 @@ namespace Dragablz
             m_dragDeltaEventArgs = dragDeltaEventArgs;
         }
 
-        public DragDeltaEventArgs DragDeltaEventArgs
-        {
-            get { return m_dragDeltaEventArgs; }
-        }
+        public DragDeltaEventArgs DragDeltaEventArgs => m_dragDeltaEventArgs;
 
-        public bool Cancel { get; set; }        
+      public bool Cancel { get; set; }        
     }
 }

@@ -13,19 +13,10 @@ namespace Dragablz
             m_addLocationHint = addLocationHint;
         }
 
-        public object Item
-        {
-            get { return m_item; }
-        }
+        public object Item => m_item;
 
-        public object Context
-        {
-            get { return m_context; }
-        }
+      public object Context => m_context;
 
-        public AddLocationHint AddLocationHint
-        {
-            get { return m_addLocationHint; }
-        }
+      public AddLocationHint AddLocationHint => m_addLocationHint;
     }
 }

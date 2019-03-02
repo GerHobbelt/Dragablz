@@ -29,9 +29,6 @@ namespace Dragablz
             m_dragablzItem = dragablzItem;
         }
 
-        public DragablzItem DragablzItem
-        {
-            get { return m_dragablzItem; }
-        }
+        public DragablzItem DragablzItem => m_dragablzItem;
     }
 }

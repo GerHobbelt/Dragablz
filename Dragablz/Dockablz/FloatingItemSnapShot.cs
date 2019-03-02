@@ -51,24 +51,12 @@ namespace Dragablz.Dockablz
             Panel.SetZIndex(dragablzItem, ZIndex);
         }
 
-        public object Content
-        {
-            get { return m_content; }
-        }
+        public object Content => m_content;
 
-        public Rect Location
-        {
-            get { return m_location; }
-        }
+      public Rect Location => m_location;
 
-        public int ZIndex
-        {
-            get { return m_zIndex; }
-        }
+      public int ZIndex => m_zIndex;
 
-        public WindowState State
-        {
-            get { return m_state; }
-        }
+      public WindowState State => m_state;
     }
 }

@@ -61,35 +61,20 @@ namespace Dragablz
                 m_end = end;
             }
 
-            public double Start
-            {
-                get { return m_start; }
-            }
+            public double Start => m_start;
 
-            public double Mid
-            {
-                get { return m_mid; }
-            }
+          public double Mid => m_mid;
 
-            public double End
-            {
-                get { return m_end; }
-            }
+          public double End => m_end;
 
-            public DragablzItem Item
-            {
-                get { return m_item; }
-            }
+          public DragablzItem Item => m_item;
         }
 
         #endregion
 
-        public virtual Orientation Orientation
-        {
-            get { return m_orientation; }
-        }
+        public virtual Orientation Orientation => m_orientation;
 
-        public virtual void Organise(DragablzItemsControl requestor, Size measureBounds, IEnumerable<DragablzItem> items)
+      public virtual void Organise(DragablzItemsControl requestor, Size measureBounds, IEnumerable<DragablzItem> items)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
 

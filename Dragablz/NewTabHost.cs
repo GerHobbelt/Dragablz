@@ -17,14 +17,8 @@ namespace Dragablz
             m_tabablzControl = tabablzControl;
         }
 
-        public TElement Container
-        {
-            get { return m_container; }
-        }
+        public TElement Container => m_container;
 
-        public TabablzControl TabablzControl
-        {
-            get { return m_tabablzControl; }
-        }
+      public TabablzControl TabablzControl => m_tabablzControl;
     }
 }

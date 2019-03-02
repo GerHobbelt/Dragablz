@@ -22,22 +22,13 @@ namespace Dragablz
             m_dragablzItem = dragablzItem;
         }
 
-        public Window Window
-        {
-            get { return m_window; }
-        }
+        public Window Window => m_window;
 
-        public TOwner Owner
-        {
-            get { return m_owner; }
-        }
+      public TOwner Owner => m_owner;
 
-        public DragablzItem DragablzItem
-        {
-            get { return m_dragablzItem; }
-        }
+      public DragablzItem DragablzItem => m_dragablzItem;
 
-        public bool IsCancelled { get; private set; }
+      public bool IsCancelled { get; private set; }
 
         public void Cancel()
         {

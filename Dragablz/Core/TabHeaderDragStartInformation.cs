@@ -23,29 +23,14 @@ namespace Dragablz.Core
             m_dragablzItemVerticalOffset = dragablzItemVerticalOffset;
         }
 
-        public double DragablzItemsControlHorizontalOffset
-        {
-            get { return m_dragablzItemsControlHorizontalOffset; }
-        }
+        public double DragablzItemsControlHorizontalOffset => m_dragablzItemsControlHorizontalOffset;
 
-        public double DragablzItemControlVerticalOffset
-        {
-            get { return m_dragablzItemControlVerticalOffset; }
-        }
+      public double DragablzItemControlVerticalOffset => m_dragablzItemControlVerticalOffset;
 
-        public double DragablzItemHorizontalOffset
-        {
-            get { return m_dragablzItemHorizontalOffset; }
-        }
+      public double DragablzItemHorizontalOffset => m_dragablzItemHorizontalOffset;
 
-        public double DragablzItemVerticalOffset
-        {
-            get { return m_dragablzItemVerticalOffset; }
-        }
+      public double DragablzItemVerticalOffset => m_dragablzItemVerticalOffset;
 
-        public DragablzItem DragItem
-        {
-            get { return m_dragItem; }
-        }
+      public DragablzItem DragItem => m_dragItem;
     }
 }

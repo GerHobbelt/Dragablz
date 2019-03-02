@@ -59,54 +59,24 @@ namespace Dragablz.Core
             m_floatingItemSnapShots = floatingItemSnapShots;
         }
 
-        public Orientation BreachOrientation
-        {
-            get { return m_breachOrientation; }
-        }
+        public Orientation BreachOrientation => m_breachOrientation;
 
-        public Point DragStartWindowOffset
-        {
-            get { return m_dragStartWindowOffset; }
-        }
+      public Point DragStartWindowOffset => m_dragStartWindowOffset;
 
-        public object Item
-        {
-            get { return m_item; }
-        }
+      public object Item => m_item;
 
-        public DragablzItem OriginatorContainer
-        {
-            get { return m_originatorContainer; }
-        }
+      public DragablzItem OriginatorContainer => m_originatorContainer;
 
-        public InterTabTransferReason TransferReason
-        {
-            get { return m_transferReason; }
-        }
+      public InterTabTransferReason TransferReason => m_transferReason;
 
-        public Point DragStartItemOffset
-        {
-            get { return m_dragStartItemOffset; }
-        }
+      public Point DragStartItemOffset => m_dragStartItemOffset;
 
-        public Point ItemPositionWithinHeader
-        {
-            get { return m_itemPositionWithinHeader; }
-        }
+      public Point ItemPositionWithinHeader => m_itemPositionWithinHeader;
 
-        public Size ItemSize
-        {
-            get { return m_itemSize; }
-        }
+      public Size ItemSize => m_itemSize;
 
-        public IList<FloatingItemSnapShot> FloatingItemSnapShots
-        {
-            get { return m_floatingItemSnapShots; }
-        }
+      public IList<FloatingItemSnapShot> FloatingItemSnapShots => m_floatingItemSnapShots;
 
-        public bool IsTransposing
-        {
-            get { return m_isTransposing; }
-        }
+      public bool IsTransposing => m_isTransposing;
     }
 }

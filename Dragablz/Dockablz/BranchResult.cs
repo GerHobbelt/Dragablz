@@ -19,17 +19,11 @@ namespace Dragablz.Dockablz
         /// <summary>
         /// The new branch.
         /// </summary>
-        public Branch Branch
-        {
-            get { return m_branch; }
-        }
+        public Branch Branch => m_branch;
 
-        /// <summary>
+      /// <summary>
         /// The new tab control.
         /// </summary>
-        public TabablzControl TabablzControl
-        {
-            get { return m_tabablzControl; }
-        }
+        public TabablzControl TabablzControl => m_tabablzControl;
     }
 }

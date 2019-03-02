@@ -26,21 +26,12 @@ namespace Dragablz.Dockablz
 
         [Obsolete]
         //TODO width and height transfer obsolete
-        public double Width
-        {
-            get { return m_width; }
-        }
+        public double Width => m_width;
 
-        [Obsolete]
+      [Obsolete]
         //TODO width and height transfer obsolete
-        public double Height
-        {
-            get { return m_height; }
-        }
+        public double Height => m_height;
 
-        public object Content
-        {
-            get { return m_content; }
-        }
+      public object Content => m_content;
     }
 }

@@ -87,8 +87,8 @@ namespace Dragablz.Themes
 
         public Brush Feedback
         {
-            get { return (Brush)GetValue(FeedbackProperty); }
-            set { SetValue(FeedbackProperty, value); }
+            get => (Brush)GetValue(FeedbackProperty);
+          set => SetValue(FeedbackProperty, value);
         }
 
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
@@ -136,8 +136,8 @@ namespace Dragablz.Themes
 
         public double RippleSize
         {
-            get { return (double)GetValue(RippleSizeProperty); }
-            private set { SetValue(RIPPLE_SIZE_PROPERTY_KEY, value); }
+            get => (double)GetValue(RippleSizeProperty);
+          private set => SetValue(RIPPLE_SIZE_PROPERTY_KEY, value);
         }
 
         private static readonly DependencyPropertyKey RIPPLE_X_PROPERTY_KEY =
@@ -150,8 +150,8 @@ namespace Dragablz.Themes
 
         public double RippleX
         {
-            get { return (double)GetValue(RippleXProperty); }
-            private set { SetValue(RIPPLE_X_PROPERTY_KEY, value); }
+            get => (double)GetValue(RippleXProperty);
+          private set => SetValue(RIPPLE_X_PROPERTY_KEY, value);
         }
 
         private static readonly DependencyPropertyKey RIPPLE_Y_PROPERTY_KEY =
@@ -164,8 +164,8 @@ namespace Dragablz.Themes
 
         public double RippleY
         {
-            get { return (double)GetValue(RippleYProperty); }
-            private set { SetValue(RIPPLE_Y_PROPERTY_KEY, value); }
+            get => (double)GetValue(RippleYProperty);
+          private set => SetValue(RIPPLE_Y_PROPERTY_KEY, value);
         }
 
         /// <summary>
@@ -182,8 +182,8 @@ namespace Dragablz.Themes
         /// </summary> 
         public bool RecognizesAccessKey
         {
-            get { return (bool)GetValue(RecognizesAccessKeyProperty); }
-            set { SetValue(RecognizesAccessKeyProperty, value); }
+            get => (bool)GetValue(RecognizesAccessKeyProperty);
+          set => SetValue(RecognizesAccessKeyProperty, value);
         }
 
         public override void OnApplyTemplate()

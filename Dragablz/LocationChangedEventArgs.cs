@@ -16,14 +16,8 @@ namespace Dragablz
             m_location = location;
         }
 
-        public object Item
-        {
-            get { return m_item; }
-        }
+        public object Item => m_item;
 
-        public Point Location
-        {
-            get { return m_location; }
-        }
+      public Point Location => m_location;
     }
 }

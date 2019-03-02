@@ -15,14 +15,8 @@ namespace Dragablz
             m_newOrder = newOrder;
         }
 
-        public object[] PreviousOrder
-        {
-            get { return m_previousOrder; }
-        }
+        public object[] PreviousOrder => m_previousOrder;
 
-        public object[] NewOrder
-        {
-            get { return m_newOrder; }
-        }
+      public object[] NewOrder => m_newOrder;
     }
 }

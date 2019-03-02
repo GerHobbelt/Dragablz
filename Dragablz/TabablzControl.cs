@@ -26,7 +26,8 @@ namespace Dragablz
   /// </summary>
   [TemplatePart(Name = HEADER_ITEMS_CONTROL_PART_NAME, Type = typeof(DragablzItemsControl))]
   [TemplatePart(Name = ITEMS_HOLDER_PART_NAME, Type = typeof(Panel))]
-  public class TabablzControl : TabControl
+  public class TabablzControl
+    : TabControl
   {
     #region Fields
 
@@ -48,9 +49,6 @@ namespace Dragablz
     /// Routed command which can be used to add a new tab.  See <see cref="NewItemFactory"/>.
     /// </summary>
     public static RoutedCommand AddItemCommand = new RoutedUICommand("Add", "Add", typeof(TabablzControl));
-
-    private static readonly HashSet<TabablzControl> LOADED_INSTANCES = new HashSet<TabablzControl>();
-    private static readonly HashSet<TabablzControl> VISIBLE_INSTANCES = new HashSet<TabablzControl>();
 
     private Panel m_itemsHolder;
     private TabHeaderDragStartInformation m_tabHeaderDragStartInformation;
@@ -97,9 +95,7 @@ namespace Dragablz
     /// </summary>
     /// <returns></returns>
     public static IEnumerable<TabablzControl> GetLoadedInstances()
-    {
-      return LOADED_INSTANCES.Union(VISIBLE_INSTANCES).Distinct().ToList();
-    }
+      => DragablzManager.LOADED_TABABLZ_INSTANCES.Union(DragablzManager.VISIBLE_TABABLZ_INSTANCES).Distinct().ToList();
 
     /// <summary>
     /// Helper method to close all tabs where the item is the tab's content (helpful with MVVM scenarios)
@@ -684,6 +680,8 @@ namespace Dragablz
       base.OnApplyTemplate();
     }
 
+    public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
+
     /// <summary>
     /// update the visible child in the ItemsHolder
     /// </summary>
@@ -718,6 +716,8 @@ namespace Dragablz
       }
       foreach (var tabItem in e.RemovedItems.OfType<TabItem>().Select(t => m_dragablzItemsControl.ItemContainerGenerator.ContainerFromItem(t)).OfType<DragablzItem>())
         tabItem.IsSelected = false;
+
+      SelectionChanged?.Invoke(e.Source, e);
     }
 
     /// <summary>
@@ -831,20 +831,20 @@ namespace Dragablz
       => new FrameworkElementAutomationPeer(this);
 
     internal static TabablzControl GetOwnerOfHeaderItems(DragablzItemsControl itemsControl)
-      => LOADED_INSTANCES.FirstOrDefault(t => Equals(t.m_dragablzItemsControl, itemsControl));
+      => DragablzManager.LOADED_TABABLZ_INSTANCES.FirstOrDefault(t => Equals(t.m_dragablzItemsControl, itemsControl));
 
     private static void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
     {
       var tabablzControl = (TabablzControl)sender;
       if (tabablzControl.IsVisible)
-        VISIBLE_INSTANCES.Add(tabablzControl);
-      else if (VISIBLE_INSTANCES.Contains(tabablzControl))
-        VISIBLE_INSTANCES.Remove(tabablzControl);
+        DragablzManager.VISIBLE_TABABLZ_INSTANCES.Add(tabablzControl);
+      else if (DragablzManager.VISIBLE_TABABLZ_INSTANCES.Contains(tabablzControl))
+        DragablzManager.VISIBLE_TABABLZ_INSTANCES.Remove(tabablzControl);
     }
 
     private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
     {
-      LOADED_INSTANCES.Add(this);
+      DragablzManager.LoadTabablzInstance(this);
       var window = Window.GetWindow(this);
       if (window == null) return;
       window.Closing += WindowOnClosing;
@@ -869,7 +869,7 @@ namespace Dragablz
         }).ToList();
       }
 
-      var target = LOADED_INSTANCES
+      var target = DragablzManager.LOADED_TABABLZ_INSTANCES
         .Except(this)
         .FirstOrDefault(other =>
                         other.InterTabController != null &&
@@ -886,7 +886,7 @@ namespace Dragablz
     private void OnUnloaded(object sender, RoutedEventArgs routedEventArgs)
     {
       m_windowSubscription.Disposable = Disposable.Empty;
-      LOADED_INSTANCES.Remove(this);
+      DragablzManager.UnloadTabablzInstrance(this);
     }
 
     private void MarkWrappedTabItems()
@@ -1007,7 +1007,7 @@ namespace Dragablz
       if (sourceTabablzControl.Items.Count > 1 && e.DragablzItem.LogicalIndex < sourceTabablzControl.FixedHeaderCount)
         return false;
 
-      var otherTabablzControls = LOADED_INSTANCES
+      var otherTabablzControls = DragablzManager.LOADED_TABABLZ_INSTANCES
           .Where(
               tc =>
                   tc != this && tc.InterTabController != null && InterTabController != null
@@ -1458,7 +1458,7 @@ namespace Dragablz
 
       if (dragablzItem == null) return null;
 
-      var tabablzControl = LOADED_INSTANCES.FirstOrDefault(tc => tc.IsMyItem(dragablzItem));
+      var tabablzControl = DragablzManager.LOADED_TABABLZ_INSTANCES.FirstOrDefault(tc => tc.IsMyItem(dragablzItem));
 
       return tabablzControl == null
         ? null

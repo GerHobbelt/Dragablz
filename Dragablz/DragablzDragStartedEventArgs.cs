@@ -30,9 +30,6 @@ namespace Dragablz
             m_dragStartedEventArgs = dragStartedEventArgs;
         }
 
-        public DragStartedEventArgs DragStartedEventArgs
-        {
-            get { return m_dragStartedEventArgs; }
-        }        
+        public DragStartedEventArgs DragStartedEventArgs => m_dragStartedEventArgs;
     }
 }

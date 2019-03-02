@@ -396,7 +396,7 @@ namespace Dragablz
     /// Allows a factory to be provided for generating new items. Typically used in conjunction with <see cref="AddItemCommand"/>.
     /// </summary>
     public static readonly DependencyProperty NewItemFactoryProperty = DependencyProperty.Register(
-        nameof(NewItemFactory), typeof(Func<object,object>), typeof(TabablzControl), new PropertyMetadata(default(Func<object,object>)));
+        nameof(NewItemFactory), typeof(Func<object, object>), typeof(TabablzControl), new PropertyMetadata(default(Func<object, object>)));
 
     /// <summary>
     /// Allows a factory to be provided for generating new items. Typically used in conjunction with <see cref="AddItemCommand"/>.
@@ -680,7 +680,8 @@ namespace Dragablz
       base.OnApplyTemplate();
     }
 
-    public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
+    public event EventHandler<TabSelectionEventArgs> SelectionChanged;
+
 
     /// <summary>
     /// update the visible child in the ItemsHolder
@@ -716,8 +717,6 @@ namespace Dragablz
       }
       foreach (var tabItem in e.RemovedItems.OfType<TabItem>().Select(t => m_dragablzItemsControl.ItemContainerGenerator.ContainerFromItem(t)).OfType<DragablzItem>())
         tabItem.IsSelected = false;
-
-      SelectionChanged?.Invoke(e.Source, e);
     }
 
     /// <summary>
@@ -748,6 +747,7 @@ namespace Dragablz
           UpdateSelectedItem();
           if (e.NewItems.Count == 1 && Items.Count > 1 && m_dragablzItemsControl != null && m_interTabTransfer == null)
             m_dragablzItemsControl.MoveItem(new MoveItemRequest(e.NewItems[0], SelectedItem, AddLocationHint));
+          SelectionChanged?.Invoke(this, new TabSelectionEventArgs(e.NewItems.Count > 0 ? e.NewItems[0] : null));
 
           break;
 
@@ -951,6 +951,7 @@ namespace Dragablz
 
       if (ShouldDragWindow(sourceOfDragItemsControl))
         IsDraggingWindow = true;
+      SelectionChanged?.Invoke(sender, new TabSelectionEventArgs(Items[0]));
     }
 
     private bool ShouldDragWindow(DragablzItemsControl sourceOfDragItemsControl)

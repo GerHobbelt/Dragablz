@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Dragablz.Dockablz;
 
 namespace Dragablz
 {
+  public class TabSelectionEventArgs : EventArgs
+  {
+    public object Content { get; set; }
+
+    public TabSelectionEventArgs(object content)
+    {
+      Content = content;
+    }
+  }
+
   public static class DragablzManager
   {
     public static readonly HashSet<Layout> LOADED_LAYOUTS = new HashSet<Layout>();
@@ -26,14 +37,14 @@ namespace Dragablz
       tabablzControl.SelectionChanged -= TabablzControlOnSelectionChanged;
     }
 
-    private static void TabablzControlOnSelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
+    private static void TabablzControlOnSelectionChanged(object sender, TabSelectionEventArgs selectionChangedEventArgs)
     {
-      OnTabSelectionChanged(selectionChangedEventArgs);
+      OnTabSelectionChanged(sender,selectionChangedEventArgs);
     }
 
-    public static event EventHandler<SelectionChangedEventArgs> TabSelectionChanged;
+    public static event EventHandler<TabSelectionEventArgs> TabSelectionChanged;
 
-    private static void OnTabSelectionChanged(SelectionChangedEventArgs e)
-      => TabSelectionChanged?.Invoke(e.Source, e);
+    private static void OnTabSelectionChanged(object sender, TabSelectionEventArgs e)
+      => TabSelectionChanged?.Invoke(sender, e);
   }
 }

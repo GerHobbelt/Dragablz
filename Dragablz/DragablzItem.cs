@@ -246,9 +246,7 @@ namespace Dragablz
     /// <param name="element"></param>
     /// <param name="value"></param>
     public static void SetContentRotateTransformAngle(DependencyObject element, double value)
-    {
-      element.SetValue(ContentRotateTransformAngleProperty, value);
-    }
+      => element.SetValue(ContentRotateTransformAngleProperty, value);
 
     /// <summary>
     /// Allows item content to be rotated (in suppported templates), typically for use in a vertical/side tab.
@@ -256,9 +254,7 @@ namespace Dragablz
     /// <param name="element"></param>
     /// <returns></returns>
     public static double GetContentRotateTransformAngle(DependencyObject element)
-    {
-      return (double)element.GetValue(ContentRotateTransformAngleProperty);
-    }
+      => (double)element.GetValue(ContentRotateTransformAngleProperty);
 
     public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register(
         nameof(IsSelected), typeof(bool), typeof(DragablzItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
@@ -274,8 +270,7 @@ namespace Dragablz
             nameof(IsDragging), typeof(bool), typeof(DragablzItem),
             new PropertyMetadata(default(bool), OnIsDraggingChanged));
 
-    public static readonly DependencyProperty IsDraggingProperty =
-        IS_DRAGGING_PROPERTY_KEY.DependencyProperty;
+    public static readonly DependencyProperty IsDraggingProperty = IS_DRAGGING_PROPERTY_KEY.DependencyProperty;
 
     public bool IsDragging
     {
@@ -446,14 +441,10 @@ namespace Dragablz
     /// the default thumb will handle mouse interaction).
     /// </summary>
     public static void SetIsCustomThumb(Thumb element, bool value)
-    {
-      element.SetValue(IsCustomThumbProperty, value);
-    }
+      => element.SetValue(IsCustomThumbProperty, value);
 
     public static bool GetIsCustomThumb(Thumb element)
-    {
-      return (bool)element.GetValue(IsCustomThumbProperty);
-    }
+      => (bool)element.GetValue(IsCustomThumbProperty);
 
     private bool m_isTemplateThumbWithMouseAfterSeize = false;
     public override void OnApplyTemplate()
@@ -552,9 +543,7 @@ namespace Dragablz
     }
 
     private void MouseDownHandler(object sender, RoutedEventArgs routedEventArgs)
-    {
-      OnMouseDownWithin(this);
-    }
+      => OnMouseDownWithin(this);
 
     private static void CustomThumbOnLoaded(object sender, RoutedEventArgs routedEventArgs)
     {

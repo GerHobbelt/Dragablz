@@ -19,18 +19,18 @@ namespace Dragablz.Dockablz
             set { SetValue(LocationProperty, value); }
         }
 
-        private static readonly DependencyPropertyKey IsOfferedPropertyKey =
+        private static readonly DependencyPropertyKey IS_OFFERED_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
                 "IsOffered", typeof (bool), typeof (DropZone),
                 new PropertyMetadata(default(bool)));
 
         public static readonly DependencyProperty IsOfferedProperty =
-            IsOfferedPropertyKey.DependencyProperty;
+            IS_OFFERED_PROPERTY_KEY.DependencyProperty;
 
         public bool IsOffered
         {
             get { return (bool) GetValue(IsOfferedProperty); }
-            internal set { SetValue(IsOfferedPropertyKey, value); }
+            internal set { SetValue(IS_OFFERED_PROPERTY_KEY, value); }
         }
 
     }

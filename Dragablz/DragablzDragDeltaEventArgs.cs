@@ -8,35 +8,35 @@ namespace Dragablz
 
     public class DragablzDragDeltaEventArgs : DragablzItemEventArgs
     {
-        private readonly DragDeltaEventArgs _dragDeltaEventArgs;
+        private readonly DragDeltaEventArgs m_dragDeltaEventArgs;
 
         public DragablzDragDeltaEventArgs(DragablzItem dragablzItem, DragDeltaEventArgs dragDeltaEventArgs)
             : base(dragablzItem)
         {
-            if (dragDeltaEventArgs == null) throw new ArgumentNullException("dragDeltaEventArgs");
+            if (dragDeltaEventArgs == null) throw new ArgumentNullException(nameof(dragDeltaEventArgs));
 
-            _dragDeltaEventArgs = dragDeltaEventArgs;
+            m_dragDeltaEventArgs = dragDeltaEventArgs;
         }
 
         public DragablzDragDeltaEventArgs(RoutedEvent routedEvent, DragablzItem dragablzItem, DragDeltaEventArgs dragDeltaEventArgs) 
             : base(routedEvent, dragablzItem)
         {
-            if (dragDeltaEventArgs == null) throw new ArgumentNullException("dragDeltaEventArgs");
+            if (dragDeltaEventArgs == null) throw new ArgumentNullException(nameof(dragDeltaEventArgs));
 
-            _dragDeltaEventArgs = dragDeltaEventArgs;
+            m_dragDeltaEventArgs = dragDeltaEventArgs;
         }
 
         public DragablzDragDeltaEventArgs(RoutedEvent routedEvent, object source, DragablzItem dragablzItem, DragDeltaEventArgs dragDeltaEventArgs) 
             : base(routedEvent, source, dragablzItem)
         {
-            if (dragDeltaEventArgs == null) throw new ArgumentNullException("dragDeltaEventArgs");
+            if (dragDeltaEventArgs == null) throw new ArgumentNullException(nameof(dragDeltaEventArgs));
 
-            _dragDeltaEventArgs = dragDeltaEventArgs;
+            m_dragDeltaEventArgs = dragDeltaEventArgs;
         }
 
         public DragDeltaEventArgs DragDeltaEventArgs
         {
-            get { return _dragDeltaEventArgs; }
+            get { return m_dragDeltaEventArgs; }
         }
 
         public bool Cancel { get; set; }        

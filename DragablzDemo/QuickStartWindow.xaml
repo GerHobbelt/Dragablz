@@ -26,7 +26,7 @@
                         <Grid.ContextMenu>
                             <ContextMenu>
                                 <!--we'll be in a popup, so give dragablz a hint as to what tab header content needs closing -->
-                                <MenuItem Command="{x:Static dragablz:TabablzControl.CloseItemCommand}"/>
+                                <MenuItem Command="{x:Static dragablz:TabablzControl.m_closeItemCommand}"/>
                             </ContextMenu>
                         </Grid.ContextMenu>
                         <TextBlock>Tab No. 3</TextBlock>

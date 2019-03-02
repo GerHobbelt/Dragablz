@@ -10,16 +10,16 @@ using System.Windows.Media.Animation;
 
 namespace Dragablz.Themes
 {
-    [TemplateVisualState(GroupName = "CommonStates", Name = TemplateStateNormal)]
-    [TemplateVisualState(GroupName = "CommonStates", Name = TemplateStateMousePressed)]
-    [TemplateVisualState(GroupName = "CommonStates", Name = TemplateStateMouseOut)]
+    [TemplateVisualState(GroupName = "CommonStates", Name = TEMPLATE_STATE_NORMAL)]
+    [TemplateVisualState(GroupName = "CommonStates", Name = TEMPLATE_STATE_MOUSE_PRESSED)]
+    [TemplateVisualState(GroupName = "CommonStates", Name = TEMPLATE_STATE_MOUSE_OUT)]
     public class Ripple : ContentControl
     {
-        public const string TemplateStateNormal = "Normal";
-        public const string TemplateStateMousePressed = "MousePressed";
-        public const string TemplateStateMouseOut = "MouseOut";
+        public const string TEMPLATE_STATE_NORMAL = "Normal";
+        public const string TEMPLATE_STATE_MOUSE_PRESSED = "MousePressed";
+        public const string TEMPLATE_STATE_MOUSE_OUT = "MouseOut";
 
-        private static readonly HashSet<Ripple> PressedInstances = new HashSet<Ripple>();
+        private static readonly HashSet<Ripple> PRESSED_INSTANCES = new HashSet<Ripple>();
 
         static Ripple()
         {
@@ -38,7 +38,7 @@ namespace Dragablz.Themes
 
         private static void MouseButtonEventHandler(object sender, MouseButtonEventArgs e)
         {
-            foreach (var ripple in PressedInstances)
+            foreach (var ripple in PRESSED_INSTANCES)
             {
                 // adjust the transition scale time according to the current animated scale
                 var scaleTrans = ripple.Template.FindName("ScaleTransform", ripple) as ScaleTransform;
@@ -60,14 +60,14 @@ namespace Dragablz.Themes
                     }
                 }
 
-                VisualStateManager.GoToState(ripple, TemplateStateNormal, true);
+                VisualStateManager.GoToState(ripple, TEMPLATE_STATE_NORMAL, true);
             }
-            PressedInstances.Clear();
+            PRESSED_INSTANCES.Clear();
         }
 
         private static void MouseMouveEventHandler(object sender, MouseEventArgs e)
         {
-            foreach (var ripple in PressedInstances.ToList())
+            foreach (var ripple in PRESSED_INSTANCES.ToList())
             {
                 var relativePosition = Mouse.GetPosition(ripple);
                 if (relativePosition.X < 0
@@ -76,8 +76,8 @@ namespace Dragablz.Themes
                     || relativePosition.Y >= ripple.ActualHeight)
 
                 {
-                    VisualStateManager.GoToState(ripple, TemplateStateMouseOut, true);
-                    PressedInstances.Remove(ripple);
+                    VisualStateManager.GoToState(ripple, TEMPLATE_STATE_MOUSE_OUT, true);
+                    PRESSED_INSTANCES.Remove(ripple);
                 }
             }
         }
@@ -119,53 +119,53 @@ namespace Dragablz.Themes
                 RippleY = point.Y - RippleSize / 2;
             }
 
-            VisualStateManager.GoToState(this, TemplateStateNormal, false);
-            VisualStateManager.GoToState(this, TemplateStateMousePressed, true);
-            PressedInstances.Add(this);
+            VisualStateManager.GoToState(this, TEMPLATE_STATE_NORMAL, false);
+            VisualStateManager.GoToState(this, TEMPLATE_STATE_MOUSE_PRESSED, true);
+            PRESSED_INSTANCES.Add(this);
 
             base.OnPreviewMouseLeftButtonDown(e);
         }
 
-        private static readonly DependencyPropertyKey RippleSizePropertyKey =
+        private static readonly DependencyPropertyKey RIPPLE_SIZE_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
                 "RippleSize", typeof(double), typeof(Ripple),
                 new PropertyMetadata(default(double)));
 
         public static readonly DependencyProperty RippleSizeProperty =
-            RippleSizePropertyKey.DependencyProperty;
+            RIPPLE_SIZE_PROPERTY_KEY.DependencyProperty;
 
         public double RippleSize
         {
             get { return (double)GetValue(RippleSizeProperty); }
-            private set { SetValue(RippleSizePropertyKey, value); }
+            private set { SetValue(RIPPLE_SIZE_PROPERTY_KEY, value); }
         }
 
-        private static readonly DependencyPropertyKey RippleXPropertyKey =
+        private static readonly DependencyPropertyKey RIPPLE_X_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
                 "RippleX", typeof(double), typeof(Ripple),
                 new PropertyMetadata(default(double)));
 
         public static readonly DependencyProperty RippleXProperty =
-            RippleXPropertyKey.DependencyProperty;
+            RIPPLE_X_PROPERTY_KEY.DependencyProperty;
 
         public double RippleX
         {
             get { return (double)GetValue(RippleXProperty); }
-            private set { SetValue(RippleXPropertyKey, value); }
+            private set { SetValue(RIPPLE_X_PROPERTY_KEY, value); }
         }
 
-        private static readonly DependencyPropertyKey RippleYPropertyKey =
+        private static readonly DependencyPropertyKey RIPPLE_Y_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
                 "RippleY", typeof(double), typeof(Ripple),
                 new PropertyMetadata(default(double)));
 
         public static readonly DependencyProperty RippleYProperty =
-            RippleYPropertyKey.DependencyProperty;
+            RIPPLE_Y_PROPERTY_KEY.DependencyProperty;
 
         public double RippleY
         {
             get { return (double)GetValue(RippleYProperty); }
-            private set { SetValue(RippleYPropertyKey, value); }
+            private set { SetValue(RIPPLE_Y_PROPERTY_KEY, value); }
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace Dragablz.Themes
         {
             base.OnApplyTemplate();
 
-            VisualStateManager.GoToState(this, TemplateStateNormal, false);
+            VisualStateManager.GoToState(this, TEMPLATE_STATE_NORMAL, false);
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs sizeChangedEventArgs)

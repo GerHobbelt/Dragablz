@@ -11,28 +11,28 @@ namespace Dragablz.Dockablz
     /// </summary>
     internal class LocationSnapShot
     {
-        private readonly double _width;
-        private readonly double _height;
+        private readonly double m_width;
+        private readonly double m_height;
 
         public static LocationSnapShot Take(FrameworkElement frameworkElement)
         {
-            if (frameworkElement == null) throw new ArgumentNullException("frameworkElement");
+            if (frameworkElement == null) throw new ArgumentNullException(nameof(frameworkElement));
             
             return new LocationSnapShot(frameworkElement.Width, frameworkElement.Height);
         }
 
         private LocationSnapShot(double width, double height)
         {
-            _width = width;
-            _height = height;
+            m_width = width;
+            m_height = height;
         }
 
         public void Apply(FrameworkElement frameworkElement)
         {
-            if (frameworkElement == null) throw new ArgumentNullException("frameworkElement");
+            if (frameworkElement == null) throw new ArgumentNullException(nameof(frameworkElement));
             
-            frameworkElement.SetCurrentValue(FrameworkElement.WidthProperty, _width);
-            frameworkElement.SetCurrentValue(FrameworkElement.HeightProperty, _height);
+            frameworkElement.SetCurrentValue(FrameworkElement.WidthProperty, m_width);
+            frameworkElement.SetCurrentValue(FrameworkElement.HeightProperty, m_height);
         }
     }
 }

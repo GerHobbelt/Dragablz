@@ -4,19 +4,19 @@ namespace Dragablz.Dockablz
 {
     internal class LocationReportBuilder
     {
-        private readonly TabablzControl _targetTabablzControl;
-        private Branch _branch;
-        private bool _isSecondLeaf;
-        private Layout _layout;
+        private readonly TabablzControl m_targetTabablzControl;
+        private Branch m_branch;
+        private bool m_isSecondLeaf;
+        private Layout m_layout;
 
         public LocationReportBuilder(TabablzControl targetTabablzControl)
         {
-            _targetTabablzControl = targetTabablzControl;
+            m_targetTabablzControl = targetTabablzControl;
         }
 
         public TabablzControl TargetTabablzControl
         {
-            get { return _targetTabablzControl; }
+            get { return m_targetTabablzControl; }
         }
 
         public bool IsFound { get; private set; }
@@ -28,27 +28,27 @@ namespace Dragablz.Dockablz
 
             IsFound = true;
 
-            _layout = CurrentLayout;
+            m_layout = CurrentLayout;
         }
 
         public void MarkFound(Branch branch, bool isSecondLeaf)
         {
-            if (branch == null) throw new ArgumentNullException("branch");
+            if (branch == null) throw new ArgumentNullException(nameof(branch));
             if (IsFound)
                 throw new InvalidOperationException("Already found.");
 
             IsFound = true;
 
-            _layout = CurrentLayout;
-            _branch = branch;
-            _isSecondLeaf = isSecondLeaf;
+            m_layout = CurrentLayout;
+            m_branch = branch;
+            m_isSecondLeaf = isSecondLeaf;
         }
 
         public Layout CurrentLayout { get; set; }
 
         public LocationReport ToLocationReport()
         {
-            return new LocationReport(_targetTabablzControl, _layout, _branch, _isSecondLeaf);
+            return new LocationReport(m_targetTabablzControl, m_layout, m_branch, m_isSecondLeaf);
         }
     }
 }

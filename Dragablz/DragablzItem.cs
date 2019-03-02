@@ -24,18 +24,18 @@ namespace Dragablz
         BottomLeft
     }
 
-    [TemplatePart(Name = ThumbPartName, Type = typeof(Thumb))]
+    [TemplatePart(Name = THUMB_PART_NAME, Type = typeof(Thumb))]
     public class DragablzItem : ContentControl
     {
-        public const string ThumbPartName = "PART_Thumb";
+        public const string THUMB_PART_NAME = "PART_Thumb";
 
-        private readonly SerialDisposable _templateSubscriptions = new SerialDisposable();
-        private readonly SerialDisposable _rightMouseUpCleanUpDisposable = new SerialDisposable();
+        private readonly SerialDisposable m_templateSubscriptions = new SerialDisposable();
+        private readonly SerialDisposable m_rightMouseUpCleanUpDisposable = new SerialDisposable();
 
-        private Thumb _customThumb;
-        private Thumb _thumb;
-        private bool _seizeDragWithTemplate;
-        private Action<DragablzItem> _dragSeizedContinuation;
+        private Thumb m_customThumb;
+        private Thumb m_thumb;
+        private bool m_seizeDragWithTemplate;
+        private Action<DragablzItem> m_dragSeizedContinuation;
 
         static DragablzItem()
         {
@@ -117,18 +117,18 @@ namespace Dragablz
             instance.RaiseEvent(args);
         }
 
-        private static readonly DependencyPropertyKey LogicalIndexPropertyKey =
+        private static readonly DependencyPropertyKey LOGICAL_INDEX_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
                 "LogicalIndex", typeof (int), typeof (DragablzItem),
                 new PropertyMetadata(default(int), OnLogicalIndexChanged));
 
         public static readonly DependencyProperty LogicalIndexProperty =
-            LogicalIndexPropertyKey.DependencyProperty;
+            LOGICAL_INDEX_PROPERTY_KEY.DependencyProperty;
 
         public int LogicalIndex
         {
             get { return (int) GetValue(LogicalIndexProperty); }
-            internal set { SetValue(LogicalIndexPropertyKey, value); }
+            internal set { SetValue(LOGICAL_INDEX_PROPERTY_KEY, value); }
         }
 
         public static readonly RoutedEvent LogicalIndexChangedEvent =
@@ -270,18 +270,18 @@ namespace Dragablz
             set { SetValue(IsSelectedProperty, value); }
         }
 
-        private static readonly DependencyPropertyKey IsDraggingPropertyKey =
+        private static readonly DependencyPropertyKey IS_DRAGGING_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
                 "IsDragging", typeof (bool), typeof (DragablzItem),
                 new PropertyMetadata(default(bool), OnIsDraggingChanged));
 
         public static readonly DependencyProperty IsDraggingProperty =
-            IsDraggingPropertyKey.DependencyProperty;
+            IS_DRAGGING_PROPERTY_KEY.DependencyProperty;
 
         public bool IsDragging
         {
             get { return (bool) GetValue(IsDraggingProperty); }
-            internal set { SetValue(IsDraggingPropertyKey, value); }
+            internal set { SetValue(IS_DRAGGING_PROPERTY_KEY, value); }
         }
 
         public static readonly RoutedEvent IsDraggingChangedEvent =
@@ -322,18 +322,18 @@ namespace Dragablz
             instance.RaiseEvent(new DragablzItemEventArgs(MouseDownWithinEvent, instance));
         }
 
-        private static readonly DependencyPropertyKey IsSiblingDraggingPropertyKey =
+        private static readonly DependencyPropertyKey IS_SIBLING_DRAGGING_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
                 "IsSiblingDragging", typeof (bool), typeof (DragablzItem),
                 new PropertyMetadata(default(bool), OnIsSiblingDraggingChanged));
 
         public static readonly DependencyProperty IsSiblingDraggingProperty =
-            IsSiblingDraggingPropertyKey.DependencyProperty;
+            IS_SIBLING_DRAGGING_PROPERTY_KEY.DependencyProperty;
 
         public bool IsSiblingDragging
         {
             get { return (bool) GetValue(IsSiblingDraggingProperty); }
-            internal set { SetValue(IsSiblingDraggingPropertyKey, value); }
+            internal set { SetValue(IS_SIBLING_DRAGGING_PROPERTY_KEY, value); }
         }
 
         public static readonly RoutedEvent IsSiblingDraggingChangedEvent =
@@ -413,8 +413,8 @@ namespace Dragablz
             //OK, this is a cheeky bit.  A completed drag may have occured after a tab as been pushed
             //intom a new window, which means we may have reverted to the template thumb.  So, let's
             //refresh the thumb in case the user has a custom one
-            _customThumb = FindCustomThumb();
-            _templateSubscriptions.Disposable = SelectAndSubscribeToThumb().Item2;
+            m_customThumb = FindCustomThumb();
+            m_templateSubscriptions.Disposable = SelectAndSubscribeToThumb().Item2;
         }
 
         /// <summary>
@@ -455,43 +455,43 @@ namespace Dragablz
             return (bool) element.GetValue(IsCustomThumbProperty);
         }
 
-        private bool _isTemplateThumbWithMouseAfterSeize = false;
+        private bool m_isTemplateThumbWithMouseAfterSeize = false;
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();                        
             
             var thumbAndSubscription = SelectAndSubscribeToThumb();
-            _templateSubscriptions.Disposable = thumbAndSubscription.Item2;
+            m_templateSubscriptions.Disposable = thumbAndSubscription.Item2;
             
-            if (_seizeDragWithTemplate && thumbAndSubscription.Item1 != null)
+            if (m_seizeDragWithTemplate && thumbAndSubscription.Item1 != null)
             {
-                _isTemplateThumbWithMouseAfterSeize = true;
+                m_isTemplateThumbWithMouseAfterSeize = true;
                 Mouse.AddLostMouseCaptureHandler(this, LostMouseAfterSeizeHandler);
-                if (_dragSeizedContinuation != null)
-                    _dragSeizedContinuation(this);
-                _dragSeizedContinuation = null;
+                if (m_dragSeizedContinuation != null)
+                    m_dragSeizedContinuation(this);
+                m_dragSeizedContinuation = null;
 
                 Dispatcher.BeginInvoke(new Action(() => thumbAndSubscription.Item1.RaiseEvent(new MouseButtonEventArgs(InputManager.Current.PrimaryMouseDevice,
                     0,
                     MouseButton.Left) {RoutedEvent = MouseLeftButtonDownEvent})));
             }
-            _seizeDragWithTemplate = false;
+            m_seizeDragWithTemplate = false;
         }
 
         protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
         {            
-            if (_thumb != null)
+            if (m_thumb != null)
             {
-                var currentThumbIsHitTestVisible = _thumb.IsHitTestVisible;
-                _thumb.SetCurrentValue(IsHitTestVisibleProperty, false);
-                _rightMouseUpCleanUpDisposable.Disposable = Disposable.Create(() =>
+                var currentThumbIsHitTestVisible = m_thumb.IsHitTestVisible;
+                m_thumb.SetCurrentValue(IsHitTestVisibleProperty, false);
+                m_rightMouseUpCleanUpDisposable.Disposable = Disposable.Create(() =>
                 {
-                    _thumb.SetCurrentValue(IsHitTestVisibleProperty, currentThumbIsHitTestVisible);
+                    m_thumb.SetCurrentValue(IsHitTestVisibleProperty, currentThumbIsHitTestVisible);
                 });
             }
             else
             {
-                _rightMouseUpCleanUpDisposable.Disposable = Disposable.Empty;
+                m_rightMouseUpCleanUpDisposable.Disposable = Disposable.Empty;
             }            
             
             base.OnPreviewMouseRightButtonDown(e);
@@ -499,26 +499,26 @@ namespace Dragablz
 
         protected override void OnPreviewMouseRightButtonUp(MouseButtonEventArgs e)
         {
-            _rightMouseUpCleanUpDisposable.Disposable = Disposable.Empty;
+            m_rightMouseUpCleanUpDisposable.Disposable = Disposable.Empty;
             base.OnPreviewMouseRightButtonUp(e);
         }
 
         private void LostMouseAfterSeizeHandler(object sender, MouseEventArgs mouseEventArgs)
         {
-            _isTemplateThumbWithMouseAfterSeize = false;
+            m_isTemplateThumbWithMouseAfterSeize = false;
             Mouse.RemoveLostMouseCaptureHandler(this, LostMouseAfterSeizeHandler);
         }
 
         internal void InstigateDrag(Action<DragablzItem> continuation)
         {
-            _dragSeizedContinuation = continuation;
-            var thumb = GetTemplateChild(ThumbPartName) as Thumb;
+            m_dragSeizedContinuation = continuation;
+            var thumb = GetTemplateChild(THUMB_PART_NAME) as Thumb;
             if (thumb != null)
             {
                 thumb.CaptureMouse();             
             }
             else
-                _seizeDragWithTemplate = true;
+                m_seizeDragWithTemplate = true;
         }
 
         internal Point MouseAtDragStart { get; set; }
@@ -579,29 +579,29 @@ namespace Dragablz
             if (dragablzItem == null) throw new ApplicationException("Cannot find parent DragablzItem for custom thumb");
 
             var enableCustomThumb = (bool)thumb.GetValue(IsCustomThumbProperty);
-            dragablzItem._customThumb = enableCustomThumb ? thumb : null;
-            dragablzItem._templateSubscriptions.Disposable = dragablzItem.SelectAndSubscribeToThumb().Item2;
+            dragablzItem.m_customThumb = enableCustomThumb ? thumb : null;
+            dragablzItem.m_templateSubscriptions.Disposable = dragablzItem.SelectAndSubscribeToThumb().Item2;
 
-            if (dragablzItem._customThumb != null && dragablzItem._isTemplateThumbWithMouseAfterSeize)
-                dragablzItem.Dispatcher.BeginInvoke(new Action(() => dragablzItem._customThumb.RaiseEvent(new MouseButtonEventArgs(InputManager.Current.PrimaryMouseDevice,
+            if (dragablzItem.m_customThumb != null && dragablzItem.m_isTemplateThumbWithMouseAfterSeize)
+                dragablzItem.Dispatcher.BeginInvoke(new Action(() => dragablzItem.m_customThumb.RaiseEvent(new MouseButtonEventArgs(InputManager.Current.PrimaryMouseDevice,
                         0,
                         MouseButton.Left) { RoutedEvent = MouseLeftButtonDownEvent })));
         }
 
         private Tuple<Thumb, IDisposable> SelectAndSubscribeToThumb()
         {
-            var templateThumb = GetTemplateChild(ThumbPartName) as Thumb;
-            templateThumb?.SetCurrentValue(IsHitTestVisibleProperty, _customThumb == null);
+            var templateThumb = GetTemplateChild(THUMB_PART_NAME) as Thumb;
+            templateThumb?.SetCurrentValue(IsHitTestVisibleProperty, m_customThumb == null);
             
-            _thumb = _customThumb ?? templateThumb;
-            if (_thumb != null)
+            m_thumb = m_customThumb ?? templateThumb;
+            if (m_thumb != null)
             {
-                _thumb.DragStarted += ThumbOnDragStarted;
-                _thumb.DragDelta += ThumbOnDragDelta;
-                _thumb.DragCompleted += ThumbOnDragCompleted;
+                m_thumb.DragStarted += ThumbOnDragStarted;
+                m_thumb.DragDelta += ThumbOnDragDelta;
+                m_thumb.DragCompleted += ThumbOnDragCompleted;
             }
 
-            var tidyUpThumb = _thumb;
+            var tidyUpThumb = m_thumb;
             var disposable = Disposable.Create(() =>
             {
                 if (tidyUpThumb == null) return;
@@ -610,7 +610,7 @@ namespace Dragablz
                 tidyUpThumb.DragCompleted -= ThumbOnDragCompleted;
             });
 
-            return new Tuple<Thumb, IDisposable>(_thumb, disposable);
+            return new Tuple<Thumb, IDisposable>(m_thumb, disposable);
         }
     }
 }

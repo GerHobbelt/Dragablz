@@ -18,12 +18,12 @@ using System.Windows.Shapes;
 
 namespace Dragablz.Dockablz
 {
-    [TemplatePart(Name = FirstContentPresenterPartName, Type=typeof(ContentPresenter))]
-    [TemplatePart(Name = SecondContentPresenterPartName, Type = typeof(ContentPresenter))]
+    [TemplatePart(Name = FIRST_CONTENT_PRESENTER_PART_NAME, Type=typeof(ContentPresenter))]
+    [TemplatePart(Name = SECOND_CONTENT_PRESENTER_PART_NAME, Type = typeof(ContentPresenter))]
     public class Branch : Control
     {
-        private const string FirstContentPresenterPartName = "PART_FirstContentPresenter";
-        private const string SecondContentPresenterPartName = "PART_SecondContentPresenter";
+        private const string FIRST_CONTENT_PRESENTER_PART_NAME = "PART_FirstContentPresenter";
+        private const string SECOND_CONTENT_PRESENTER_PART_NAME = "PART_SecondContentPresenter";
 
         static Branch()
         {
@@ -88,8 +88,8 @@ namespace Dragablz.Dockablz
         {
             base.OnApplyTemplate();
 
-            FirstContentPresenter = GetTemplateChild(FirstContentPresenterPartName) as ContentPresenter;
-            SecondContentPresenter = GetTemplateChild(SecondContentPresenterPartName) as ContentPresenter;
+            FirstContentPresenter = GetTemplateChild(FIRST_CONTENT_PRESENTER_PART_NAME) as ContentPresenter;
+            SecondContentPresenter = GetTemplateChild(SECOND_CONTENT_PRESENTER_PART_NAME) as ContentPresenter;
         }
 
         internal ContentPresenter FirstContentPresenter { get; private set; }

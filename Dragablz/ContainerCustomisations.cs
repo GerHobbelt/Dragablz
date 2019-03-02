@@ -5,30 +5,30 @@ namespace Dragablz
 {
     internal class ContainerCustomisations
     {
-        private readonly Func<DragablzItem> _getContainerForItemOverride;
-        private readonly Action<DependencyObject, object> _prepareContainerForItemOverride;
-        private readonly Action<DependencyObject, object> _clearingContainerForItemOverride;
+        private readonly Func<DragablzItem> m_getContainerForItemOverride;
+        private readonly Action<DependencyObject, object> m_prepareContainerForItemOverride;
+        private readonly Action<DependencyObject, object> m_clearingContainerForItemOverride;
 
         public ContainerCustomisations(Func<DragablzItem> getContainerForItemOverride = null, Action<DependencyObject, object> prepareContainerForItemOverride = null, Action<DependencyObject, object> clearingContainerForItemOverride = null)
         {
-            _getContainerForItemOverride = getContainerForItemOverride;
-            _prepareContainerForItemOverride = prepareContainerForItemOverride;
-            _clearingContainerForItemOverride = clearingContainerForItemOverride;
+            m_getContainerForItemOverride = getContainerForItemOverride;
+            m_prepareContainerForItemOverride = prepareContainerForItemOverride;
+            m_clearingContainerForItemOverride = clearingContainerForItemOverride;
         }
 
         public Func<DragablzItem> GetContainerForItemOverride
         {
-            get { return _getContainerForItemOverride; }
+            get { return m_getContainerForItemOverride; }
         }
 
         public Action<DependencyObject, object> PrepareContainerForItemOverride
         {
-            get { return _prepareContainerForItemOverride; }
+            get { return m_prepareContainerForItemOverride; }
         }
 
         public Action<DependencyObject, object> ClearingContainerForItemOverride
         {
-            get { return _clearingContainerForItemOverride; }
+            get { return m_clearingContainerForItemOverride; }
         }
     }
 }

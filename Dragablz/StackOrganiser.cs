@@ -10,37 +10,37 @@ namespace Dragablz
 {
     public abstract class StackOrganiser : IItemsOrganiser
     {
-        private readonly Orientation _orientation;
-        private readonly double _itemOffset;
-        private readonly Func<DragablzItem, double> _getDesiredSize;
-        private readonly Func<DragablzItem, double> _getLocation;
-        private readonly DependencyProperty _canvasDependencyProperty;
-        private readonly Action<DragablzItem, double> _setLocation;
+        private readonly Orientation m_orientation;
+        private readonly double m_itemOffset;
+        private readonly Func<DragablzItem, double> m_getDesiredSize;
+        private readonly Func<DragablzItem, double> m_getLocation;
+        private readonly DependencyProperty m_canvasDependencyProperty;
+        private readonly Action<DragablzItem, double> m_setLocation;
 
-        private readonly Dictionary<DragablzItem, double> _activeStoryboardTargetLocations =
+        private readonly Dictionary<DragablzItem, double> m_activeStoryboardTargetLocations =
             new Dictionary<DragablzItem, double>();
 
         protected StackOrganiser(Orientation orientation, double itemOffset = 0)
         {
-            _orientation = orientation;
-            _itemOffset = itemOffset;
+            m_orientation = orientation;
+            m_itemOffset = itemOffset;
 
             switch (orientation)
             {
                 case Orientation.Horizontal:
-                    _getDesiredSize = item => item.DesiredSize.Width;
-                    _getLocation = item => item.X;
-                    _setLocation = (item, coord) => item.SetCurrentValue(DragablzItem.XProperty, coord);
-                    _canvasDependencyProperty = Canvas.LeftProperty;
+                    m_getDesiredSize = item => item.DesiredSize.Width;
+                    m_getLocation = item => item.X;
+                    m_setLocation = (item, coord) => item.SetCurrentValue(DragablzItem.XProperty, coord);
+                    m_canvasDependencyProperty = Canvas.LeftProperty;
                     break;
                 case Orientation.Vertical:
-                    _getDesiredSize = item => item.DesiredSize.Height;
-                    _getLocation = item => item.Y;
-                    _setLocation = (item, coord) => item.SetCurrentValue(DragablzItem.YProperty, coord);
-                    _canvasDependencyProperty = Canvas.TopProperty;
+                    m_getDesiredSize = item => item.DesiredSize.Height;
+                    m_getLocation = item => item.Y;
+                    m_setLocation = (item, coord) => item.SetCurrentValue(DragablzItem.YProperty, coord);
+                    m_canvasDependencyProperty = Canvas.TopProperty;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("orientation");
+                    throw new ArgumentOutOfRangeException(nameof(orientation));
             }
         }
 
@@ -48,37 +48,37 @@ namespace Dragablz
 
         private class LocationInfo
         {
-            private readonly DragablzItem _item;
-            private readonly double _start;
-            private readonly double _mid;
-            private readonly double _end;
+            private readonly DragablzItem m_item;
+            private readonly double m_start;
+            private readonly double m_mid;
+            private readonly double m_end;
 
             public LocationInfo(DragablzItem item, double start, double mid, double end)
             {
-                _item = item;
-                _start = start;
-                _mid = mid;
-                _end = end;
+                m_item = item;
+                m_start = start;
+                m_mid = mid;
+                m_end = end;
             }
 
             public double Start
             {
-                get { return _start; }
+                get { return m_start; }
             }
 
             public double Mid
             {
-                get { return _mid; }
+                get { return m_mid; }
             }
 
             public double End
             {
-                get { return _end; }
+                get { return m_end; }
             }
 
             public DragablzItem Item
             {
-                get { return _item; }
+                get { return m_item; }
             }
         }
 
@@ -86,26 +86,26 @@ namespace Dragablz
 
         public virtual Orientation Orientation
         {
-            get { return _orientation; }
+            get { return m_orientation; }
         }
 
         public virtual void Organise(DragablzItemsControl requestor, Size measureBounds, IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             OrganiseInternal(
                 requestor, 
                 measureBounds,
                 items.Select((di, idx) => new Tuple<int, DragablzItem>(idx, di))
                         .OrderBy(tuple => tuple,
-                            MultiComparer<Tuple<int, DragablzItem>>.Ascending(tuple => _getLocation(tuple.Item2))
+                            MultiComparer<Tuple<int, DragablzItem>>.Ascending(tuple => m_getLocation(tuple.Item2))
                                 .ThenAscending(tuple => tuple.Item1))
                         .Select(tuple => tuple.Item2));            
         }
 
         public virtual void Organise(DragablzItemsControl requestor, Size measureBounds, IOrderedEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             OrganiseInternal(
                 requestor,
@@ -125,9 +125,9 @@ namespace Dragablz
                 SetLocation(newItem, currentCoord);
                 newItem.LogicalIndex = logicalIndex++;
                 newItem.Measure(measureBounds);
-                var desiredSize = _getDesiredSize(newItem);
+                var desiredSize = m_getDesiredSize(newItem);
                 if (desiredSize == 0.0) desiredSize = 1.0; //no measure? create something to help sorting
-                currentCoord += desiredSize + _itemOffset;
+                currentCoord += desiredSize + m_itemOffset;
             }
         }
 
@@ -138,27 +138,27 @@ namespace Dragablz
 
         }
 
-        private IDictionary<DragablzItem, LocationInfo> _siblingItemLocationOnDragStart;
+        private IDictionary<DragablzItem, LocationInfo> m_siblingItemLocationOnDragStart;
 
         public virtual void OrganiseOnDragStarted(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
         {
-            if (siblingItems == null) throw new ArgumentNullException("siblingItems");
-            if (dragItem == null) throw new ArgumentNullException("dragItem");
+            if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
+            if (dragItem == null) throw new ArgumentNullException(nameof(dragItem));
 
-            _siblingItemLocationOnDragStart = siblingItems.Select(GetLocationInfo).ToDictionary(loc => loc.Item);
+            m_siblingItemLocationOnDragStart = siblingItems.Select(GetLocationInfo).ToDictionary(loc => loc.Item);
         }
 
         public virtual void OrganiseOnDrag(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
         {
-            if (siblingItems == null) throw new ArgumentNullException("siblingItems");
-            if (dragItem == null) throw new ArgumentNullException("dragItem");
+            if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
+            if (dragItem == null) throw new ArgumentNullException(nameof(dragItem));
 
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
                 .Union(new[] {GetLocationInfo(dragItem)})
-                .OrderBy(loc => loc.Item == dragItem ? loc.Start : _siblingItemLocationOnDragStart[loc.Item].Start);
+                .OrderBy(loc => loc.Item == dragItem ? loc.Start : m_siblingItemLocationOnDragStart[loc.Item].Start);
 
             var currentCoord = 0.0;
             var zIndex = int.MaxValue;
@@ -169,7 +169,7 @@ namespace Dragablz
                     SendToLocation(location.Item, currentCoord);
                     Panel.SetZIndex(location.Item, --zIndex);
                 }
-                currentCoord += _getDesiredSize(location.Item) + _itemOffset;                
+                currentCoord += m_getDesiredSize(location.Item) + m_itemOffset;                
             }
             Panel.SetZIndex(dragItem, int.MaxValue);
         }
@@ -177,11 +177,11 @@ namespace Dragablz
         public virtual void OrganiseOnDragCompleted(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
         {
-            if (siblingItems == null) throw new ArgumentNullException("siblingItems");
+            if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
                 .Union(new[] {GetLocationInfo(dragItem)})
-                .OrderBy(loc => loc.Item == dragItem ? loc.Start : _siblingItemLocationOnDragStart[loc.Item].Start);
+                .OrderBy(loc => loc.Item == dragItem ? loc.Start : m_siblingItemLocationOnDragStart[loc.Item].Start);
 
             var currentCoord = 0.0;
             var z = int.MaxValue;
@@ -189,7 +189,7 @@ namespace Dragablz
             foreach (var location in currentLocations)
             {
                 SetLocation(location.Item, currentCoord);
-                currentCoord += _getDesiredSize(location.Item) + _itemOffset;
+                currentCoord += m_getDesiredSize(location.Item) + m_itemOffset;
                 Panel.SetZIndex(location.Item, --z);
                 location.Item.LogicalIndex = logicalIndex++;
             }
@@ -204,13 +204,13 @@ namespace Dragablz
                 ? -1d
                 : GetLocationInfo(requestor.DragablzItems()
                     .Take(fixedItems)
-                    .Last()).End + _itemOffset - 1;
+                    .Last()).End + m_itemOffset - 1;
 
             return new Point(
-                _orientation == Orientation.Vertical
+                m_orientation == Orientation.Vertical
                     ? 0
                     : Math.Min(Math.Max(lowerBound, itemDesiredLocation.X), (measureBounds.Width) + 1),
-                _orientation == Orientation.Horizontal
+                m_orientation == Orientation.Horizontal
                     ? 0
                     : Math.Min(Math.Max(lowerBound, itemDesiredLocation.Y), (measureBounds.Height) + 1)
                 );
@@ -218,7 +218,7 @@ namespace Dragablz
 
         public virtual Size Measure(DragablzItemsControl requestor, Size availableSize, IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             var size = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
@@ -227,11 +227,11 @@ namespace Dragablz
             foreach (var dragablzItem in items)
             {
                 dragablzItem.Measure(size);
-                if (_orientation == Orientation.Horizontal)
+                if (m_orientation == Orientation.Horizontal)
                 {
                     width += !dragablzItem.IsLoaded ? dragablzItem.DesiredSize.Width : dragablzItem.ActualWidth;
                     if (!isFirst)
-                        width += _itemOffset;
+                        width += m_itemOffset;
                     height = Math.Max(height,
                         !dragablzItem.IsLoaded ? dragablzItem.DesiredSize.Height : dragablzItem.ActualHeight);
                 }
@@ -241,7 +241,7 @@ namespace Dragablz
                         !dragablzItem.IsLoaded ? dragablzItem.DesiredSize.Width : dragablzItem.ActualWidth);
                     height += !dragablzItem.IsLoaded ? dragablzItem.DesiredSize.Height : dragablzItem.ActualHeight;
                     if (!isFirst)
-                        height += _itemOffset;
+                        height += m_itemOffset;
                 }
 
                 isFirst = false;
@@ -252,39 +252,39 @@ namespace Dragablz
 
         public virtual IEnumerable<DragablzItem> Sort(IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             return items.OrderBy(i => GetLocationInfo(i).Start);
         }
 
         private void SetLocation(DragablzItem dragablzItem, double location)
         {                     
-            _setLocation(dragablzItem, location);
+            m_setLocation(dragablzItem, location);
         }
         
         private void SendToLocation(DragablzItem dragablzItem, double location)
         {                        
             double activeTarget;
-            if (Math.Abs(_getLocation(dragablzItem) - location) < 1.0
+            if (Math.Abs(m_getLocation(dragablzItem) - location) < 1.0
                 ||
-                _activeStoryboardTargetLocations.TryGetValue(dragablzItem, out activeTarget)
+                m_activeStoryboardTargetLocations.TryGetValue(dragablzItem, out activeTarget)
                 && Math.Abs(activeTarget - location) < 1.0)
             {             
                 return;
             }            
 
-            _activeStoryboardTargetLocations[dragablzItem] = location;
+            m_activeStoryboardTargetLocations[dragablzItem] = location;
 
             var storyboard = new Storyboard {FillBehavior = FillBehavior.Stop};
             storyboard.WhenComplete(sb =>
             {
-                _setLocation(dragablzItem, location);
+                m_setLocation(dragablzItem, location);
                 sb.Remove(dragablzItem);
-                _activeStoryboardTargetLocations.Remove(dragablzItem);
+                m_activeStoryboardTargetLocations.Remove(dragablzItem);
             });
 
             var timeline = new DoubleAnimationUsingKeyFrames();
-            timeline.SetValue(Storyboard.TargetPropertyProperty, new PropertyPath(_canvasDependencyProperty));
+            timeline.SetValue(Storyboard.TargetPropertyProperty, new PropertyPath(m_canvasDependencyProperty));
             timeline.KeyFrames.Add(
                 new EasingDoubleKeyFrame(location, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(200)))
                 {
@@ -296,10 +296,10 @@ namespace Dragablz
 
         private LocationInfo GetLocationInfo(DragablzItem item)
         {
-            var size = _getDesiredSize(item);
+            var size = m_getDesiredSize(item);
             double startLocation;
-            if (!_activeStoryboardTargetLocations.TryGetValue(item, out startLocation))
-                startLocation = _getLocation(item);
+            if (!m_activeStoryboardTargetLocations.TryGetValue(item, out startLocation))
+                startLocation = m_getLocation(item);
             var midLocation = startLocation + size / 2;
             var endLocation = startLocation + size;
 

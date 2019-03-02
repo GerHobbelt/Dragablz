@@ -8,9 +8,9 @@ namespace Dragablz.Referenceless
 {
     internal sealed class SerialDisposable : ICancelable, IDisposable
     {
-        private readonly object _gate = new object();
-        private IDisposable _current;
-        private bool _disposed;
+        private readonly object m_gate = new object();
+        private IDisposable m_current;
+        private bool m_disposed;
 
         /// <summary>
         /// Gets a value that indicates whether the object is disposed.
@@ -20,8 +20,8 @@ namespace Dragablz.Referenceless
         {
             get
             {
-                lock (this._gate)
-                    return this._disposed;
+                lock (this.m_gate)
+                    return this.m_disposed;
             }
         }
 
@@ -37,19 +37,19 @@ namespace Dragablz.Referenceless
         {
             get
             {
-                return this._current;
+                return this.m_current;
             }
             set
             {
                 bool flag = false;
                 IDisposable disposable = (IDisposable)null;
-                lock (this._gate)
+                lock (this.m_gate)
                 {
-                    flag = this._disposed;
+                    flag = this.m_disposed;
                     if (!flag)
                     {
-                        disposable = this._current;
-                        this._current = value;
+                        disposable = this.m_current;
+                        this.m_current = value;
                     }
                 }
                 if (disposable != null)
@@ -67,13 +67,13 @@ namespace Dragablz.Referenceless
         public void Dispose()
         {
             IDisposable disposable = (IDisposable)null;
-            lock (this._gate)
+            lock (this.m_gate)
             {
-                if (!this._disposed)
+                if (!this.m_disposed)
                 {
-                    this._disposed = true;
-                    disposable = this._current;
-                    this._current = (IDisposable)null;
+                    this.m_disposed = true;
+                    disposable = this.m_current;
+                    this.m_current = (IDisposable)null;
                 }
             }
             if (disposable == null)

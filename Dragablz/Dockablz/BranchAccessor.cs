@@ -10,29 +10,29 @@ namespace Dragablz.Dockablz
 { 
     public class BranchAccessor
     {
-        private readonly Branch _branch;
-        private readonly BranchAccessor _firstItemBranchAccessor;
-        private readonly BranchAccessor _secondItemBranchAccessor;
-        private readonly TabablzControl _firstItemTabablzControl;
-        private readonly TabablzControl _secondItemTabablzControl;
+        private readonly Branch m_branch;
+        private readonly BranchAccessor m_firstItemBranchAccessor;
+        private readonly BranchAccessor m_secondItemBranchAccessor;
+        private readonly TabablzControl m_firstItemTabablzControl;
+        private readonly TabablzControl m_secondItemTabablzControl;
 
         public BranchAccessor(Branch branch)
         {
-            if (branch == null) throw new ArgumentNullException("branch");
+            if (branch == null) throw new ArgumentNullException(nameof(branch));
 
-            _branch = branch;
+            m_branch = branch;
 
             var firstChildBranch = branch.FirstItem as Branch;
             if (firstChildBranch != null)
-                _firstItemBranchAccessor = new BranchAccessor(firstChildBranch);
+                m_firstItemBranchAccessor = new BranchAccessor(firstChildBranch);
             else
-                _firstItemTabablzControl = FindTabablzControl(branch.FirstItem, branch.FirstContentPresenter);
+                m_firstItemTabablzControl = FindTabablzControl(branch.FirstItem, branch.FirstContentPresenter);
 
             var secondChildBranch = branch.SecondItem as Branch;            
             if (secondChildBranch != null)
-                _secondItemBranchAccessor = new BranchAccessor(secondChildBranch);
+                m_secondItemBranchAccessor = new BranchAccessor(secondChildBranch);
             else
-                _secondItemTabablzControl = FindTabablzControl(branch.SecondItem, branch.SecondContentPresenter);
+                m_secondItemTabablzControl = FindTabablzControl(branch.SecondItem, branch.SecondContentPresenter);
         }
 
         private static TabablzControl FindTabablzControl(object item, DependencyObject contentPresenter)
@@ -43,27 +43,27 @@ namespace Dragablz.Dockablz
 
         public Branch Branch
         {
-            get { return _branch; }
+            get { return m_branch; }
         }
 
         public BranchAccessor FirstItemBranchAccessor
         {
-            get { return _firstItemBranchAccessor; }
+            get { return m_firstItemBranchAccessor; }
         }
 
         public BranchAccessor SecondItemBranchAccessor
         {
-            get { return _secondItemBranchAccessor; }
+            get { return m_secondItemBranchAccessor; }
         }
 
         public TabablzControl FirstItemTabablzControl
         {
-            get { return _firstItemTabablzControl; }
+            get { return m_firstItemTabablzControl; }
         }
 
         public TabablzControl SecondItemTabablzControl
         {
-            get { return _secondItemTabablzControl; }
+            get { return m_secondItemTabablzControl; }
         }
 
         /// <summary>
@@ -87,17 +87,17 @@ namespace Dragablz.Dockablz
             switch (childItem)
             {
                 case BranchItem.First:
-                    branchGetter = () => _firstItemBranchAccessor;
-                    tabGetter = () => _firstItemTabablzControl;
-                    contentGetter = () => _branch.FirstItem;
+                    branchGetter = () => m_firstItemBranchAccessor;
+                    tabGetter = () => m_firstItemTabablzControl;
+                    contentGetter = () => m_branch.FirstItem;
                     break;
                 case BranchItem.Second:
-                    branchGetter = () => _secondItemBranchAccessor;
-                    tabGetter = () => _secondItemTabablzControl;
-                    contentGetter = () => _branch.SecondItem;
+                    branchGetter = () => m_secondItemBranchAccessor;
+                    tabGetter = () => m_secondItemTabablzControl;
+                    contentGetter = () => m_branch.SecondItem;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("childItem");
+                    throw new ArgumentOutOfRangeException(nameof(childItem));
             }
 
             var branchDescription = branchGetter();

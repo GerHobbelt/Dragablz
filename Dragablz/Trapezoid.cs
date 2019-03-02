@@ -12,7 +12,7 @@ namespace Dragablz
 {
     public class Trapezoid : ContentControl
     {
-        private PathGeometry _pathGeometry;
+        private PathGeometry m_pathGeometry;
 
         static Trapezoid()
         {
@@ -57,10 +57,10 @@ namespace Dragablz
 
                 return contentDesiredSize;
 
-            _pathGeometry = CreateGeometry(contentDesiredSize);
-            Clip = _pathGeometry;
+            m_pathGeometry = CreateGeometry(contentDesiredSize);
+            Clip = m_pathGeometry;
 
-            return _pathGeometry.GetRenderBounds(new Pen(PenBrush, 1)
+            return m_pathGeometry.GetRenderBounds(new Pen(PenBrush, 1)
             {
                 EndLineCap = PenLineCap.Flat,
                 MiterLimit = 1
@@ -130,14 +130,14 @@ namespace Dragablz
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);                        
-            drawingContext.DrawGeometry(Background, CreatePen(), _pathGeometry);
+            drawingContext.DrawGeometry(Background, CreatePen(), m_pathGeometry);
 
-            if (_pathGeometry == null) return;
+            if (m_pathGeometry == null) return;
             drawingContext.DrawGeometry(Background, new Pen(LongBasePenBrush, PenThickness)
             {
                 EndLineCap = PenLineCap.Flat,
                 MiterLimit = 1
-            }, new LineGeometry(_pathGeometry.Bounds.BottomLeft + new Vector(3, 0), _pathGeometry.Bounds.BottomRight + new Vector(-3, 0)));
+            }, new LineGeometry(m_pathGeometry.Bounds.BottomLeft + new Vector(3, 0), m_pathGeometry.Bounds.BottomRight + new Vector(-3, 0)));
         }
     }
 }

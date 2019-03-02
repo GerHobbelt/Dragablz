@@ -10,7 +10,7 @@
     <converters:BooleanAndToVisibilityConverter x:Key="BooleanAndToVisibilityConverter" />
     <converters:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter" />
     <converters:ShowDefaultCloseButtonConverter x:Key="ShowDefaultCloseButtonConverter" />
-    <local:BrushToRadialGradientBrushConverter x:Key="BrushToRadialGradientBrushConverter" />    
+    <local:BrushToRadialGradientBrushConverter x:Key="BrushToRadialGradientBrushConverter" />
 
     <Style x:Key="MaterialDesignFocusVisual">
         <Setter Property="Control.Template">
@@ -64,7 +64,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" Value="{x:Static dragablz:DragablzColors.WindowGlassBrush}"/>
+                <Setter Property="Background" Value="{x:Static dragablz:DragablzColors.m_windowGlassBrush}"/>
                 <Setter Property="Foreground" Value="{x:Static SystemColors.HighlightTextBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
@@ -82,12 +82,12 @@
                                  Height="{TemplateBinding Height}"
                                  Fill="{TemplateBinding Background}"/>
                         <Path x:Name="Path"
-                              Data="M0.5,71 L70,0.5 M0.5,1 L70,70.5" 
+                              Data="M0.5,71 L70,0.5 M0.5,1 L70,70.5"
                               Width="6" Height="6"
                               Stretch="Uniform"
                               Stroke="{TemplateBinding Foreground}"
                               StrokeThickness="1.5"
-                              StrokeStartLineCap="Square" 
+                              StrokeStartLineCap="Square"
                               StrokeEndLineCap="Square"
                               SnapsToDevicePixels="True" />
                     </Grid>
@@ -117,12 +117,12 @@
                                  Height="{TemplateBinding Height}"
                                  Fill="{TemplateBinding Background}"/>
                         <Path x:Name="Path"
-                              Data="M38,6L38.0003451911513,70.6666666666666 M70.3336667356886,38L5.50002465137562,38" 
+                              Data="M38,6L38.0003451911513,70.6666666666666 M70.3336667356886,38L5.50002465137562,38"
                               Width="6" Height="6"
                               Stretch="Uniform"
                               Stroke="{TemplateBinding Foreground}"
                               StrokeThickness="1.5"
-                              StrokeStartLineCap="Square" 
+                              StrokeStartLineCap="Square"
                               StrokeEndLineCap="Square"
                               SnapsToDevicePixels="True" />
                     </Grid>
@@ -142,8 +142,8 @@
         </Style.Triggers>
     </Style>
 
-    
-    
+
+
     <Style x:Key="MaterialDesignDragableTabItemStyle"  TargetType="{x:Type dragablz:DragablzItem}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource MaterialDesignFocusVisual}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidForegroundBrush}"/>
@@ -165,8 +165,8 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
-                                Background="{TemplateBinding Background}"                                          
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
                                 Margin="0 0 0 0">
                             <local:Ripple HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid>
@@ -175,15 +175,15 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
-                                                      x:Name="contentPresenter"                                                                                            
+                                                      x:Name="contentPresenter"
                                                       Margin="{TemplateBinding Control.Padding}"
                                                       Opacity=".87"/>
-                                    <Thumb Grid.Column="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" 
+                                    <Thumb Grid.Column="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch"
                                            x:Name="PART_Thumb"
                                            Style="{StaticResource MaterialDesignInvisibleThumbStyle}" />
                                     <Button Grid.Column="1"
-                                            Style="{StaticResource MaterialDesignCloseItemCommandButtonStyle}"                                            
-                                            Command="{x:Static dragablz:TabablzControl.CloseItemCommand}"
+                                            Style="{StaticResource MaterialDesignCloseItemCommandButtonStyle}"
+                                            Command="{x:Static dragablz:TabablzControl.m_closeItemCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
                                         <Button.Visibility>
                                             <MultiBinding Converter="{StaticResource ShowDefaultCloseButtonConverter}">
@@ -207,7 +207,7 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="contentPresenter" Property="Opacity" Value="1"/>
                             <Setter TargetName="SelectionHighlightBorder" Property="Visibility" Value="Visible" />
-                        </Trigger>                        
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -233,8 +233,8 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
-                                Background="{TemplateBinding Background}"                                          
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
                                 Margin="0 0 0 0">
                             <local:Ripple HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid>
@@ -249,12 +249,12 @@
                                             <RotateTransform Angle="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(dragablz:DragablzItem.ContentRotateTransformAngle)}" />
                                         </ContentPresenter.RenderTransform>
                                     </ContentPresenter>
-                                    <Thumb Grid.Row="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" 
+                                    <Thumb Grid.Row="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch"
                                            x:Name="PART_Thumb"
                                            Style="{StaticResource MaterialDesignInvisibleThumbStyle}" />
                                     <Button Grid.Row="1"
-                                            Style="{StaticResource MaterialDesignCloseItemCommandButtonStyle}"                                        
-                                            Command="{x:Static dragablz:TabablzControl.CloseItemCommand}"
+                                            Style="{StaticResource MaterialDesignCloseItemCommandButtonStyle}"
+                                            Command="{x:Static dragablz:TabablzControl.m_closeItemCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
                                         <Button.Visibility>
                                             <MultiBinding Converter="{StaticResource ShowDefaultCloseButtonConverter}">
@@ -364,7 +364,7 @@
                                                />
                                         <DockPanel Margin="{TemplateBinding Control.Padding }">
                                             <Button DockPanel.Dock="Right"
-                                                    Command="{x:Static dockablz:Layout.CloseFloatingItem}"
+                                                    Command="{x:Static dockablz:Layout.m_closeFloatingItem}"
                                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                                     Margin="1 0 0 0"
                                                     Style="{DynamicResource MaterialDesignToolWindowButtonStyle}"
@@ -376,7 +376,7 @@
                                                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
                                             </Button>
                                             <Button DockPanel.Dock="Right"
-                                                    Command="{x:Static dockablz:Layout.UnfloatItemCommand}"
+                                                    Command="{x:Static dockablz:Layout.m_unfloatItemCommand}"
                                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                                     Margin="1 0 0 0"
                                                     Style="{DynamicResource MaterialDesignToolWindowButtonStyle}"
@@ -384,7 +384,7 @@
                                                 <Path Width="12" Height="12" Stretch="UniformToFill" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}" Data="M 19 19 H 5 V 5 h 7 V 3 H 5 C 3.89 3 3 3.9 3 5 v 14 c 0 1.1 0.89 2 2 2 h 14 c 1.1 0 2 -0.9 2 -2 v -7 h -2 v 7 z M 14 3 v 2 h 3.59 L 7.76 14.83 9.17 16.24 19 6.41 V 10 h 2 V 3 h -7 z" />
                                             </Button>
                                             <Button DockPanel.Dock="Right"
-                                                    Command="{x:Static dockablz:Layout.MaximiseFloatingItem}"
+                                                    Command="{x:Static dockablz:Layout.m_maximiseFloatingItem}"
                                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                                     Margin="1 0 0 0"
                                                     Style="{DynamicResource MaterialDesignToolWindowButtonStyle}"
@@ -396,7 +396,7 @@
                                                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
                                             </Button>
                                             <Button DockPanel.Dock="Right"
-                                                    Command="{x:Static dockablz:Layout.RestoreFloatingItem}"
+                                                    Command="{x:Static dockablz:Layout.m_restoreFloatingItem}"
                                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                                     Margin="1 0 0 0"
                                                     Style="{DynamicResource MaterialDesignToolWindowButtonStyle}"
@@ -407,10 +407,10 @@
                                                       SnapsToDevicePixels="True"
                                                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
                                             </Button>
-                                            <ContentPresenter Content="{TemplateBinding HeaderContent}"                                                               
-                                                              ContentTemplate="{TemplateBinding HeaderContentTemplate}" 
-                                                              ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" 
-                                                              ContentTemplateSelector="{TemplateBinding HeaderContentTemplateSelector}"                                                          
+                                            <ContentPresenter Content="{TemplateBinding HeaderContent}"
+                                                              ContentTemplate="{TemplateBinding HeaderContentTemplate}"
+                                                              ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                                              ContentTemplateSelector="{TemplateBinding HeaderContentTemplateSelector}"
                                                               SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
                                                               IsHitTestVisible="False"
                                                           />
@@ -483,7 +483,7 @@
                                    Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness.Right}"
                                    Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness.Bottom}"
                                    IsEnabled="{Binding Path=(dockablz:Layout.FloatingItemState), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static WindowState.Normal}}"
-                                   dragablz:DragablzItem.SizeGrip="BottomLeft"                                   
+                                   dragablz:DragablzItem.SizeGrip="BottomLeft"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Bottom"
                                    Cursor="SizeNESW"
@@ -517,7 +517,7 @@
             <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="0" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
             <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="0" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Grid.Row="1" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}"
                        Margin="0 1 0 0" />
-            <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Grid.Column="1" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="0" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}" 
+            <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Grid.Column="1" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="0" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}"
                        Margin="1 0 0 0" />
         </Grid>
     </ControlTemplate>
@@ -536,7 +536,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type dragablz:DragablzItemsControl}">
                     <Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                        <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewerHorizontalBarVisibility}" VerticalScrollBarVisibility="Auto"
                                       Width="{TemplateBinding ActualWidth}"
                                       Height="{TemplateBinding ActualHeight}"
                                       Template="{StaticResource TabablzScrollViewerControlTemplate}">
@@ -605,15 +605,15 @@
                                     <DropShadowEffect BlurRadius="5" ShadowDepth="2" Direction="270" Opacity=".5" />
                                 </Border.Effect>
                             </Border>
-                            <ContentControl Grid.Column="0" x:Name="PrefixContentControl" 
+                            <ContentControl Grid.Column="0" x:Name="PrefixContentControl"
                                             Content="{TemplateBinding HeaderPrefixContent}"
                                             ContentStringFormat="{TemplateBinding HeaderPrefixContentStringFormat}"
                                             ContentTemplate="{TemplateBinding HeaderPrefixContentStringFormat}"
                                             ContentTemplateSelector="{TemplateBinding HeaderPrefixContentTemplateSelector}"/>
-                            <dragablz:DragablzItemsControl x:Name="PART_HeaderItemsControl"                                                         
+                            <dragablz:DragablzItemsControl x:Name="PART_HeaderItemsControl"
                                                            Grid.Column="1"
                                                            FixedItemCount="{TemplateBinding FixedHeaderCount}"
-                                                           ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Items}"                                                                                                            
+                                                           ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Items}"
                                                            ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
                                                            ItemsOrganiser="{TemplateBinding HeaderItemsOrganiser}"
                                                            KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"
@@ -635,10 +635,10 @@
                             <Button Style="{StaticResource MaterialDesignAddItemCommandButtonStyle}"
                                     x:Name="DefaultAddButton"
                                     Grid.Column="2"
-                                    Command="{x:Static dragablz:TabablzControl.AddItemCommand}"
+                                    Command="{x:Static dragablz:TabablzControl.m_addItemCommand}"
                                     Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     />
-                            <ContentControl Grid.Column="3" x:Name="SuffixContentControl" 
+                            <ContentControl Grid.Column="3" x:Name="SuffixContentControl"
                                             Content="{TemplateBinding HeaderSuffixContent}"
                                             ContentStringFormat="{TemplateBinding HeaderSuffixContentStringFormat}"
                                             ContentTemplate="{TemplateBinding HeaderSuffixContentStringFormat}"
@@ -698,14 +698,14 @@
                                             <DropShadowEffect BlurRadius="5" ShadowDepth="2" Direction="0" Opacity=".5" />
                                         </Border.Effect>
                                     </Border>
-                                    <ContentControl Grid.Row="0" x:Name="PrefixContentControl" 
+                                    <ContentControl Grid.Row="0" x:Name="PrefixContentControl"
                                                                 Content="{TemplateBinding HeaderPrefixContent}"
                                                                 ContentStringFormat="{TemplateBinding HeaderPrefixContentStringFormat}"
                                                                 ContentTemplate="{TemplateBinding HeaderPrefixContentStringFormat}"
                                                                 ContentTemplateSelector="{TemplateBinding HeaderPrefixContentTemplateSelector}"/>
-                                    <dragablz:DragablzItemsControl x:Name="PART_HeaderItemsControl"                                                         
-                                                                   Grid.Row="1"                                                                   
-                                                                   ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Items}"                                                                                                            
+                                    <dragablz:DragablzItemsControl x:Name="PART_HeaderItemsControl"
+                                                                   Grid.Row="1"
+                                                                   ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Items}"
                                                                    ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
                                                                    FixedItemCount="{TemplateBinding FixedHeaderCount}"
                                                                    ItemsOrganiser="{TemplateBinding HeaderItemsOrganiser}"
@@ -728,9 +728,9 @@
                                     <Button Style="{StaticResource MaterialDesignAddItemCommandButtonStyle}"
                                             x:Name="DefaultAddButton"
                                             Grid.Row="2"
-                                            Command="{x:Static dragablz:TabablzControl.AddItemCommand}"
+                                            Command="{x:Static dragablz:TabablzControl.m_addItemCommand}"
                                             Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <ContentControl Grid.Row="3" x:Name="SuffixContentControl" 
+                                    <ContentControl Grid.Row="3" x:Name="SuffixContentControl"
                                                                 Content="{TemplateBinding HeaderSuffixContent}"
                                                                 ContentStringFormat="{TemplateBinding HeaderSuffixContentStringFormat}"
                                                                 ContentTemplate="{TemplateBinding HeaderSuffixContentStringFormat}"

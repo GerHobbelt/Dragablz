@@ -3,24 +3,24 @@ using Dragablz;
 
 namespace DragablzDemo
 {
-    public static class BoundExampleNewItem
+  public static class BoundExampleNewItem
+  {
+    public static Func<object,HeaderedItemViewModel> Factory
     {
-        public static Func<HeaderedItemViewModel> Factory 
-        {
-            get
+      get
+      {
+        return
+            p =>
             {
-                return
-                    () =>
-                    {
-                        var dateTime = DateTime.Now;
+              var dateTime = DateTime.Now;
 
-                        return new HeaderedItemViewModel()
-                        {
-                            Header = dateTime.ToLongTimeString(),
-                            Content = dateTime.ToString("R")
-                        };
-                    };
-            }        
-        }
+              return new HeaderedItemViewModel()
+              {
+                Header = dateTime.ToLongTimeString(),
+                Content = dateTime.ToString("R")
+              };
+            };
+      }
     }
+  }
 }

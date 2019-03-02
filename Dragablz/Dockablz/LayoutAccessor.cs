@@ -8,31 +8,31 @@ namespace Dragablz.Dockablz
     /// </summary>
     public class LayoutAccessor
     {
-        private readonly Layout _layout;
-        private readonly BranchAccessor _branchAccessor;
-        private readonly TabablzControl _tabablzControl;
+        private readonly Layout m_layout;
+        private readonly BranchAccessor m_branchAccessor;
+        private readonly TabablzControl m_tabablzControl;
 
         public LayoutAccessor(Layout layout)
         {
-            if (layout == null) throw new ArgumentNullException("layout");
+            if (layout == null) throw new ArgumentNullException(nameof(layout));
             
-            _layout = layout;
+            m_layout = layout;
 
             var branch = Layout.Content as Branch;
             if (branch != null)
-                _branchAccessor = new BranchAccessor(branch);
+                m_branchAccessor = new BranchAccessor(branch);
             else            
-                _tabablzControl = Layout.Content as TabablzControl;            
+                m_tabablzControl = Layout.Content as TabablzControl;            
         }
 
         public Layout Layout
         {
-            get { return _layout; }
+            get { return m_layout; }
         }
 
         public IEnumerable<DragablzItem> FloatingItems
         {
-            get { return _layout.FloatingDragablzItems(); }
+            get { return m_layout.FloatingDragablzItems(); }
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Dragablz.Dockablz
         /// </summary>
         public BranchAccessor BranchAccessor
         {
-            get { return _branchAccessor; }
+            get { return m_branchAccessor; }
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Dragablz.Dockablz
         /// </summary>
         public TabablzControl TabablzControl
         {
-            get { return _tabablzControl; }
+            get { return m_tabablzControl; }
         }
 
         /// <summary>
@@ -60,26 +60,26 @@ namespace Dragablz.Dockablz
             Action<TabablzControl> tabablzControlVisitor = null,
             Action<object> contentVisitor = null)
         {
-            if (_branchAccessor != null)
+            if (m_branchAccessor != null)
             {
                 if (branchVisitor != null)
                 {
-                    branchVisitor(_branchAccessor);
+                    branchVisitor(m_branchAccessor);
                 }
                     
                 return this;
             }
 
-            if (_tabablzControl != null)
+            if (m_tabablzControl != null)
             {
                 if (tabablzControlVisitor != null)
-                    tabablzControlVisitor(_tabablzControl);
+                    tabablzControlVisitor(m_tabablzControl);
 
                 return this;
             }
 
-            if (_layout.Content != null && contentVisitor != null)
-                contentVisitor(_layout.Content);
+            if (m_layout.Content != null && contentVisitor != null)
+                contentVisitor(m_layout.Content);
 
             return this;
         }

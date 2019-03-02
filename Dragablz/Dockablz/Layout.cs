@@ -16,36 +16,36 @@ namespace Dragablz.Dockablz
 {
     public delegate void ClosingFloatingItemCallback(ItemActionCallbackArgs<Layout> args);
 
-    [TemplatePart(Name = TopDropZonePartName, Type = typeof(DropZone))]
-    [TemplatePart(Name = RightDropZonePartName, Type = typeof(DropZone))]
-    [TemplatePart(Name = BottomDropZonePartName, Type = typeof(DropZone))]
-    [TemplatePart(Name = LeftDropZonePartName, Type = typeof(DropZone))]
-    [TemplatePart(Name = FloatingDropZonePartName, Type = typeof(DropZone))]
-    [TemplatePart(Name = FloatingContentPresenterPartName, Type = typeof(ContentPresenter))]
+    [TemplatePart(Name = TOP_DROP_ZONE_PART_NAME, Type = typeof(DropZone))]
+    [TemplatePart(Name = RIGHT_DROP_ZONE_PART_NAME, Type = typeof(DropZone))]
+    [TemplatePart(Name = BOTTOM_DROP_ZONE_PART_NAME, Type = typeof(DropZone))]
+    [TemplatePart(Name = LEFT_DROP_ZONE_PART_NAME, Type = typeof(DropZone))]
+    [TemplatePart(Name = FLOATING_DROP_ZONE_PART_NAME, Type = typeof(DropZone))]
+    [TemplatePart(Name = FLOATING_CONTENT_PRESENTER_PART_NAME, Type = typeof(ContentPresenter))]
     public class Layout : ContentControl
     {
-        private static readonly HashSet<Layout> LoadedLayouts = new HashSet<Layout>();
-        private const string TopDropZonePartName = "PART_TopDropZone";
-        private const string RightDropZonePartName = "PART_RightDropZone";
-        private const string BottomDropZonePartName = "PART_BottomDropZone";
-        private const string LeftDropZonePartName = "PART_LeftDropZone";
-        private const string FloatingDropZonePartName = "PART_FloatDropZone";
-        private const string FloatingContentPresenterPartName = "PART_FloatContentPresenter";
+        private static readonly HashSet<Layout> LOADED_LAYOUTS = new HashSet<Layout>();
+        private const string TOP_DROP_ZONE_PART_NAME = "PART_TopDropZone";
+        private const string RIGHT_DROP_ZONE_PART_NAME = "PART_RightDropZone";
+        private const string BOTTOM_DROP_ZONE_PART_NAME = "PART_BottomDropZone";
+        private const string LEFT_DROP_ZONE_PART_NAME = "PART_LeftDropZone";
+        private const string FLOATING_DROP_ZONE_PART_NAME = "PART_FloatDropZone";
+        private const string FLOATING_CONTENT_PRESENTER_PART_NAME = "PART_FloatContentPresenter";
     
-        private readonly IDictionary<DropZoneLocation, DropZone> _dropZones = new Dictionary<DropZoneLocation, DropZone>();
-        private static Tuple<Layout, DropZone> _currentlyOfferedDropZone;
+        private readonly IDictionary<DropZoneLocation, DropZone> m_dropZones = new Dictionary<DropZoneLocation, DropZone>();
+        private static Tuple<Layout, DropZone> m_currentlyOfferedDropZone;
 
-        public static RoutedCommand UnfloatItemCommand = new RoutedCommand();
-        public static RoutedCommand MaximiseFloatingItem = new RoutedCommand();
-        public static RoutedCommand RestoreFloatingItem = new RoutedCommand();
-        public static RoutedCommand CloseFloatingItem = new RoutedCommand();
-        public static RoutedCommand TileFloatingItemsCommand = new RoutedCommand();
-        public static RoutedCommand TileFloatingItemsVerticallyCommand = new RoutedCommand();
-        public static RoutedCommand TileFloatingItemsHorizontallyCommand = new RoutedCommand();
+        public static RoutedCommand m_unfloatItemCommand = new RoutedCommand();
+        public static RoutedCommand m_maximiseFloatingItem = new RoutedCommand();
+        public static RoutedCommand m_restoreFloatingItem = new RoutedCommand();
+        public static RoutedCommand m_closeFloatingItem = new RoutedCommand();
+        public static RoutedCommand m_tileFloatingItemsCommand = new RoutedCommand();
+        public static RoutedCommand m_tileFloatingItemsVerticallyCommand = new RoutedCommand();
+        public static RoutedCommand m_tileFloatingItemsHorizontallyCommand = new RoutedCommand();
         
-        private readonly DragablzItemsControl _floatingItems;
-        private static bool _isDragOpWireUpPending;
-        private FloatTransfer _floatTransfer;
+        private readonly DragablzItemsControl m_floatingItems;
+        private static bool m_isDragOpWireUpPending;
+        private FloatTransfer m_floatTransfer;
 
         static Layout()
         {
@@ -60,22 +60,22 @@ namespace Dragablz.Dockablz
         {
             Loaded += (sender, args) =>
             {
-                LoadedLayouts.Add(this);
+                LOADED_LAYOUTS.Add(this);
                 MarkTopLeftItem(this);
             };
-            Unloaded += (sender, args) => LoadedLayouts.Remove(this);            
+            Unloaded += (sender, args) => LOADED_LAYOUTS.Remove(this);            
 
-            CommandBindings.Add(new CommandBinding(UnfloatItemCommand, UnfloatExecuted, CanExecuteUnfloat));
-            CommandBindings.Add(new CommandBinding(MaximiseFloatingItem, MaximiseFloatingItemExecuted, CanExecuteMaximiseFloatingItem));
-            CommandBindings.Add(new CommandBinding(CloseFloatingItem, CloseFloatingItemExecuted, CanExecuteCloseFloatingItem));
-            CommandBindings.Add(new CommandBinding(RestoreFloatingItem, RestoreFloatingItemExecuted, CanExecuteRestoreFloatingItem));
-            CommandBindings.Add(new CommandBinding(TileFloatingItemsCommand, TileFloatingItemsExecuted));
-            CommandBindings.Add(new CommandBinding(TileFloatingItemsCommand, TileFloatingItemsExecuted));
-            CommandBindings.Add(new CommandBinding(TileFloatingItemsVerticallyCommand, TileFloatingItemsVerticallyExecuted));
-            CommandBindings.Add(new CommandBinding(TileFloatingItemsHorizontallyCommand, TileFloatingItemsHorizontallyExecuted));                        
+            CommandBindings.Add(new CommandBinding(m_unfloatItemCommand, UnfloatExecuted, CanExecuteUnfloat));
+            CommandBindings.Add(new CommandBinding(m_maximiseFloatingItem, MaximiseFloatingItemExecuted, CanExecuteMaximiseFloatingItem));
+            CommandBindings.Add(new CommandBinding(m_closeFloatingItem, CloseFloatingItemExecuted, CanExecuteCloseFloatingItem));
+            CommandBindings.Add(new CommandBinding(m_restoreFloatingItem, RestoreFloatingItemExecuted, CanExecuteRestoreFloatingItem));
+            CommandBindings.Add(new CommandBinding(m_tileFloatingItemsCommand, TileFloatingItemsExecuted));
+            CommandBindings.Add(new CommandBinding(m_tileFloatingItemsCommand, TileFloatingItemsExecuted));
+            CommandBindings.Add(new CommandBinding(m_tileFloatingItemsVerticallyCommand, TileFloatingItemsVerticallyExecuted));
+            CommandBindings.Add(new CommandBinding(m_tileFloatingItemsHorizontallyCommand, TileFloatingItemsHorizontallyExecuted));                        
 
             //TODO bad bad behaviour.  Pick up this from the template.
-            _floatingItems = new DragablzItemsControl
+            m_floatingItems = new DragablzItemsControl
             {
                 ContainerCustomisations = new ContainerCustomisations(
                     GetFloatingContainerForItemOverride,
@@ -84,17 +84,17 @@ namespace Dragablz.Dockablz
             };
 
             var floatingItemsSourceBinding = new Binding("FloatingItemsSource") { Source = this };
-            _floatingItems.SetBinding(ItemsControl.ItemsSourceProperty, floatingItemsSourceBinding);
+            m_floatingItems.SetBinding(ItemsControl.ItemsSourceProperty, floatingItemsSourceBinding);
             var floatingItemsControlStyleBinding = new Binding("FloatingItemsControlStyle") { Source = this };
-            _floatingItems.SetBinding(StyleProperty, floatingItemsControlStyleBinding);
+            m_floatingItems.SetBinding(StyleProperty, floatingItemsControlStyleBinding);
             var floatingItemTemplateBinding = new Binding("FloatingItemTemplate") { Source = this };
-            _floatingItems.SetBinding(ItemsControl.ItemTemplateProperty, floatingItemTemplateBinding);
+            m_floatingItems.SetBinding(ItemsControl.ItemTemplateProperty, floatingItemTemplateBinding);
             var floatingItemTemplateSelectorBinding = new Binding("FloatingItemTemplateSelector") { Source = this };
-            _floatingItems.SetBinding(ItemsControl.ItemTemplateSelectorProperty, floatingItemTemplateSelectorBinding);            
+            m_floatingItems.SetBinding(ItemsControl.ItemTemplateSelectorProperty, floatingItemTemplateSelectorBinding);            
             var floatingItemContainerStyeBinding = new Binding("FloatingItemContainerStyle") { Source = this };
-            _floatingItems.SetBinding(ItemsControl.ItemContainerStyleProperty, floatingItemContainerStyeBinding);
+            m_floatingItems.SetBinding(ItemsControl.ItemContainerStyleProperty, floatingItemContainerStyeBinding);
             var floatingItemContainerStyleSelectorBinding = new Binding("FloatingItemContainerStyleSelector") { Source = this };
-            _floatingItems.SetBinding(ItemsControl.ItemContainerStyleSelectorProperty, floatingItemContainerStyleSelectorBinding);
+            m_floatingItems.SetBinding(ItemsControl.ItemContainerStyleSelectorProperty, floatingItemContainerStyleSelectorBinding);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Dragablz.Dockablz
         /// <returns></returns>
         public static IEnumerable<Layout> GetLoadedInstances()
         {
-            return LoadedLayouts.ToList();
+            return LOADED_LAYOUTS.ToList();
         }        
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Dragablz.Dockablz
         /// <returns></returns>
         public static LocationReport Find(TabablzControl tabablzControl)
         {
-            if (tabablzControl == null) throw new ArgumentNullException("tabablzControl");
+            if (tabablzControl == null) throw new ArgumentNullException(nameof(tabablzControl));
 
             return Finder.Find(tabablzControl);            
         }
@@ -158,7 +158,7 @@ namespace Dragablz.Dockablz
         public static BranchResult Branch(TabablzControl tabablzControl, TabablzControl newSiblingTabablzControl, Orientation orientation, bool makeCurrentSecond,
             double firstItemProportion)
         {
-            if (firstItemProportion < 0.0 || firstItemProportion > 1.0) throw new ArgumentOutOfRangeException("firstItemProportion", "Must be >= 0.0 and <= 1.0");
+            if (firstItemProportion < 0.0 || firstItemProportion > 1.0) throw new ArgumentOutOfRangeException(nameof(firstItemProportion), "Must be >= 0.0 and <= 1.0");
 
             var locationReport = Find(tabablzControl);
 
@@ -219,18 +219,18 @@ namespace Dragablz.Dockablz
             return false;
         }
 
-        private static readonly DependencyPropertyKey IsParticipatingInDragPropertyKey =
+        private static readonly DependencyPropertyKey IS_PARTICIPATING_IN_DRAG_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
                 "IsParticipatingInDrag", typeof (bool), typeof (Layout),
                 new PropertyMetadata(default(bool)));
 
         public static readonly DependencyProperty IsParticipatingInDragProperty =
-            IsParticipatingInDragPropertyKey.DependencyProperty;
+            IS_PARTICIPATING_IN_DRAG_PROPERTY_KEY.DependencyProperty;
 
         public bool IsParticipatingInDrag
         {
             get { return (bool) GetValue(IsParticipatingInDragProperty); }
-            private set { SetValue(IsParticipatingInDragPropertyKey, value); }
+            private set { SetValue(IS_PARTICIPATING_IN_DRAG_PROPERTY_KEY, value); }
         }
 
         public static readonly DependencyProperty BranchTemplateProperty = DependencyProperty.Register(
@@ -271,7 +271,7 @@ namespace Dragablz.Dockablz
         /// </summary>
         public ItemCollection FloatingItems
         {
-            get { return _floatingItems.Items; }
+            get { return m_floatingItems.Items; }
         }
 
         public static readonly DependencyProperty FloatingItemsSourceProperty = DependencyProperty.Register(
@@ -375,7 +375,7 @@ namespace Dragablz.Dockablz
             return (bool)element.GetValue(KeyIsFloatingInLayoutPropertyKey.DependencyProperty);
         }
 
-        private static readonly DependencyPropertyKey IsTopLeftItemPropertyKey =
+        private static readonly DependencyPropertyKey IS_TOP_LEFT_ITEM_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
                 "IsTopLeftItem", typeof(bool), typeof(Layout),
                 new PropertyMetadata(default(bool)));
@@ -383,14 +383,14 @@ namespace Dragablz.Dockablz
         /// <summary>
         /// Indicates if an item/tab control within a layout is contained at the top most and left most branch item.
         /// </summary>
-        public static readonly DependencyProperty IsTopLeftItemProperty = IsTopLeftItemPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty IsTopLeftItemProperty = IS_TOP_LEFT_ITEM_PROPERTY_KEY.DependencyProperty;
 
         /// <summary>
         /// Indicates if an item/tab control within a layout is contained at the top most and left most branch item.
         /// </summary>
         private static void SetIsTopLeftItem(DependencyObject element, bool value)
         {
-            element.SetValue(IsTopLeftItemPropertyKey, value);
+            element.SetValue(IS_TOP_LEFT_ITEM_PROPERTY_KEY, value);
         }
 
         /// <summary>
@@ -406,20 +406,20 @@ namespace Dragablz.Dockablz
         {            
             base.OnApplyTemplate();
 
-            var floatingItemsContentPresenter = GetTemplateChild(FloatingContentPresenterPartName) as ContentPresenter;
+            var floatingItemsContentPresenter = GetTemplateChild(FLOATING_CONTENT_PRESENTER_PART_NAME) as ContentPresenter;
             if (floatingItemsContentPresenter != null)
-                floatingItemsContentPresenter.Content = _floatingItems;
+                floatingItemsContentPresenter.Content = m_floatingItems;
 
-            _dropZones[DropZoneLocation.Top] = GetTemplateChild(TopDropZonePartName) as DropZone;
-            _dropZones[DropZoneLocation.Right] = GetTemplateChild(RightDropZonePartName) as DropZone;
-            _dropZones[DropZoneLocation.Bottom] = GetTemplateChild(BottomDropZonePartName) as DropZone;
-            _dropZones[DropZoneLocation.Left] = GetTemplateChild(LeftDropZonePartName) as DropZone;
-            _dropZones[DropZoneLocation.Floating] = GetTemplateChild(FloatingDropZonePartName) as DropZone;
+            m_dropZones[DropZoneLocation.Top] = GetTemplateChild(TOP_DROP_ZONE_PART_NAME) as DropZone;
+            m_dropZones[DropZoneLocation.Right] = GetTemplateChild(RIGHT_DROP_ZONE_PART_NAME) as DropZone;
+            m_dropZones[DropZoneLocation.Bottom] = GetTemplateChild(BOTTOM_DROP_ZONE_PART_NAME) as DropZone;
+            m_dropZones[DropZoneLocation.Left] = GetTemplateChild(LEFT_DROP_ZONE_PART_NAME) as DropZone;
+            m_dropZones[DropZoneLocation.Floating] = GetTemplateChild(FLOATING_DROP_ZONE_PART_NAME) as DropZone;
         }
 
         internal IEnumerable<DragablzItem> FloatingDragablzItems()
         {
-            return _floatingItems.DragablzItems();
+            return m_floatingItems.DragablzItems();
         }
 
         internal static void RestoreFloatingItemSnapShots(DependencyObject ancestor, IEnumerable<FloatingItemSnapShot> floatingItemSnapShots)
@@ -438,7 +438,7 @@ namespace Dragablz.Dockablz
         private static void ItemDragStarted(object sender, DragablzDragStartedEventArgs e)
         {
             //we wait until drag is in full flow so we know the partition has been setup by the owning tab control
-            _isDragOpWireUpPending = true;            
+            m_isDragOpWireUpPending = true;            
         }
 
         private static void SetupParticipatingLayouts(DragablzItem dragablzItem)
@@ -449,7 +449,7 @@ namespace Dragablz.Dockablz
             var draggingWindow = Window.GetWindow(dragablzItem);
             if (draggingWindow == null) return;
 
-            foreach (var loadedLayout in LoadedLayouts.Where(l =>
+            foreach (var loadedLayout in LOADED_LAYOUTS.Where(l =>
                 l.Partition == dragablzItem.PartitionAtDragStart &&
                 !Equals(Window.GetWindow(l), draggingWindow)))
 
@@ -463,7 +463,7 @@ namespace Dragablz.Dockablz
             var myWindow = Window.GetWindow(this);
             if (myWindow == null) return;
 
-            foreach (var dropZone in _dropZones.Values.Where(dz => dz != null))
+            foreach (var dropZone in m_dropZones.Values.Where(dz => dz != null))
             {                
                 var pointFromScreen = myWindow.PointFromScreen(cursorPos);
                 var pointRelativeToDropZone = myWindow.TranslatePoint(pointFromScreen, dropZone);
@@ -471,16 +471,16 @@ namespace Dragablz.Dockablz
                 //TODO better halding when windows are layered over each other
                 if (inputHitTest != null)
                 {
-                    if (_currentlyOfferedDropZone != null)
-                        _currentlyOfferedDropZone.Item2.IsOffered = false;
+                    if (m_currentlyOfferedDropZone != null)
+                        m_currentlyOfferedDropZone.Item2.IsOffered = false;
                     dropZone.IsOffered = true;
-                    _currentlyOfferedDropZone = new Tuple<Layout, DropZone>(this, dropZone);
+                    m_currentlyOfferedDropZone = new Tuple<Layout, DropZone>(this, dropZone);
                 }
                 else
                 {
                     dropZone.IsOffered = false;
-                    if (_currentlyOfferedDropZone != null && _currentlyOfferedDropZone.Item2 == dropZone)
-                        _currentlyOfferedDropZone = null;
+                    if (m_currentlyOfferedDropZone != null && m_currentlyOfferedDropZone.Item2 == dropZone)
+                        m_currentlyOfferedDropZone = null;
                 }
             }
         }
@@ -666,25 +666,25 @@ namespace Dragablz.Dockablz
 
         private static void ItemDragCompleted(object sender, DragablzDragCompletedEventArgs e)
         {
-            _isDragOpWireUpPending = false;
+            m_isDragOpWireUpPending = false;
 
-            foreach (var loadedLayout in LoadedLayouts)
+            foreach (var loadedLayout in LOADED_LAYOUTS)
                 loadedLayout.IsParticipatingInDrag = false;
 
-            if (_currentlyOfferedDropZone == null || e.DragablzItem.IsDropTargetFound) return;
+            if (m_currentlyOfferedDropZone == null || e.DragablzItem.IsDropTargetFound) return;
 
             TabablzControl tabablzControl;
             if (TryGetSourceTabControl(e.DragablzItem, out tabablzControl))
             {
                 if (tabablzControl.Items.Count > 1) return;
 
-                if (_currentlyOfferedDropZone.Item2.Location == DropZoneLocation.Floating)
-                    Float(_currentlyOfferedDropZone.Item1, e.DragablzItem);
+                if (m_currentlyOfferedDropZone.Item2.Location == DropZoneLocation.Floating)
+                    Float(m_currentlyOfferedDropZone.Item1, e.DragablzItem);
                 else
-                    _currentlyOfferedDropZone.Item1.Branch(_currentlyOfferedDropZone.Item2.Location, e.DragablzItem);
+                    m_currentlyOfferedDropZone.Item1.Branch(m_currentlyOfferedDropZone.Item2.Location, e.DragablzItem);
             }
 
-            _currentlyOfferedDropZone = null;
+            m_currentlyOfferedDropZone = null;
         }
 
         private static void Float(Layout layout, DragablzItem dragablzItem)
@@ -695,7 +695,7 @@ namespace Dragablz.Dockablz
             var sourceOfDragItemsControl = ItemsControl.ItemsControlFromItemContainer(dragablzItem) as DragablzItemsControl;
             if (sourceOfDragItemsControl == null) throw new ApplicationException("Unable to determin source items control.");            
             var sourceTabControl = TabablzControl.GetOwnerOfHeaderItems(sourceOfDragItemsControl);
-            layout._floatTransfer = FloatTransfer.TakeSnapshot(dragablzItem, sourceTabControl);
+            layout.m_floatTransfer = FloatTransfer.TakeSnapshot(dragablzItem, sourceTabControl);
             var floatingItemSnapShots = sourceTabControl.VisualTreeDepthFirstTraversal()
                     .OfType<Layout>()
                     .SelectMany(l => l.FloatingDragablzItems().Select(FloatingItemSnapShot.Take))
@@ -706,9 +706,9 @@ namespace Dragablz.Dockablz
             //add to float layer            
             CollectionTeaser collectionTeaser;
             if (CollectionTeaser.TryCreate(layout.FloatingItemsSource, out collectionTeaser))
-                collectionTeaser.Add(layout._floatTransfer.Content);
+                collectionTeaser.Add(layout.m_floatTransfer.Content);
             else
-                layout.FloatingItems.Add(layout._floatTransfer.Content);
+                layout.FloatingItems.Add(layout.m_floatTransfer.Content);
 
             layout.Dispatcher.BeginInvoke(new Action(() => RestoreFloatingItemSnapShots(layout, floatingItemSnapShots)), DispatcherPriority.Loaded);
         }
@@ -717,13 +717,13 @@ namespace Dragablz.Dockablz
         {
             if (e.Cancel) return;
 
-            if (_isDragOpWireUpPending)
+            if (m_isDragOpWireUpPending)
             {
                 SetupParticipatingLayouts(e.DragablzItem);
-                _isDragOpWireUpPending = false;
+                m_isDragOpWireUpPending = false;
             }
 
-            foreach (var layout in LoadedLayouts.Where(l => l.IsParticipatingInDrag))
+            foreach (var layout in LOADED_LAYOUTS.Where(l => l.IsParticipatingInDrag))
             {                
                 var cursorPos = Native.GetCursorPos();
                 layout.MonitorDropZones(cursorPos);
@@ -746,7 +746,7 @@ namespace Dragablz.Dockablz
                 headeredDragablzItem.SetBinding(ContentProperty, contentBinding);
             }
 
-            if (_floatTransfer == null || (o != _floatTransfer.Content && dependencyObject != _floatTransfer.Content))
+            if (m_floatTransfer == null || (o != m_floatTransfer.Content && dependencyObject != m_floatTransfer.Content))
                 return;
 
             var dragablzItem = (DragablzItem) dependencyObject;
@@ -754,16 +754,16 @@ namespace Dragablz.Dockablz
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 //TODO might be nice to allow user a bit of control over sizing...especially the .75 thing i have handily hard coded.  shoot me.
-                dragablzItem.Measure(new Size(_floatingItems.ActualWidth, _floatingItems.ActualHeight));
-                var newWidth = Math.Min(_floatingItems.ActualWidth*.75, dragablzItem.DesiredSize.Width);
-                var newHeight = Math.Min(_floatingItems.ActualHeight * .75, dragablzItem.DesiredSize.Height);
-                dragablzItem.SetCurrentValue(DragablzItem.XProperty, _floatingItems.ActualWidth/2 - newWidth/2);
-                dragablzItem.SetCurrentValue(DragablzItem.YProperty, _floatingItems.ActualHeight/2 - newHeight/2);
+                dragablzItem.Measure(new Size(m_floatingItems.ActualWidth, m_floatingItems.ActualHeight));
+                var newWidth = Math.Min(m_floatingItems.ActualWidth*.75, dragablzItem.DesiredSize.Width);
+                var newHeight = Math.Min(m_floatingItems.ActualHeight * .75, dragablzItem.DesiredSize.Height);
+                dragablzItem.SetCurrentValue(DragablzItem.XProperty, m_floatingItems.ActualWidth/2 - newWidth/2);
+                dragablzItem.SetCurrentValue(DragablzItem.YProperty, m_floatingItems.ActualHeight/2 - newHeight/2);
                 dragablzItem.SetCurrentValue(WidthProperty, newWidth);
                 dragablzItem.SetCurrentValue(HeightProperty, newHeight);
             }), DispatcherPriority.Loaded);                
                 
-            _floatTransfer = null;
+            m_floatTransfer = null;
         }
 
         private DragablzItem GetFloatingContainerForItemOverride()
@@ -781,20 +781,20 @@ namespace Dragablz.Dockablz
 
         private void TileFloatingItemsExecuted(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs)
         {
-            var dragablzItems = _floatingItems.DragablzItems();
-            Tiler.Tile(dragablzItems, new Size(_floatingItems.ActualWidth, _floatingItems.ActualHeight));
+            var dragablzItems = m_floatingItems.DragablzItems();
+            Tiler.Tile(dragablzItems, new Size(m_floatingItems.ActualWidth, m_floatingItems.ActualHeight));
         }
 
         private void TileFloatingItemsHorizontallyExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var dragablzItems = _floatingItems.DragablzItems();
-            Tiler.TileHorizontally(dragablzItems, new Size(_floatingItems.ActualWidth, _floatingItems.ActualHeight));
+            var dragablzItems = m_floatingItems.DragablzItems();
+            Tiler.TileHorizontally(dragablzItems, new Size(m_floatingItems.ActualWidth, m_floatingItems.ActualHeight));
         }
 
         private void TileFloatingItemsVerticallyExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var dragablzItems = _floatingItems.DragablzItems();
-            Tiler.TileVertically(dragablzItems, new Size(_floatingItems.ActualWidth, _floatingItems.ActualHeight));
+            var dragablzItems = m_floatingItems.DragablzItems();
+            Tiler.TileVertically(dragablzItems, new Size(m_floatingItems.ActualWidth, m_floatingItems.ActualHeight));
         }
 
         public static readonly DependencyProperty FloatingItemStateProperty = DependencyProperty.RegisterAttached(
@@ -870,13 +870,13 @@ namespace Dragablz.Dockablz
 
             //TODO ...need a similar tp manual inter tab controlller here for the extra hook
 
-            var item = _floatingItems.ItemContainerGenerator.ItemFromContainer(dragablzItem);
+            var item = m_floatingItems.ItemContainerGenerator.ItemFromContainer(dragablzItem);
 
             CollectionTeaser collectionTeaser;
-            if (CollectionTeaser.TryCreate(_floatingItems.ItemsSource, out collectionTeaser))
+            if (CollectionTeaser.TryCreate(m_floatingItems.ItemsSource, out collectionTeaser))
                 collectionTeaser.Remove(item);
             else
-                _floatingItems.Items.Remove(item);
+                m_floatingItems.Items.Remove(item);
         }
 
         private static void MaximiseFloatingItemExecuted(object sender, ExecutedRoutedEventArgs e)

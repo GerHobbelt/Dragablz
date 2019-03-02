@@ -7,11 +7,11 @@ namespace Dragablz.Dockablz
     /// </summary>
     public class LocationReport
     {
-        private readonly TabablzControl _tabablzControl;
-        private readonly Layout _rootLayout;
-        private readonly Branch _parentBranch;
-        private readonly bool _isLeaf;
-        private readonly bool _isSecondLeaf;
+        private readonly TabablzControl m_tabablzControl;
+        private readonly Layout m_rootLayout;
+        private readonly Branch m_parentBranch;
+        private readonly bool m_isLeaf;
+        private readonly bool m_isSecondLeaf;
 
         //TODO I've internalised constructor for now, so I can come back and add Window without breaking.
 
@@ -21,24 +21,24 @@ namespace Dragablz.Dockablz
 
         internal LocationReport(TabablzControl tabablzControl, Layout rootLayout, Branch parentBranch, bool isSecondLeaf)
         {
-            if (tabablzControl == null) throw new ArgumentNullException("tabablzControl");
-            if (rootLayout == null) throw new ArgumentNullException("rootLayout");
+            if (tabablzControl == null) throw new ArgumentNullException(nameof(tabablzControl));
+            if (rootLayout == null) throw new ArgumentNullException(nameof(rootLayout));
 
-            _tabablzControl = tabablzControl;
-            _rootLayout = rootLayout;
-            _parentBranch = parentBranch;
-            _isLeaf = _parentBranch != null;
-            _isSecondLeaf = isSecondLeaf;
+            m_tabablzControl = tabablzControl;
+            m_rootLayout = rootLayout;
+            m_parentBranch = parentBranch;
+            m_isLeaf = m_parentBranch != null;
+            m_isSecondLeaf = isSecondLeaf;
         }
 
         public TabablzControl TabablzControl
         {
-            get { return _tabablzControl; }
+            get { return m_tabablzControl; }
         }
 
         public Layout RootLayout
         {
-            get { return _rootLayout; }
+            get { return m_rootLayout; }
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Dragablz.Dockablz
         /// </summary>
         public Branch ParentBranch
         {
-            get { return _parentBranch; }
+            get { return m_parentBranch; }
         }
 
         /// <summary>
@@ -54,12 +54,12 @@ namespace Dragablz.Dockablz
         /// </summary>
         public bool IsLeaf
         {
-            get { return _isLeaf; }
+            get { return m_isLeaf; }
         }
 
         public bool IsSecondLeaf
         {
-            get { return _isSecondLeaf; }
+            get { return m_isSecondLeaf; }
         }
     }
 }

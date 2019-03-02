@@ -20,7 +20,7 @@ namespace Dragablz
 
         internal virtual void OnLocationChanged(LocationChangedEventArgs e)
         {
-            if (e == null) throw new ArgumentNullException("e");
+            if (e == null) throw new ArgumentNullException(nameof(e));
 
             var handler = LocationChanged;
             handler?.Invoke(this, e);

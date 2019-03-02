@@ -7,13 +7,13 @@ namespace Dragablz.Core
 {
     internal class CollectionTeaser
     {
-        private readonly Action<object> _addMethod;
-        private readonly Action<object> _removeMethod;
+        private readonly Action<object> m_addMethod;
+        private readonly Action<object> m_removeMethod;
 
         private CollectionTeaser(Action<object> addMethod, Action<object> removeMethod)
         {            
-            _addMethod = addMethod;
-            _removeMethod = removeMethod;
+            m_addMethod = addMethod;
+            m_removeMethod = removeMethod;
         }
 
         public static bool TryCreate(object items, out CollectionTeaser collectionTeaser)
@@ -54,12 +54,12 @@ namespace Dragablz.Core
 
         public void Add(object item)
         {
-            _addMethod(item);
+            m_addMethod(item);
         }
 
         public void Remove(object item)
         {
-            _removeMethod(item);
+            m_removeMethod(item);
         }
     }
 }

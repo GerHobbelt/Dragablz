@@ -13,9 +13,9 @@ namespace Dragablz
     /// </summary>
     public class HeaderedItemViewModel : INotifyPropertyChanged
     {
-        private bool _isSelected;
-        private object _header;
-        private object _content;
+        private bool m_isSelected;
+        private object m_header;
+        private object m_content;
 
         public HeaderedItemViewModel()
         {
@@ -23,18 +23,18 @@ namespace Dragablz
 
         public HeaderedItemViewModel(object header, object content, bool isSelected = false)
         {
-            _header = header;
-            _content = content;
-            _isSelected = isSelected;
+            m_header = header;
+            m_content = content;
+            m_isSelected = isSelected;
         }
 
         public object Header
         {
-            get { return _header; }
+            get { return m_header; }
             set
             {
-                if (_header == value) return;
-                _header = value;
+                if (m_header == value) return;
+                m_header = value;
 #if NET40
                 OnPropertyChanged("Header");
 #endif
@@ -46,11 +46,11 @@ namespace Dragablz
 
         public object Content
         {
-            get { return _content; }
+            get { return m_content; }
             set
             {
-                if (_content == value) return;
-                _content = value;
+                if (m_content == value) return;
+                m_content = value;
 #if NET40
                 OnPropertyChanged("Content");
 #endif
@@ -62,11 +62,11 @@ namespace Dragablz
 
         public bool IsSelected
         {
-            get { return _isSelected; }
+            get { return m_isSelected; }
             set
             {
-                if (_isSelected == value) return;
-                _isSelected = value;
+                if (m_isSelected == value) return;
+                m_isSelected = value;
 #if NET40
                 OnPropertyChanged("IsSelected");
 #endif

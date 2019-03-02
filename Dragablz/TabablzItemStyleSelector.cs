@@ -8,20 +8,20 @@ namespace Dragablz
     /// </summary>
     public class TabablzItemStyleSelector : StyleSelector
     {
-        private readonly Style _defaultHeaderItemStyle;
-        private readonly Style _customHeaderItemStyle;
+        private readonly Style m_defaultHeaderItemStyle;
+        private readonly Style m_customHeaderItemStyle;
 
         public TabablzItemStyleSelector(Style defaultHeaderItemStyle, Style customHeaderItemStyle)
         {
-            _defaultHeaderItemStyle = defaultHeaderItemStyle;
-            _customHeaderItemStyle = customHeaderItemStyle;
+            m_defaultHeaderItemStyle = defaultHeaderItemStyle;
+            m_customHeaderItemStyle = customHeaderItemStyle;
         }
 
         public override Style SelectStyle(object item, DependencyObject container)
         {
-            if (item is TabItem) return _defaultHeaderItemStyle;
+            if (item is TabItem) return m_defaultHeaderItemStyle;
 
-            return _customHeaderItemStyle;
+            return m_customHeaderItemStyle;
         }
     }
 }

@@ -42,12 +42,12 @@ namespace Dragablz
     /// <summary>
     /// Routed command which can be used to close a tab.
     /// </summary>
-    public static RoutedCommand m_closeItemCommand = new RoutedUICommand("Close", "Close", typeof(TabablzControl));
+    public static RoutedCommand CloseItemCommand = new RoutedUICommand("Close", "Close", typeof(TabablzControl));
 
     /// <summary>
     /// Routed command which can be used to add a new tab.  See <see cref="NewItemFactory"/>.
     /// </summary>
-    public static RoutedCommand m_addItemCommand = new RoutedUICommand("Add", "Add", typeof(TabablzControl));
+    public static RoutedCommand AddItemCommand = new RoutedUICommand("Add", "Add", typeof(TabablzControl));
 
     private static readonly HashSet<TabablzControl> LOADED_INSTANCES = new HashSet<TabablzControl>();
     private static readonly HashSet<TabablzControl> VISIBLE_INSTANCES = new HashSet<TabablzControl>();
@@ -68,7 +68,7 @@ namespace Dragablz
     static TabablzControl()
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(TabablzControl), new FrameworkPropertyMetadata(typeof(TabablzControl)));
-      CommandManager.RegisterClassCommandBinding(typeof(FrameworkElement), new CommandBinding(m_closeItemCommand, CloseItemClassHandler, CloseItemCanExecuteClassHandler));
+      CommandManager.RegisterClassCommandBinding(typeof(FrameworkElement), new CommandBinding(CloseItemCommand, CloseItemClassHandler, CloseItemCanExecuteClassHandler));
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ namespace Dragablz
       AddHandler(DragablzItem.PreviewDragDelta, new DragablzDragDeltaEventHandler(PreviewItemDragDelta), true);
       AddHandler(DragablzItem.DragDelta, new DragablzDragDeltaEventHandler(ItemDragDelta), true);
       AddHandler(DragablzItem.DragCompleted, new DragablzDragCompletedEventHandler(ItemDragCompleted), true);
-      CommandBindings.Add(new CommandBinding(m_addItemCommand, AddItemHandler));
+      CommandBindings.Add(new CommandBinding(AddItemCommand, AddItemHandler));
 
       Loaded += OnLoaded;
       Unloaded += OnUnloaded;
@@ -312,7 +312,7 @@ namespace Dragablz
 
     /// <summary>
     /// Indicates whether a default close button should be displayed.  If manually templating the tab header content the close command
-    /// can be called by executing the <see cref="m_closeItemCommand"/> command (typically via a <see cref="Button"/>).
+    /// can be called by executing the <see cref="CloseItemCommand"/> command (typically via a <see cref="Button"/>).
     /// </summary>
     public bool ShowDefaultCloseButton
     {
@@ -326,7 +326,7 @@ namespace Dragablz
     /// <summary>
     /// Indicates whether a default add button should be displayed.  Alternately an add button
     /// could be added in <see cref="HeaderPrefixContent"/> or <see cref="HeaderSuffixContent"/>, utilising
-    /// <see cref="m_addItemCommand"/>.
+    /// <see cref="AddItemCommand"/>.
     /// </summary>
     public bool ShowDefaultAddButton
     {
@@ -397,13 +397,13 @@ namespace Dragablz
     }
 
     /// <summary>
-    /// Allows a factory to be provided for generating new items. Typically used in conjunction with <see cref="m_addItemCommand"/>.
+    /// Allows a factory to be provided for generating new items. Typically used in conjunction with <see cref="AddItemCommand"/>.
     /// </summary>
     public static readonly DependencyProperty NewItemFactoryProperty = DependencyProperty.Register(
         nameof(NewItemFactory), typeof(Func<object,object>), typeof(TabablzControl), new PropertyMetadata(default(Func<object,object>)));
 
     /// <summary>
-    /// Allows a factory to be provided for generating new items. Typically used in conjunction with <see cref="m_addItemCommand"/>.
+    /// Allows a factory to be provided for generating new items. Typically used in conjunction with <see cref="AddItemCommand"/>.
     /// </summary>
     public Func<object, object> NewItemFactory
     {

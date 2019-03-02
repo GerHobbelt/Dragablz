@@ -10,11 +10,11 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Button Command="{x:Static dockablz:Layout.m_tileFloatingItemsCommand}"
+            <Button Command="{x:Static dockablz:Layout.TileFloatingItemsCommand}"
                     CommandTarget="{Binding ElementName=MdiLayout}">Tile Grid</Button>
-            <Button Command="{x:Static dockablz:Layout.m_tileFloatingItemsVerticallyCommand}"
+            <Button Command="{x:Static dockablz:Layout.TileFloatingItemsVerticallyCommand}"
                     CommandTarget="{Binding ElementName=MdiLayout}">Tile Horizontal</Button>
-            <Button Command="{x:Static dockablz:Layout.m_tileFloatingItemsHorizontallyCommand}"
+            <Button Command="{x:Static dockablz:Layout.TileFloatingItemsHorizontallyCommand}"
                     CommandTarget="{Binding ElementName=MdiLayout}">Tile Vertical</Button>
         </StackPanel>
         <dockablz:Layout x:Name="MdiLayout" 

@@ -37,7 +37,7 @@
     </Grid>
     <CheckBox IsChecked="{Binding IsSelected}" ToolTip="Embed your own controls" />
     <Button ToolTip="Manually add a close button"
-                Command="dragablz:TabablzControl.m_closeItemCommand"
+                Command="dragablz:TabablzControl.CloseItemCommand"
                 >X</Button>
   </StackPanel>
 </UserControl>

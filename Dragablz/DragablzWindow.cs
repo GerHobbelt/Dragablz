@@ -17,7 +17,7 @@ namespace Dragablz
     /// <summary>
     /// It is not necessary to use a <see cref="DragablzWindow"/> to gain tab dragging features.
     /// What this Window does is allow a quick way to remove the Window border, and support transparency whilst
-    /// dragging.  
+    /// dragging.
     /// </summary>
     [TemplatePart(Name = WINDOW_SURFACE_GRID_PART_NAME, Type = typeof(Grid))]
     [TemplatePart(Name = WINDOW_RESTORE_THUMB_PART_NAME, Type = typeof(Thumb))]
@@ -29,10 +29,10 @@ namespace Dragablz
         public const string WINDOW_RESIZE_THUMB_PART_NAME = "PART_WindowResizeThumb";
         private readonly SerialDisposable m_templateSubscription = new SerialDisposable();
 
-        public static RoutedCommand m_closeWindowCommand = new RoutedCommand();
-        public static RoutedCommand m_restoreWindowCommand = new RoutedCommand();
-        public static RoutedCommand m_maximizeWindowCommand = new RoutedCommand();
-        public static RoutedCommand m_minimizeWindowCommand = new RoutedCommand();        
+        public static RoutedCommand CloseWindowCommand = new RoutedCommand();
+        public static RoutedCommand RestoreWindowCommand = new RoutedCommand();
+        public static RoutedCommand MaximizeWindowCommand = new RoutedCommand();
+        public static RoutedCommand MinimizeWindowCommand = new RoutedCommand();
 
         private const int RESIZE_MARGIN = 4;
         private Size m_sizeWhenResizeBegan;
@@ -40,10 +40,10 @@ namespace Dragablz
         private Point m_windowLocationPointWhenResizeBegan;
         private SizeGrip m_resizeType;
 
-        private static SizeGrip[] m_leftMode = new[] { SizeGrip.TopLeft, SizeGrip.Left, SizeGrip.BottomLeft };
-        private static SizeGrip[] m_rightMode = new[] { SizeGrip.TopRight, SizeGrip.Right, SizeGrip.BottomRight };
-        private static SizeGrip[] m_topMode = new[] { SizeGrip.TopLeft, SizeGrip.Top, SizeGrip.TopRight };
-        private static SizeGrip[] m_bottomMode = new[] { SizeGrip.BottomLeft, SizeGrip.Bottom, SizeGrip.BottomRight };
+        private static SizeGrip[] m_leftMode = { SizeGrip.TopLeft, SizeGrip.Left, SizeGrip.BottomLeft };
+        private static SizeGrip[] m_rightMode = { SizeGrip.TopRight, SizeGrip.Right, SizeGrip.BottomRight };
+        private static SizeGrip[] m_topMode = { SizeGrip.TopLeft, SizeGrip.Top, SizeGrip.TopRight };
+        private static SizeGrip[] m_bottomMode = { SizeGrip.BottomLeft, SizeGrip.Bottom, SizeGrip.BottomRight };
 
         private static double m_xScale = 1;
         private static double m_yScale = 1;
@@ -51,17 +51,17 @@ namespace Dragablz
 
         static DragablzWindow()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(DragablzWindow), new FrameworkPropertyMetadata(typeof(DragablzWindow)));            
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DragablzWindow), new FrameworkPropertyMetadata(typeof(DragablzWindow)));
         }
 
         public DragablzWindow()
         {
             AddHandler(DragablzItem.DragStarted, new DragablzDragStartedEventHandler(ItemDragStarted), true);
             AddHandler(DragablzItem.DragCompleted, new DragablzDragCompletedEventHandler(ItemDragCompleted), true);
-            CommandBindings.Add(new CommandBinding(m_closeWindowCommand, CloseWindowExecuted));
-            CommandBindings.Add(new CommandBinding(m_maximizeWindowCommand, MaximizeWindowExecuted));
-            CommandBindings.Add(new CommandBinding(m_minimizeWindowCommand, MinimizeWindowExecuted));
-            CommandBindings.Add(new CommandBinding(m_restoreWindowCommand, RestoreWindowExecuted));                        
+            CommandBindings.Add(new CommandBinding(CloseWindowCommand, CloseWindowExecuted));
+            CommandBindings.Add(new CommandBinding(MaximizeWindowCommand, MaximizeWindowExecuted));
+            CommandBindings.Add(new CommandBinding(MinimizeWindowCommand, MinimizeWindowExecuted));
+            CommandBindings.Add(new CommandBinding(RestoreWindowCommand, RestoreWindowExecuted));
         }
 
         private static readonly DependencyPropertyKey IS_WINDOW_BEING_DRAGGED_BY_TAB_PROPERTY_KEY =
@@ -76,10 +76,10 @@ namespace Dragablz
         {
             get { return (bool) GetValue(IsBeingDraggedByTabProperty); }
             private set { SetValue(IS_WINDOW_BEING_DRAGGED_BY_TAB_PROPERTY_KEY, value); }
-        }        
+        }
 
         private void ItemDragCompleted(object sender, DragablzDragCompletedEventArgs e)
-        {            
+        {
             IsBeingDraggedByTab = false;
         }
 
@@ -141,7 +141,7 @@ namespace Dragablz
 
             if (windowResizeThumb == null) return;
 
-            windowResizeThumb.MouseMove += WindowResizeThumbOnMouseMove;                
+            windowResizeThumb.MouseMove += WindowResizeThumbOnMouseMove;
             windowResizeThumb.DragStarted += WindowResizeThumbOnDragStarted;
             windowResizeThumb.DragDelta += WindowResizeThumbOnDragDelta;
             windowResizeThumb.DragCompleted += WindowResizeThumbOnDragCompleted;
@@ -189,8 +189,8 @@ namespace Dragablz
         }
 
         private void WindowRestoreThumbOnMouseDoubleClick(object sender, MouseButtonEventArgs mouseButtonEventArgs)
-        {            
-            WindowState = WindowState.Normal;            
+        {
+            WindowState = WindowState.Normal;
         }
 
         private void WindowResizeThumbOnDragCompleted(object sender, DragCompletedEventArgs dragCompletedEventArgs)
@@ -232,12 +232,12 @@ namespace Dragablz
             if (m_bottomMode.Contains(m_resizeType))
             {
                 var diff = currentScreenMousePoint.Y - m_screenMousePointWhenResizeBegan.Y;
-                diff /= m_yScale; 
+                diff /= m_yScale;
                 height += diff;
             }
 
             width = Math.Max(MinWidth, width);
-            height = Math.Max(MinHeight, height);   
+            height = Math.Max(MinHeight, height);
             //TODO must try harder.
             left = Math.Min(left, m_windowLocationPointWhenResizeBegan.X + m_sizeWhenResizeBegan.Width - RESIZE_MARGIN*4);
             //TODO must try harder.
@@ -304,7 +304,7 @@ namespace Dragablz
         private static Cursor SelectCursor(SizeGrip sizeGrip)
         {
             switch (sizeGrip)
-            {                
+            {
                 case SizeGrip.Left:
                     return Cursors.SizeWE;
                 case SizeGrip.TopLeft:
@@ -339,12 +339,12 @@ namespace Dragablz
 
             Top = cursorPos.Y / m_yScale - 2;
             Left = cursorPos.X / m_xScale - RestoreBounds.Width / 2;
-            
+
             var lParam = (int)(uint)cursorPos.X | (cursorPos.Y << 16);
             Native.SendMessage(CriticalHandle, WindowMessage.WmLbuttonup, (IntPtr)HitTest.HtCaption,
                 (IntPtr)lParam);
             Native.SendMessage(CriticalHandle, WindowMessage.WmSyscommand, (IntPtr)SystemCommand.ScMousemove,
-                IntPtr.Zero);            
+                IntPtr.Zero);
         }
 
         private void RestoreWindowExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -365,6 +365,6 @@ namespace Dragablz
         private void CloseWindowExecuted(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs)
         {
             Native.PostMessage(new WindowInteropHelper(this).Handle, WindowMessage.WmClose, IntPtr.Zero, IntPtr.Zero);
-        }             
+        }
     }
 }

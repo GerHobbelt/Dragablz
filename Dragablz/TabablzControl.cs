@@ -951,7 +951,27 @@ namespace Dragablz
 
       if (ShouldDragWindow(sourceOfDragItemsControl))
         IsDraggingWindow = true;
-      SelectionChanged?.Invoke(sender, new TabSelectionEventArgs(Items.Cast<HeaderedItemViewModel>().FirstOrDefault(x => x.Header.Equals(e.DragablzItem.Content))));
+
+      SelectionChanged?.Invoke(sender, new TabSelectionEventArgs(Items.Cast<object>().FirstOrDefault(x =>
+      {
+        object header = null;
+
+        switch (x)
+        {
+          case TabItem t:
+            header = t.Header;
+            break;
+          case ITabItem it:
+            header = it.Header;
+            break;
+          default:
+            if (x.GetType().GetProperty("Header") != null)
+              header = ((dynamic)x).Header as object;
+            break;
+        }
+
+        return header?.Equals(e.DragablzItem.Content) ?? false;
+      })));
     }
 
     private bool ShouldDragWindow(DragablzItemsControl sourceOfDragItemsControl)

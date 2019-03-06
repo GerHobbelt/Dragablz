@@ -1094,16 +1094,28 @@
                   <ColumnDefinition Width="*" />
                   <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
-                                                  Margin="{TemplateBinding Control.Padding}"
-                                                  x:Name="contentPresenter" />
-                <Thumb Grid.Column="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch"
-                                       x:Name="PART_Thumb"
-                                       Style="{StaticResource InvisibleThumbStyle}" />
+                <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
+                                  Margin="{TemplateBinding Control.Padding}"
+                                  ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                  SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+                                  VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+                                  ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+                                  HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                  x:Name="contentPresenter" />
+                <Thumb Grid.Column="0"
+                       HorizontalAlignment="Stretch"
+                       VerticalContentAlignment="Stretch"
+                       x:Name="PART_Thumb"
+                       Style="{StaticResource InvisibleThumbStyle}">
+                  <Thumb.InputBindings>
+                    <MouseBinding MouseAction="MiddleClick" Command="{x:Static local:TabablzControl.CloseItemCommand}"/>
+                  </Thumb.InputBindings>
+                </Thumb>
                 <Button Grid.Column="1"
-                                        Style="{StaticResource CloseItemCommandButtonStyle}"
-                                        Command="{x:Static local:TabablzControl.CloseItemCommand}"
-                                        CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                        x:Name="PART_CloseButton"
+                        Style="{StaticResource CloseItemCommandButtonStyle}"
+                        Command="{x:Static local:TabablzControl.CloseItemCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}">
                   <Button.Visibility>
                     <MultiBinding Converter="{StaticResource ShowDefaultCloseButtonConverter}">
                       <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:TabablzControl}}" Path="ShowDefaultCloseButton" />
@@ -1611,18 +1623,17 @@
                 </local:DragablzItemsControl.MaxWidth>
               </local:DragablzItemsControl>
               <Button Style="{StaticResource AddItemCommandButtonStyle}"
-                                    x:Name="DefaultAddButton"
-                                    Grid.Column="2"
-                                    Command="{x:Static local:TabablzControl.AddItemCommand}"
-                                    Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                    />
-              <ContentControl Grid.Column="3" x:Name="SuffixContentControl"
-                                            Content="{TemplateBinding HeaderSuffixContent}"
-                                            ContentStringFormat="{TemplateBinding HeaderSuffixContentStringFormat}"
-                                            ContentTemplate="{TemplateBinding HeaderSuffixContentStringFormat}"
-                                            ContentTemplateSelector="{TemplateBinding HeaderSuffixContentTemplateSelector}"
-                                            HorizontalAlignment="Stretch"
-                                            />
+                      x:Name="DefaultAddButton"
+                      Grid.Column="2"
+                      Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+              </Button>
+              <ContentControl Grid.Column="3"
+                              x:Name="SuffixContentControl"
+                              Content="{TemplateBinding HeaderSuffixContent}"
+                              ContentStringFormat="{TemplateBinding HeaderSuffixContentStringFormat}"
+                              ContentTemplate="{TemplateBinding HeaderSuffixContentStringFormat}"
+                              ContentTemplateSelector="{TemplateBinding HeaderSuffixContentTemplateSelector}"
+                              HorizontalAlignment="Stretch"/>
             </Grid>
           </Grid>
           <ControlTemplate.Triggers>
@@ -1721,10 +1732,10 @@
                     </local:DragablzItemsControl.MaxHeight>
                   </local:DragablzItemsControl>
                   <Button Style="{StaticResource AddItemCommandButtonStyle}"
-                                            x:Name="DefaultAddButton"
-                                            Grid.Row="2"
-                                            Command="{x:Static local:TabablzControl.AddItemCommand}"
-                                            Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                          x:Name="DefaultAddButton"
+                          Grid.Row="2"
+                          Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+                  </Button>
                   <ContentControl Grid.Row="3" x:Name="SuffixContentControl"
                                                     Content="{TemplateBinding HeaderSuffixContent}"
                                                     ContentStringFormat="{TemplateBinding HeaderSuffixContentStringFormat}"

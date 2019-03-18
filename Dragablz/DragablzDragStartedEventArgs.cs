@@ -8,31 +8,28 @@ namespace Dragablz
 
     public class DragablzDragStartedEventArgs : DragablzItemEventArgs
     {
-        private readonly DragStartedEventArgs _dragStartedEventArgs;
+        private readonly DragStartedEventArgs m_dragStartedEventArgs;
 
         public DragablzDragStartedEventArgs(DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
             : base(dragablzItem)
         {
-            if (dragStartedEventArgs == null) throw new ArgumentNullException("dragStartedEventArgs");
+            if (dragStartedEventArgs == null) throw new ArgumentNullException(nameof(dragStartedEventArgs));
 
-            _dragStartedEventArgs = dragStartedEventArgs;
+            m_dragStartedEventArgs = dragStartedEventArgs;
         }
 
         public DragablzDragStartedEventArgs(RoutedEvent routedEvent, DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
             : base(routedEvent, dragablzItem)
         {
-            _dragStartedEventArgs = dragStartedEventArgs;
+            m_dragStartedEventArgs = dragStartedEventArgs;
         }
 
         public DragablzDragStartedEventArgs(RoutedEvent routedEvent, object source, DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
             : base(routedEvent, source, dragablzItem)
         {
-            _dragStartedEventArgs = dragStartedEventArgs;
+            m_dragStartedEventArgs = dragStartedEventArgs;
         }
 
-        public DragStartedEventArgs DragStartedEventArgs
-        {
-            get { return _dragStartedEventArgs; }
-        }
+        public DragStartedEventArgs DragStartedEventArgs => m_dragStartedEventArgs;
     }
 }

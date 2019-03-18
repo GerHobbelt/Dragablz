@@ -5,30 +5,21 @@ namespace Dragablz
 {
     internal class ContainerCustomisations
     {
-        private readonly Func<DragablzItem> _getContainerForItemOverride;
-        private readonly Action<DependencyObject, object> _prepareContainerForItemOverride;
-        private readonly Action<DependencyObject, object> _clearingContainerForItemOverride;
+        private readonly Func<DragablzItem> m_getContainerForItemOverride;
+        private readonly Action<DependencyObject, object> m_prepareContainerForItemOverride;
+        private readonly Action<DependencyObject, object> m_clearingContainerForItemOverride;
 
         public ContainerCustomisations(Func<DragablzItem> getContainerForItemOverride = null, Action<DependencyObject, object> prepareContainerForItemOverride = null, Action<DependencyObject, object> clearingContainerForItemOverride = null)
         {
-            _getContainerForItemOverride = getContainerForItemOverride;
-            _prepareContainerForItemOverride = prepareContainerForItemOverride;
-            _clearingContainerForItemOverride = clearingContainerForItemOverride;
+            m_getContainerForItemOverride = getContainerForItemOverride;
+            m_prepareContainerForItemOverride = prepareContainerForItemOverride;
+            m_clearingContainerForItemOverride = clearingContainerForItemOverride;
         }
 
-        public Func<DragablzItem> GetContainerForItemOverride
-        {
-            get { return _getContainerForItemOverride; }
-        }
+        public Func<DragablzItem> GetContainerForItemOverride => m_getContainerForItemOverride;
 
-        public Action<DependencyObject, object> PrepareContainerForItemOverride
-        {
-            get { return _prepareContainerForItemOverride; }
-        }
+      public Action<DependencyObject, object> PrepareContainerForItemOverride => m_prepareContainerForItemOverride;
 
-        public Action<DependencyObject, object> ClearingContainerForItemOverride
-        {
-            get { return _clearingContainerForItemOverride; }
-        }
+      public Action<DependencyObject, object> ClearingContainerForItemOverride => m_clearingContainerForItemOverride;
     }
 }

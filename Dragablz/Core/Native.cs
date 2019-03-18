@@ -10,39 +10,39 @@ namespace Dragablz.Core
     internal static class Native
     {
         [StructLayout(LayoutKind.Sequential)]
-        public struct POINT
+        public struct Point
         {
             public int X;
             public int Y;
 
-            public static implicit operator Point(POINT point)
+            public static implicit operator System.Windows.Point(Point point)
             {
-                return new Point(point.X, point.Y);
+                return new System.Windows.Point(point.X, point.Y);
             }
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
+        public struct Rect
         {
             public int left;
             public int top;
             public int right;
             public int bottom;
-        }
+        }   
 
         [DllImport("user32.dll")]
-        private static extern bool GetCursorPos(out POINT lpPoint);
+        private static extern bool GetCursorPos(out Point lpPoint);
 
-        public static POINT GetRawCursorPos()
+        public static Point GetRawCursorPos()
         {
-            POINT lpPoint;
+            Point lpPoint;
             GetCursorPos(out lpPoint);
             return lpPoint;
         }
 
-        public static Point GetCursorPos()
+        public static System.Windows.Point GetCursorPos()
         {
-            POINT lpPoint;
+            Point lpPoint;
             GetCursorPos(out lpPoint);
             return lpPoint;
         }
@@ -54,16 +54,16 @@ namespace Dragablz.Core
         private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
 
         [DllImport("user32.dll")]
-        private static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
+        private static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDc);
 
-        public static Point ToWpf(this Point pixelPoint)
+        public static System.Windows.Point ToWpf(this System.Windows.Point pixelPoint)
         {
-            var desktop = GetDC(IntPtr.Zero);
+            var desktop = GetDC(IntPtr.Zero); 
             var dpi = GetDeviceCaps(desktop, 88);
             ReleaseDC(IntPtr.Zero, desktop);
 
             var physicalUnitSize = 96d / dpi ;
-            var wpfPoint = new Point(physicalUnitSize * pixelPoint.X, physicalUnitSize * pixelPoint.Y);
+            var wpfPoint = new System.Windows.Point(physicalUnitSize * pixelPoint.X, physicalUnitSize * pixelPoint.Y);
 
             return wpfPoint;
         }
@@ -85,7 +85,7 @@ namespace Dragablz.Core
 
         public const int SW_SHOWNORMAL = 1;
         [DllImport("user32.dll")]
-        public static extern bool SetWindowPlacement(IntPtr hWnd, [In] ref WINDOWPLACEMENT lpwndpl);
+        public static extern bool SetWindowPlacement(IntPtr hWnd, [In] ref Windowplacement lpwndpl);
 
         private const uint GW_HWNDNEXT = 2;
         [DllImport("User32")]
@@ -96,15 +96,15 @@ namespace Dragablz.Core
 
         [Serializable]
         [StructLayout(LayoutKind.Sequential)]
-        public struct WINDOWPLACEMENT
+        public struct Windowplacement
         {
             public int length;
             public int flags;
             public int showCmd;
-            public POINT minPosition;
-            public POINT maxPosition;
-            public RECT normalPosition;
-        }
+            public Point minPosition;
+            public Point maxPosition;
+            public Rect normalPosition;
+        }        
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal static extern IntPtr SendMessage(IntPtr hWnd, WindowMessage msg, IntPtr wParam, IntPtr lParam);
@@ -113,10 +113,10 @@ namespace Dragablz.Core
 
 
         [DllImport("dwmapi.dll", EntryPoint = "#127")]
-        internal static extern void DwmGetColorizationParameters(ref DWMCOLORIZATIONPARAMS dp);
+        internal static extern void DwmGetColorizationParameters(ref Dwmcolorizationparams dp);
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct DWMCOLORIZATIONPARAMS
+        internal struct Dwmcolorizationparams
         {
             public UInt32 ColorizationColor;
             public UInt32 ColorizationAfterglow;

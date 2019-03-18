@@ -17,8 +17,8 @@ namespace DragablzDemo
 
         public AnotherCommandImplementation(Action<object> execute, Func<object, bool> canExecute)
         {
-            if (execute == null) throw new ArgumentNullException("execute");
-
+            if (execute == null) throw new ArgumentNullException(nameof(execute));
+            
             _execute = execute;
             _canExecute = canExecute ?? (x => true);
         }

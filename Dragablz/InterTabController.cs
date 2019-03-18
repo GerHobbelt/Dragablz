@@ -17,8 +17,8 @@ namespace Dragablz
 
         public double HorizontalPopoutGrace
         {
-            get { return (double) GetValue(HorizontalPopoutGraceProperty); }
-            set { SetValue(HorizontalPopoutGraceProperty, value); }
+            get => (double) GetValue(HorizontalPopoutGraceProperty);
+          set => SetValue(HorizontalPopoutGraceProperty, value);
         }
 
         public static readonly DependencyProperty VerticalPopoutGraceProperty = DependencyProperty.Register(
@@ -26,8 +26,8 @@ namespace Dragablz
 
         public double VerticalPopoutGrace
         {
-            get { return (double) GetValue(VerticalPopoutGraceProperty); }
-            set { SetValue(VerticalPopoutGraceProperty, value); }
+            get => (double) GetValue(VerticalPopoutGraceProperty);
+          set => SetValue(VerticalPopoutGraceProperty, value);
         }
 
         public static readonly DependencyProperty MoveWindowWithSolitaryTabsProperty = DependencyProperty.Register(
@@ -35,8 +35,8 @@ namespace Dragablz
 
         public bool MoveWindowWithSolitaryTabs
         {
-            get { return (bool) GetValue(MoveWindowWithSolitaryTabsProperty); }
-            set { SetValue(MoveWindowWithSolitaryTabsProperty, value); }
+            get => (bool) GetValue(MoveWindowWithSolitaryTabsProperty);
+          set => SetValue(MoveWindowWithSolitaryTabsProperty, value);
         }
 
         public static readonly DependencyProperty InterTabClientProperty = DependencyProperty.Register(
@@ -45,8 +45,8 @@ namespace Dragablz
 
         public IInterTabClient InterTabClient
         {
-            get { return (IInterTabClient) GetValue(InterTabClientProperty); }
-            set { SetValue(InterTabClientProperty, value); }
+            get => (IInterTabClient) GetValue(InterTabClientProperty);
+          set => SetValue(InterTabClientProperty, value);
         }
 
         /*

@@ -5,26 +5,20 @@ namespace Dragablz
 {
     public class NewTabHost<TElement> : INewTabHost<TElement> where TElement : UIElement
     {
-        private readonly TElement _container;
-        private readonly TabablzControl _tabablzControl;
+        private readonly TElement m_container;
+        private readonly TabablzControl m_tabablzControl;
 
         public NewTabHost(TElement container, TabablzControl tabablzControl)
         {
-            if (container == null) throw new ArgumentNullException("container");
-            if (tabablzControl == null) throw new ArgumentNullException("tabablzControl");
+            if (container == null) throw new ArgumentNullException(nameof(container));
+            if (tabablzControl == null) throw new ArgumentNullException(nameof(tabablzControl));
 
-            _container = container;
-            _tabablzControl = tabablzControl;
+            m_container = container;
+            m_tabablzControl = tabablzControl;
         }
 
-        public TElement Container
-        {
-            get { return _container; }
-        }
+        public TElement Container => m_container;
 
-        public TabablzControl TabablzControl
-        {
-            get { return _tabablzControl; }
-        }
+      public TabablzControl TabablzControl => m_tabablzControl;
     }
 }

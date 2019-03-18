@@ -13,24 +13,24 @@ namespace Dragablz.Dockablz
     /// </summary>
     internal class FloatingItemSnapShot
     {
-        private readonly object _content;
-        private readonly Rect _location;
-        private readonly int _zIndex;
-        private readonly WindowState _state;
+        private readonly object m_content;
+        private readonly Rect m_location;
+        private readonly int m_zIndex;
+        private readonly WindowState m_state;
 
         public FloatingItemSnapShot(object content, Rect location, int zIndex, WindowState state)
         {
-            if (content == null) throw new ArgumentNullException("content");
+            if (content == null) throw new ArgumentNullException(nameof(content));
 
-            _content = content;
-            _location = location;
-            _zIndex = zIndex;
-            _state = state;
+            m_content = content;
+            m_location = location;
+            m_zIndex = zIndex;
+            m_state = state;
         }
 
         public static FloatingItemSnapShot Take(DragablzItem dragablzItem)
         {
-            if (dragablzItem == null) throw new ArgumentNullException("dragablzItem");
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
 
             return new FloatingItemSnapShot(
                 dragablzItem.Content,
@@ -41,7 +41,7 @@ namespace Dragablz.Dockablz
 
         public void Apply(DragablzItem dragablzItem)
         {
-            if (dragablzItem == null) throw new ArgumentNullException("dragablzItem");
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
 
             dragablzItem.SetCurrentValue(DragablzItem.XProperty, Location.Left);
             dragablzItem.SetCurrentValue(DragablzItem.YProperty, Location.Top);
@@ -51,24 +51,12 @@ namespace Dragablz.Dockablz
             Panel.SetZIndex(dragablzItem, ZIndex);
         }
 
-        public object Content
-        {
-            get { return _content; }
-        }
+        public object Content => m_content;
 
-        public Rect Location
-        {
-            get { return _location; }
-        }
+      public Rect Location => m_location;
 
-        public int ZIndex
-        {
-            get { return _zIndex; }
-        }
+      public int ZIndex => m_zIndex;
 
-        public WindowState State
-        {
-            get { return _state; }
-        }
+      public WindowState State => m_state;
     }
 }

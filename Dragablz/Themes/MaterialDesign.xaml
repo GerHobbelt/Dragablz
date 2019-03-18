@@ -639,6 +639,7 @@
               </dragablz:DragablzItemsControl>
               <Button Style="{StaticResource MaterialDesignAddItemCommandButtonStyle}"
                       x:Name="DefaultAddButton"
+                                    Command="{x:Static dragablz:TabablzControl.AddItemCommand}"
                       Grid.Column="2"
                       Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}">
               </Button>
@@ -731,6 +732,7 @@
                   </dragablz:DragablzItemsControl>
                   <Button Style="{StaticResource MaterialDesignAddItemCommandButtonStyle}"
                           x:Name="DefaultAddButton"
+                          Command="{x:Static dragablz:TabablzControl.AddItemCommand}"
                           Grid.Row="2"
                           Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}">
                   </Button>

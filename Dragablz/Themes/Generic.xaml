@@ -1625,6 +1625,7 @@
               <Button Style="{StaticResource AddItemCommandButtonStyle}"
                       x:Name="DefaultAddButton"
                       Grid.Column="2"
+                                    Command="{x:Static local:TabablzControl.AddItemCommand}"
                       Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}">
               </Button>
               <ContentControl Grid.Column="3"
@@ -1733,6 +1734,7 @@
                   </local:DragablzItemsControl>
                   <Button Style="{StaticResource AddItemCommandButtonStyle}"
                           x:Name="DefaultAddButton"
+                                    Command="{x:Static local:TabablzControl.AddItemCommand}"
                           Grid.Row="2"
                           Visibility="{TemplateBinding ShowDefaultAddButton, Converter={StaticResource BooleanToVisibilityConverter}}">
                   </Button>

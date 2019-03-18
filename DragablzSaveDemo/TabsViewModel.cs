@@ -33,6 +33,6 @@
         /// <summary>
         /// The factory that creates new viewModels
         /// </summary>
-        public static Func<object> NewItemFactory => () => new TabContentViewModel(new TabContentModel(Guid.NewGuid().ToString()));
+        public static Func<object,object> NewItemFactory => e => new TabContentViewModel(new TabContentModel(Guid.NewGuid().ToString()));
     }
 }

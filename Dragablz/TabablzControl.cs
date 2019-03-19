@@ -445,16 +445,15 @@ namespace Dragablz
       remove => RemoveHandler(IsEmptyChangedEvent, value);
     }
 
-    private static void OnIsEmptyChanged(
-        DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-      var instance = d as TabablzControl;
-      var args = new RoutedPropertyChangedEventArgs<bool>(
-          (bool)e.OldValue,
-          (bool)e.NewValue)
-      { RoutedEvent = IsEmptyChangedEvent };
-      instance?.RaiseEvent(args);
-    }
+        private static void OnIsEmptyChanged(
+            DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as TabablzControl;
+            var args = new RoutedPropertyChangedEventArgs<bool>(
+                (bool) e.OldValue,
+                (bool) e.NewValue) {RoutedEvent = IsEmptyChangedEvent};
+            instance?.RaiseEvent(args);
+        }
 
     /// <summary>
     /// Optionally allows a close item hook to be bound in.  If this propety is provided, the func must return true for the close to continue.

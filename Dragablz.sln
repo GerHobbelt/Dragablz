@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragablzDemo.net45", "Draga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dragablz.Test", "Dragablz.Test\Dragablz.Test.csproj", "{BA0DAD50-C09F-4ED6-92D3-185CB5A39225}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragablzSaveDemo", "DragablzSaveDemo\DragablzSaveDemo.csproj", "{6709408B-A312-4CA3-B687-0FD22B5BFCF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,18 @@ Global
 		{BA0DAD50-C09F-4ED6-92D3-185CB5A39225}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BA0DAD50-C09F-4ED6-92D3-185CB5A39225}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BA0DAD50-C09F-4ED6-92D3-185CB5A39225}.Release|x86.ActiveCfg = Release|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Debug|x86.Build.0 = Debug|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Release|x86.ActiveCfg = Release|Any CPU
+		{6709408B-A312-4CA3-B687-0FD22B5BFCF8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

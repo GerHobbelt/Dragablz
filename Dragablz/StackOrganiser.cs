@@ -79,13 +79,13 @@ namespace Dragablz
             if (items == null) throw new ArgumentNullException(nameof(items));
 
             OrganiseInternal(
-                requestor, 
+                requestor,
                 measureBounds,
                 items.Select((di, idx) => new Tuple<int, DragablzItem>(idx, di))
                         .OrderBy(tuple => tuple,
                             MultiComparer<Tuple<int, DragablzItem>>.Ascending(tuple => m_getLocation(tuple.Item2))
                                 .ThenAscending(tuple => tuple.Item1))
-                        .Select(tuple => tuple.Item2));            
+                        .Select(tuple => tuple.Item2));
         }
 
         public virtual void Organise(DragablzItemsControl requestor, Size measureBounds, IOrderedEnumerable<DragablzItem> items)
@@ -246,17 +246,17 @@ namespace Dragablz
         {                     
             m_setLocation(dragablzItem, location);
         }
-        
+
         private void SendToLocation(DragablzItem dragablzItem, double location)
-        {                        
+        {
             double activeTarget;
             if (Math.Abs(m_getLocation(dragablzItem) - location) < 1.0
                 ||
                 m_activeStoryboardTargetLocations.TryGetValue(dragablzItem, out activeTarget)
                 && Math.Abs(activeTarget - location) < 1.0)
-            {             
+            {
                 return;
-            }            
+            }
 
             m_activeStoryboardTargetLocations[dragablzItem] = location;
 
@@ -275,8 +275,8 @@ namespace Dragablz
                 {
                     EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut }
                 });
-            storyboard.Children.Add(timeline);            
-            storyboard.Begin(dragablzItem, true);            
+            storyboard.Children.Add(timeline);
+            storyboard.Begin(dragablzItem, true);
         }
 
         private LocationInfo GetLocationInfo(DragablzItem item)

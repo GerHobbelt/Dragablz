@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
 using Dragablz.Core;
 using Dragablz.Dockablz;
@@ -316,8 +315,8 @@ namespace Dragablz
       set => SetValue(ShowDefaultCloseButtonProperty, value);
     }
 
-    public static readonly DependencyProperty ShowDefaultAddButtonProperty = DependencyProperty.Register(
-        nameof(ShowDefaultAddButton), typeof(bool), typeof(TabablzControl), new PropertyMetadata(default(bool)));
+    public static readonly DependencyProperty ShowDefaultAddButtonProperty =
+      DependencyProperty.Register(nameof(ShowDefaultAddButton), typeof(bool), typeof(TabablzControl), new PropertyMetadata(default(bool)));
 
     /// <summary>
     /// Indicates whether a default add button should be displayed.  Alternately an add button
@@ -330,8 +329,18 @@ namespace Dragablz
       set => SetValue(ShowDefaultAddButtonProperty, value);
     }
 
-    public static readonly DependencyProperty IsHeaderPanelVisibleProperty = DependencyProperty.Register(
-        nameof(IsHeaderPanelVisible), typeof(bool), typeof(TabablzControl), new PropertyMetadata(true));
+    public ContextMenu AddButtonContextMenu
+    {
+      get => (ContextMenu)GetValue(AddButtonContextMenuProperty);
+      set => SetValue(AddButtonContextMenuProperty, value);
+    }
+
+    // Using a DependencyProperty as the backing store for AddButtonContextMenu.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty AddButtonContextMenuProperty =
+      DependencyProperty.Register(nameof(AddButtonContextMenu), typeof(ContextMenu), typeof(TabablzControl), new PropertyMetadata(default(ContextMenu)));
+
+    public static readonly DependencyProperty IsHeaderPanelVisibleProperty =
+      DependencyProperty.Register(nameof(IsHeaderPanelVisible), typeof(bool), typeof(TabablzControl), new PropertyMetadata(true));
 
     /// <summary>
     /// Indicates wither the heaeder panel is visible.  Default is <c>true</c>.
@@ -342,8 +351,8 @@ namespace Dragablz
       set => SetValue(IsHeaderPanelVisibleProperty, value);
     }
 
-    public static readonly DependencyProperty AddLocationHintProperty = DependencyProperty.Register(
-        nameof(AddLocationHint), typeof(AddLocationHint), typeof(TabablzControl), new PropertyMetadata(AddLocationHint.Last));
+    public static readonly DependencyProperty AddLocationHintProperty =
+      DependencyProperty.Register(nameof(AddLocationHint), typeof(AddLocationHint), typeof(TabablzControl), new PropertyMetadata(AddLocationHint.Last));
 
     /// <summary>
     /// Gets or sets the location to add new tab items in the header.
@@ -409,7 +418,7 @@ namespace Dragablz
 
     private static readonly DependencyPropertyKey IS_EMPTY_PROPERTY_KEY =
         DependencyProperty.RegisterReadOnly(
-            "IsEmpty", typeof(bool), typeof(TabablzControl),
+            nameof(IsEmpty), typeof(bool), typeof(TabablzControl),
             new PropertyMetadata(true, OnIsEmptyChanged));
 
     /// <summary>
@@ -445,15 +454,16 @@ namespace Dragablz
       remove => RemoveHandler(IsEmptyChangedEvent, value);
     }
 
-        private static void OnIsEmptyChanged(
-            DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var instance = d as TabablzControl;
-            var args = new RoutedPropertyChangedEventArgs<bool>(
-                (bool) e.OldValue,
-                (bool) e.NewValue) {RoutedEvent = IsEmptyChangedEvent};
-            instance?.RaiseEvent(args);
-        }
+    private static void OnIsEmptyChanged(
+        DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+      var instance = d as TabablzControl;
+      var args = new RoutedPropertyChangedEventArgs<bool>(
+          (bool)e.OldValue,
+          (bool)e.NewValue)
+      { RoutedEvent = IsEmptyChangedEvent };
+      instance?.RaiseEvent(args);
+    }
 
     /// <summary>
     /// Optionally allows a close item hook to be bound in.  If this propety is provided, the func must return true for the close to continue.
@@ -680,7 +690,6 @@ namespace Dragablz
     }
 
     public event EventHandler<TabSelectionEventArgs> SelectionChanged;
-
 
     /// <summary>
     /// update the visible child in the ItemsHolder
@@ -1028,11 +1037,12 @@ namespace Dragablz
         return false;
 
       var otherTabablzControls = DragablzManager.LOADED_TABABLZ_INSTANCES
-          .Where(
-              tc =>
-                  tc != this && tc.InterTabController != null && InterTabController != null
-                  && Equals(tc.InterTabController.Partition, InterTabController.Partition)
-                  && tc.m_dragablzItemsControl != null)
+          .Where(tc =>
+                 tc != this
+                 && tc.InterTabController != null
+                 && InterTabController != null
+                 && Equals(tc.InterTabController.Partition, InterTabController.Partition)
+                 && tc.m_dragablzItemsControl != null)
           .Select(tc =>
           {
             var topLeft = tc.m_dragablzItemsControl.PointToScreen(new Point());
@@ -1116,6 +1126,7 @@ namespace Dragablz
         m_dragablzItemsControl.MinHeight = minSize.Height;
         m_dragablzItemsControl.MinWidth = minSize.Width;
       }
+
       return item;
     }
 

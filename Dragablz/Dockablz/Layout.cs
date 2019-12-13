@@ -192,7 +192,7 @@ namespace Dragablz.Dockablz
         }
 
         /// <summary>
-        /// Use in conjuction with the <see cref="InterTabController.Partition"/> on a <see cref="TabablzControl"/>
+        /// Use in conjunction with the <see cref="InterTabController.Partition"/> on a <see cref="TabablzControl"/>
         /// to isolate drag and drop spaces/control instances.
         /// </summary>
         public string Partition { get; set; }

@@ -162,7 +162,7 @@ namespace Dragablz
         }
 
         /// <summary>
-        /// Style to apply to header items which are not their own item container (<see cref="TabItem"/>).  Typically items bound via the <see cref="ItemsSource"/> will use this style.
+        /// Style to apply to header items which are not their own item container (<see cref="TabItem"/>).  Typically items bound via the <see cref="ItemsControl.ItemsSource"/> will use this style.
         /// </summary>
         [Obsolete]
         public Style CustomHeaderItemStyle

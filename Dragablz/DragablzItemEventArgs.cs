@@ -8,30 +8,27 @@ namespace Dragablz
 
     public class DragablzItemEventArgs : RoutedEventArgs
     {
-        private readonly DragablzItem _dragablzItem;
+        private readonly DragablzItem m_dragablzItem;
 
         public DragablzItemEventArgs(DragablzItem dragablzItem)
         {
-            if (dragablzItem == null) throw new ArgumentNullException("dragablzItem");            
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));            
 
-            _dragablzItem = dragablzItem;
+            m_dragablzItem = dragablzItem;
         }
 
         public DragablzItemEventArgs(RoutedEvent routedEvent, DragablzItem dragablzItem)
             : base(routedEvent)
         {
-            _dragablzItem = dragablzItem;
+            m_dragablzItem = dragablzItem;
         }
 
         public DragablzItemEventArgs(RoutedEvent routedEvent, object source, DragablzItem dragablzItem)
             : base(routedEvent, source)
         {
-            _dragablzItem = dragablzItem;
+            m_dragablzItem = dragablzItem;
         }
 
-        public DragablzItem DragablzItem
-        {
-            get { return _dragablzItem; }
-        }
+        public DragablzItem DragablzItem => m_dragablzItem;
     }
 }

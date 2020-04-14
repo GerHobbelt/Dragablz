@@ -15,14 +15,14 @@ namespace Dragablz
     public static class DragablzColors
     {
         //TODO listen to changes from the OS to provide updates
-        public static Color WindowBaseColor = Color.FromRgb(217, 217, 217);
-        public static Brush WindowGlassBrush = GetWindowGlassBrush();
-        public static Brush WindowGlassBalancedBrush = GetBalancedWindowGlassBrush();
-        public static Brush WindowInactiveBrush = GetWindowInactiveBrush();
+        public static Color m_windowBaseColor = Color.FromRgb(217, 217, 217);
+        public static Brush m_windowGlassBrush = GetWindowGlassBrush();
+        public static Brush m_windowGlassBalancedBrush = GetBalancedWindowGlassBrush();
+        public static Brush m_windowInactiveBrush = GetWindowInactiveBrush();
 
         private static Brush GetWindowGlassBrush()
         {
-            var colorizationParams = new Native.DWMCOLORIZATIONPARAMS();
+            var colorizationParams = new Native.Dwmcolorizationparams();
             Native.DwmGetColorizationParameters(ref colorizationParams);
             var frameColor = ToColor(colorizationParams.ColorizationColor);
 
@@ -32,10 +32,10 @@ namespace Dragablz
 
         private static Brush GetBalancedWindowGlassBrush()
         {
-            var colorizationParams = new Native.DWMCOLORIZATIONPARAMS();
+            var colorizationParams = new Native.Dwmcolorizationparams();
             Native.DwmGetColorizationParameters(ref colorizationParams);
             var frameColor = ToColor(colorizationParams.ColorizationColor);
-            var blendedColor = BlendColor(frameColor, WindowBaseColor, 100f - colorizationParams.ColorizationColorBalance);
+            var blendedColor = BlendColor(frameColor, m_windowBaseColor, 100f - colorizationParams.ColorizationColorBalance);
 
             return new SolidColorBrush(blendedColor);
         }
@@ -68,7 +68,7 @@ namespace Dragablz
         {
             var buff = channel1 + (channel2 - channel1) * channel2Percentage / 100D;
             return Math.Min((byte)Math.Round(buff), (byte)255);
-        }   
-        
+        }
+
     }
 }

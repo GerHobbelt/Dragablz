@@ -12,11 +12,11 @@ namespace Dragablz
     /// Provides a little help for sizing the header panel in the tab control
     /// </summary>
     public class TabablzHeaderSizeConverter : IMultiValueConverter
-    {        
+    {
         public Orientation Orientation { get; set; }
 
         /// <summary>
-        /// The first value should be the total size available size, typically the parent control size.  
+        /// The first value should be the total size available size, typically the parent control size.
         /// The second value should be from <see cref="DragablzItemsControl.ItemsPresenterWidthProperty"/> or (height equivalent)
         /// All additional values should be siblings sizes (width or height) which will affect (reduce) the available size.
         /// </summary>
@@ -27,7 +27,7 @@ namespace Dragablz
         /// <returns></returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values == null) throw new ArgumentNullException("values");
+            if (values == null) throw new ArgumentNullException(nameof(values));
 
             if (values.Length < 2) return Binding.DoNothing;
 

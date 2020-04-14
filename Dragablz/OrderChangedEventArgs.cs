@@ -4,25 +4,19 @@ namespace Dragablz
 {
     public class OrderChangedEventArgs : EventArgs
     {
-        private readonly object[] _previousOrder;
-        private readonly object[] _newOrder;
+        private readonly object[] m_previousOrder;
+        private readonly object[] m_newOrder;
 
         public OrderChangedEventArgs(object[] previousOrder, object[] newOrder)
         {
-            if (newOrder == null) throw new ArgumentNullException("newOrder");
+            if (newOrder == null) throw new ArgumentNullException(nameof(newOrder));
 
-            _previousOrder = previousOrder;
-            _newOrder = newOrder;
+            m_previousOrder = previousOrder;
+            m_newOrder = newOrder;
         }
 
-        public object[] PreviousOrder
-        {
-            get { return _previousOrder; }
-        }
+        public object[] PreviousOrder => m_previousOrder;
 
-        public object[] NewOrder
-        {
-            get { return _newOrder; }
-        }
+      public object[] NewOrder => m_newOrder;
     }
 }

@@ -11,20 +11,20 @@ namespace Dragablz
     /// </summary>
     public abstract class StackPositionMonitor : PositionMonitor
     {
-        private readonly Func<DragablzItem, double> _getLocation;
+        private readonly Func<DragablzItem, double> m_getLocation;
 
         protected StackPositionMonitor(Orientation orientation)
         {
             switch (orientation)
             {
                 case Orientation.Horizontal:
-                    _getLocation = item => item.X;
+                    m_getLocation = item => item.X;
                     break;
                 case Orientation.Vertical:
-                    _getLocation = item => item.Y;
+                    m_getLocation = item => item.Y;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("orientation");
+                    throw new ArgumentOutOfRangeException(nameof(orientation));
             }
         }
 
@@ -38,9 +38,9 @@ namespace Dragablz
 
         internal IEnumerable<DragablzItem> Sort(IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
-            return items.OrderBy(i => _getLocation(i));
+            return items.OrderBy(i => m_getLocation(i));
         }
     }
 }

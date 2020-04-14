@@ -27,8 +27,8 @@ namespace Dragablz.Themes
 
         public SystemCommandType SystemCommandType
         {
-            get { return (SystemCommandType) GetValue(SystemCommandTypeProperty); }
-            set { SetValue(SystemCommandTypeProperty, value); }
+            get => (SystemCommandType) GetValue(SystemCommandTypeProperty);
+          set => SetValue(SystemCommandTypeProperty, value);
         }
     }
 }

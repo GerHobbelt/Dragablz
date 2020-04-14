@@ -61,7 +61,9 @@
     <Compile Include="Dockablz\LocationReport.cs" />
     <Compile Include="Dockablz\LocationReportBuilder.cs" />
     <Compile Include="Dockablz\LocationReportException.cs" />
+    <Compile Include="DragablzManager.cs" />
     <Compile Include="EmptyHeaderSizingHint.cs" />
+    <Compile Include="ITabItem.cs" />
     <Compile Include="ItemActionCallbackArgs.cs" />
     <Compile Include="ContainerCustomisations.cs" />
     <Compile Include="Converters\BooleanAndToVisibilityConverter.cs" />
@@ -110,6 +112,11 @@
     <Compile Include="Core\InterTabTransfer.cs" />
     <Compile Include="LocationHint.cs" />
     <Compile Include="MoveItemRequest.cs" />
+    <Compile Include="Savablz\BranchItemState.cs" />
+    <Compile Include="Savablz\BranchState.cs" />
+    <Compile Include="Savablz\TabSetState.cs" />
+    <Compile Include="Savablz\LayoutWindowState.cs" />
+    <Compile Include="Savablz\WindowsStateSaver.cs" />
     <Compile Include="StackOrganiser.cs" />
     <Compile Include="LocationChangedEventArgs.cs" />
     <Compile Include="Core\Native.cs" />

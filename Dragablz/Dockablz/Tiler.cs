@@ -14,7 +14,7 @@ namespace Dragablz.Dockablz
     {
         public static void Tile(IEnumerable<DragablzItem> dragablzItems, Size bounds)
         {
-            if (dragablzItems == null) throw new ArgumentNullException("dragablzItems");            
+            if (dragablzItems == null) throw new ArgumentNullException(nameof(dragablzItems));            
 
             var items = new Queue<DragablzItem>(dragablzItems.OrderBy(Panel.GetZIndex));
 
@@ -43,7 +43,7 @@ namespace Dragablz.Dockablz
 
         public static void TileHorizontally(IEnumerable<DragablzItem> dragablzItems, Size bounds)
         {
-            if (dragablzItems == null) throw new ArgumentNullException("dragablzItems");
+            if (dragablzItems == null) throw new ArgumentNullException(nameof(dragablzItems));
 
             var items = dragablzItems.ToList();
 
@@ -62,7 +62,7 @@ namespace Dragablz.Dockablz
 
         public static void TileVertically(IEnumerable<DragablzItem> dragablzItems, Size bounds)
         {
-            if (dragablzItems == null) throw new ArgumentNullException("dragablzItems");
+            if (dragablzItems == null) throw new ArgumentNullException(nameof(dragablzItems));
 
             var items = dragablzItems.ToList();
 

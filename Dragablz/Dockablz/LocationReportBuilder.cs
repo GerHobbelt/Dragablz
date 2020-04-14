@@ -2,53 +2,49 @@ using System;
 
 namespace Dragablz.Dockablz
 {
-    internal class LocationReportBuilder
+  internal class LocationReportBuilder
+  {
+    private readonly TabablzControl m_targetTabablzControl;
+    private Branch m_branch;
+    private bool m_isSecondLeaf;
+    private Layout m_layout;
+
+    public LocationReportBuilder(TabablzControl targetTabablzControl)
     {
-        private readonly TabablzControl _targetTabablzControl;
-        private Branch _branch;
-        private bool _isSecondLeaf;
-        private Layout _layout;
-
-        public LocationReportBuilder(TabablzControl targetTabablzControl)
-        {
-            _targetTabablzControl = targetTabablzControl;
-        }
-
-        public TabablzControl TargetTabablzControl
-        {
-            get { return _targetTabablzControl; }
-        }
-
-        public bool IsFound { get; private set; }
-
-        public void MarkFound()
-        {
-            if (IsFound)
-                throw new InvalidOperationException("Already found.");
-
-            IsFound = true;
-
-            _layout = CurrentLayout;
-        }
-
-        public void MarkFound(Branch branch, bool isSecondLeaf)
-        {
-            if (branch == null) throw new ArgumentNullException("branch");
-            if (IsFound)
-                throw new InvalidOperationException("Already found.");
-
-            IsFound = true;
-
-            _layout = CurrentLayout;
-            _branch = branch;
-            _isSecondLeaf = isSecondLeaf;
-        }
-
-        public Layout CurrentLayout { get; set; }
-
-        public LocationReport ToLocationReport()
-        {
-            return new LocationReport(_targetTabablzControl, _layout, _branch, _isSecondLeaf);
-        }
+      m_targetTabablzControl = targetTabablzControl;
     }
+
+    public TabablzControl TargetTabablzControl => m_targetTabablzControl;
+
+    public bool IsFound { get; private set; }
+
+    public void MarkFound()
+    {
+      if (IsFound)
+        throw new InvalidOperationException("Already found.");
+
+      IsFound = true;
+
+      m_layout = CurrentLayout;
+    }
+
+    public void MarkFound(Branch branch, bool isSecondLeaf)
+    {
+      if (IsFound)
+        throw new InvalidOperationException("Already found.");
+
+      IsFound = true;
+
+      m_layout = CurrentLayout;
+      m_branch = branch ?? throw new ArgumentNullException(nameof(branch));
+      m_isSecondLeaf = isSecondLeaf;
+    }
+
+    public Layout CurrentLayout { get; set; }
+
+    public LocationReport ToLocationReport()
+    {
+      return new LocationReport(m_targetTabablzControl, m_layout, m_branch, m_isSecondLeaf);
+    }
+  }
 }

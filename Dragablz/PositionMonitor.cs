@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 namespace Dragablz
 {
     /// <summary>
-    /// Consumers can provide a position monitor to receive updates regarding the location of an item.    
+    /// Consumers can provide a position monitor to receive updates regarding the location of an item.
     /// </summary>
     /// <remarks>
-    /// A <see cref="PositionMonitor"/> can be used to listen to  changes 
+    /// A <see cref="PositionMonitor"/> can be used to listen to  changes
     /// instead of routed events, which can be easier in a MVVM scenario.
     /// </remarks>
     public class PositionMonitor
@@ -20,7 +20,7 @@ namespace Dragablz
 
         internal virtual void OnLocationChanged(LocationChangedEventArgs e)
         {
-            if (e == null) throw new ArgumentNullException("e");
+            if (e == null) throw new ArgumentNullException(nameof(e));
 
             var handler = LocationChanged;
             handler?.Invoke(this, e);

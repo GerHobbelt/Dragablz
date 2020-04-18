@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="CollectionTeaserFixture.cs" />
     <Compile Include="Dockablz\TilerCalculatorFixture.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

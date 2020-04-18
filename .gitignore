@@ -230,6 +230,6 @@ $RECYCLE.BIN/
 *.msp
 
 # Visual Studio & Extensions which store additional stuff
-#/.vs/
+/.vs/
 FastWPF.DesignerSettings
 

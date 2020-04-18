@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dragablz.Referenceless
 {
@@ -36,7 +32,7 @@ namespace Dragablz.Referenceless
         public IDisposable Disposable
         {
             get => this.m_current;
-          set
+            set
             {
                 bool flag = false;
                 IDisposable disposable = (IDisposable)null;

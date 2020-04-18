@@ -18,7 +18,7 @@ namespace Dragablz
             m_dragDeltaEventArgs = dragDeltaEventArgs;
         }
 
-        public DragablzDragDeltaEventArgs(RoutedEvent routedEvent, DragablzItem dragablzItem, DragDeltaEventArgs dragDeltaEventArgs) 
+        public DragablzDragDeltaEventArgs(RoutedEvent routedEvent, DragablzItem dragablzItem, DragDeltaEventArgs dragDeltaEventArgs)
             : base(routedEvent, dragablzItem)
         {
             if (dragDeltaEventArgs == null) throw new ArgumentNullException(nameof(dragDeltaEventArgs));
@@ -26,7 +26,7 @@ namespace Dragablz
             m_dragDeltaEventArgs = dragDeltaEventArgs;
         }
 
-        public DragablzDragDeltaEventArgs(RoutedEvent routedEvent, object source, DragablzItem dragablzItem, DragDeltaEventArgs dragDeltaEventArgs) 
+        public DragablzDragDeltaEventArgs(RoutedEvent routedEvent, object source, DragablzItem dragablzItem, DragDeltaEventArgs dragDeltaEventArgs)
             : base(routedEvent, source, dragablzItem)
         {
             if (dragDeltaEventArgs == null) throw new ArgumentNullException(nameof(dragDeltaEventArgs));
@@ -36,6 +36,6 @@ namespace Dragablz
 
         public DragDeltaEventArgs DragDeltaEventArgs => m_dragDeltaEventArgs;
 
-      public bool Cancel { get; set; }        
+        public bool Cancel { get; set; }
     }
 }

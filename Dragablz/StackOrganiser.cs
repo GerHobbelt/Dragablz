@@ -63,18 +63,18 @@ namespace Dragablz
 
             public double Start => m_start;
 
-          public double Mid => m_mid;
+            public double Mid => m_mid;
 
-          public double End => m_end;
+            public double End => m_end;
 
-          public DragablzItem Item => m_item;
+            public DragablzItem Item => m_item;
         }
 
         #endregion
 
         public virtual Orientation Orientation => m_orientation;
 
-      public virtual void Organise(DragablzItemsControl requestor, Size measureBounds, IEnumerable<DragablzItem> items)
+        public virtual void Organise(DragablzItemsControl requestor, Size measureBounds, IEnumerable<DragablzItem> items)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
 
@@ -142,7 +142,7 @@ namespace Dragablz
 
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
-                .Union(new[] {GetLocationInfo(dragItem)})
+                .Union(new[] { GetLocationInfo(dragItem) })
                 .OrderBy(loc => loc.Item == dragItem ? loc.Start : m_siblingItemLocationOnDragStart[loc.Item].Start);
 
             var currentCoord = 0.0;
@@ -154,7 +154,7 @@ namespace Dragablz
                     SendToLocation(location.Item, currentCoord);
                     Panel.SetZIndex(location.Item, --zIndex);
                 }
-                currentCoord += m_getDesiredSize(location.Item) + m_itemOffset;                
+                currentCoord += m_getDesiredSize(location.Item) + m_itemOffset;
             }
             Panel.SetZIndex(dragItem, int.MaxValue);
         }
@@ -165,7 +165,7 @@ namespace Dragablz
             if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
-                .Union(new[] {GetLocationInfo(dragItem)})
+                .Union(new[] { GetLocationInfo(dragItem) })
                 .OrderBy(loc => loc.Item == dragItem ? loc.Start : m_siblingItemLocationOnDragStart[loc.Item].Start);
 
             var currentCoord = 0.0;
@@ -243,7 +243,7 @@ namespace Dragablz
         }
 
         private void SetLocation(DragablzItem dragablzItem, double location)
-        {                     
+        {
             m_setLocation(dragablzItem, location);
         }
 
@@ -260,7 +260,7 @@ namespace Dragablz
 
             m_activeStoryboardTargetLocations[dragablzItem] = location;
 
-            var storyboard = new Storyboard {FillBehavior = FillBehavior.Stop};
+            var storyboard = new Storyboard { FillBehavior = FillBehavior.Stop };
             storyboard.WhenComplete(sb =>
             {
                 m_setLocation(dragablzItem, location);

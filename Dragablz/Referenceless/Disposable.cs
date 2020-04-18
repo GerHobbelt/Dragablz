@@ -6,7 +6,7 @@ namespace Dragablz.Referenceless
     {
         public static IDisposable Empty => (IDisposable)DefaultDisposable.Instance;
 
-      public static IDisposable Create(Action dispose)
+        public static IDisposable Create(Action dispose)
         {
             if (dispose == null)
                 throw new ArgumentNullException(nameof(dispose));

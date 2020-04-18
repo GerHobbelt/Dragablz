@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Dragablz;
@@ -45,7 +44,7 @@ namespace DragablzDemo
 
         private void Branch(Orientation orientation)
         {
-            var branchResult = Layout.Branch(_tabablzControl, orientation, false, SplitRatio/10);
+            var branchResult = Layout.Branch(_tabablzControl, orientation, false, SplitRatio / 10);
 
             var newItem = new HeaderedItemViewModel
             {

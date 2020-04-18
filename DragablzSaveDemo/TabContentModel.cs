@@ -17,6 +17,6 @@
         /// <summary>
         /// The tab content
         /// </summary>
-        public string Content {get;}
+        public string Content { get; }
     }
 }

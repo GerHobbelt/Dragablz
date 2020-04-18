@@ -1,7 +1,6 @@
 ﻿namespace DragablzSaveDemo
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
     /// <summary>
@@ -33,6 +32,6 @@
         /// <summary>
         /// The factory that creates new viewModels
         /// </summary>
-        public static Func<object,object> NewItemFactory => e => new TabContentViewModel(new TabContentModel(Guid.NewGuid().ToString()));
+        public static Func<object, object> NewItemFactory => e => new TabContentViewModel(new TabContentModel(Guid.NewGuid().ToString()));
     }
 }

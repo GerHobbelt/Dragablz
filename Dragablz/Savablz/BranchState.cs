@@ -1,6 +1,5 @@
 ﻿namespace Dragablz.Savablz
 {
-    using System;
     using System.Windows.Controls;
 
     /// <summary>

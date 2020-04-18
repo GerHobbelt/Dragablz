@@ -15,8 +15,8 @@ namespace Dragablz
 
         public object Item => m_item;
 
-      public object Context => m_context;
+        public object Context => m_context;
 
-      public AddLocationHint AddLocationHint => m_addLocationHint;
+        public AddLocationHint AddLocationHint => m_addLocationHint;
     }
 }

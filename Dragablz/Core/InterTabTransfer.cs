@@ -23,7 +23,7 @@ namespace Dragablz.Core
         private readonly Size m_itemSize;
         private readonly IList<FloatingItemSnapShot> m_floatingItemSnapShots;
         private readonly bool m_isTransposing;
-        private readonly InterTabTransferReason m_transferReason; 
+        private readonly InterTabTransferReason m_transferReason;
 
         public InterTabTransfer(object item, DragablzItem originatorContainer, Orientation breachOrientation, Point dragStartWindowOffset, Point dragStartItemOffset, Point itemPositionWithinHeader, Size itemSize, IList<FloatingItemSnapShot> floatingItemSnapShots, bool isTransposing)
         {
@@ -61,22 +61,22 @@ namespace Dragablz.Core
 
         public Orientation BreachOrientation => m_breachOrientation;
 
-      public Point DragStartWindowOffset => m_dragStartWindowOffset;
+        public Point DragStartWindowOffset => m_dragStartWindowOffset;
 
-      public object Item => m_item;
+        public object Item => m_item;
 
-      public DragablzItem OriginatorContainer => m_originatorContainer;
+        public DragablzItem OriginatorContainer => m_originatorContainer;
 
-      public InterTabTransferReason TransferReason => m_transferReason;
+        public InterTabTransferReason TransferReason => m_transferReason;
 
-      public Point DragStartItemOffset => m_dragStartItemOffset;
+        public Point DragStartItemOffset => m_dragStartItemOffset;
 
-      public Point ItemPositionWithinHeader => m_itemPositionWithinHeader;
+        public Point ItemPositionWithinHeader => m_itemPositionWithinHeader;
 
-      public Size ItemSize => m_itemSize;
+        public Size ItemSize => m_itemSize;
 
-      public IList<FloatingItemSnapShot> FloatingItemSnapShots => m_floatingItemSnapShots;
+        public IList<FloatingItemSnapShot> FloatingItemSnapShots => m_floatingItemSnapShots;
 
-      public bool IsTransposing => m_isTransposing;
+        public bool IsTransposing => m_isTransposing;
     }
 }

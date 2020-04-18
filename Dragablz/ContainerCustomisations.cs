@@ -18,8 +18,8 @@ namespace Dragablz
 
         public Func<DragablzItem> GetContainerForItemOverride => m_getContainerForItemOverride;
 
-      public Action<DependencyObject, object> PrepareContainerForItemOverride => m_prepareContainerForItemOverride;
+        public Action<DependencyObject, object> PrepareContainerForItemOverride => m_prepareContainerForItemOverride;
 
-      public Action<DependencyObject, object> ClearingContainerForItemOverride => m_clearingContainerForItemOverride;
+        public Action<DependencyObject, object> ClearingContainerForItemOverride => m_clearingContainerForItemOverride;
     }
 }

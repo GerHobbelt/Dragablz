@@ -6,7 +6,7 @@ namespace Dragablz.Core
     {
         private readonly DragablzItem m_dragItem;
         private readonly double m_dragablzItemsControlHorizontalOffset;
-        private readonly double m_dragablzItemControlVerticalOffset; 
+        private readonly double m_dragablzItemControlVerticalOffset;
         private readonly double m_dragablzItemHorizontalOffset;
         private readonly double m_dragablzItemVerticalOffset;
 
@@ -25,12 +25,12 @@ namespace Dragablz.Core
 
         public double DragablzItemsControlHorizontalOffset => m_dragablzItemsControlHorizontalOffset;
 
-      public double DragablzItemControlVerticalOffset => m_dragablzItemControlVerticalOffset;
+        public double DragablzItemControlVerticalOffset => m_dragablzItemControlVerticalOffset;
 
-      public double DragablzItemHorizontalOffset => m_dragablzItemHorizontalOffset;
+        public double DragablzItemHorizontalOffset => m_dragablzItemHorizontalOffset;
 
-      public double DragablzItemVerticalOffset => m_dragablzItemVerticalOffset;
+        public double DragablzItemVerticalOffset => m_dragablzItemVerticalOffset;
 
-      public DragablzItem DragItem => m_dragItem;
+        public DragablzItem DragItem => m_dragItem;
     }
 }

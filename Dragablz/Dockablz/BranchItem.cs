@@ -1,8 +1,8 @@
 ﻿namespace Dragablz.Dockablz
 {
-  public enum BranchItem
-  {
-    First,
-    Second
-  }
+    public enum BranchItem
+    {
+        First,
+        Second
+    }
 }

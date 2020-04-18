@@ -1,18 +1,13 @@
-﻿using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-
-namespace DragablzDemo
+﻿namespace DragablzDemo
 {
-  /// <summary>
-  /// Interaction logic for BoundExampleWindow.xaml
-  /// </summary>
-  public partial class BoundExampleWindow
-  {
-    public BoundExampleWindow()
+    /// <summary>
+    /// Interaction logic for BoundExampleWindow.xaml
+    /// </summary>
+    public partial class BoundExampleWindow
     {
-      InitializeComponent();
+        public BoundExampleWindow()
+        {
+            InitializeComponent();
+        }
     }
-  }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -53,10 +49,10 @@ namespace Dragablz.Dockablz
 
         public object Content => m_content;
 
-      public Rect Location => m_location;
+        public Rect Location => m_location;
 
-      public int ZIndex => m_zIndex;
+        public int ZIndex => m_zIndex;
 
-      public WindowState State => m_state;
+        public WindowState State => m_state;
     }
 }

@@ -9,7 +9,7 @@ namespace Dragablz.Referenceless
 
         public bool IsDisposed => this.m_dispose == null;
 
-      public AnonymousDisposable(Action dispose)
+        public AnonymousDisposable(Action dispose)
         {
             this.m_dispose = dispose;
         }

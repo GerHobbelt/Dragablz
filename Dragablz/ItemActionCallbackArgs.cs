@@ -24,11 +24,11 @@ namespace Dragablz
 
         public Window Window => m_window;
 
-      public TOwner Owner => m_owner;
+        public TOwner Owner => m_owner;
 
-      public DragablzItem DragablzItem => m_dragablzItem;
+        public DragablzItem DragablzItem => m_dragablzItem;
 
-      public bool IsCancelled { get; private set; }
+        public bool IsCancelled { get; private set; }
 
         public void Cancel()
         {

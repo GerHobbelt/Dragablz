@@ -7,7 +7,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Threading;
 using Dragablz.Core;
 using Dragablz.Dockablz;
 using Dragablz.Referenceless;
@@ -66,7 +65,7 @@ namespace Dragablz
 
         private static readonly DependencyPropertyKey IS_WINDOW_BEING_DRAGGED_BY_TAB_PROPERTY_KEY =
             DependencyProperty.RegisterReadOnly(
-                "IsBeingDraggedByTab", typeof (bool), typeof (DragablzWindow),
+                "IsBeingDraggedByTab", typeof(bool), typeof(DragablzWindow),
                 new PropertyMetadata(default(bool)));
 
         public static readonly DependencyProperty IsBeingDraggedByTabProperty =
@@ -74,8 +73,8 @@ namespace Dragablz
 
         public bool IsBeingDraggedByTab
         {
-            get => (bool) GetValue(IsBeingDraggedByTabProperty);
-          private set => SetValue(IS_WINDOW_BEING_DRAGGED_BY_TAB_PROPERTY_KEY, value);
+            get => (bool)GetValue(IsBeingDraggedByTabProperty);
+            private set => SetValue(IS_WINDOW_BEING_DRAGGED_BY_TAB_PROPERTY_KEY, value);
         }
 
         private void ItemDragCompleted(object sender, DragablzDragCompletedEventArgs e)
@@ -154,7 +153,7 @@ namespace Dragablz
             {
                 var outerRectangleGeometry = new RectangleGeometry(new Rect(sizeInfo.NewSize));
                 var innerRectangleGeometry =
-                    new RectangleGeometry(new Rect(RESIZE_MARGIN, RESIZE_MARGIN, sizeInfo.NewSize.Width - RESIZE_MARGIN * 2, sizeInfo.NewSize.Height - RESIZE_MARGIN*2));
+                    new RectangleGeometry(new Rect(RESIZE_MARGIN, RESIZE_MARGIN, sizeInfo.NewSize.Width - RESIZE_MARGIN * 2, sizeInfo.NewSize.Height - RESIZE_MARGIN * 2));
                 resizeThumb.Clip = new CombinedGeometry(GeometryCombineMode.Exclude, outerRectangleGeometry,
                     innerRectangleGeometry);
             }
@@ -166,9 +165,9 @@ namespace Dragablz
         {
             get
             {
-                var value = typeof (Window).GetProperty("CriticalHandle", BindingFlags.NonPublic | BindingFlags.Instance)
+                var value = typeof(Window).GetProperty("CriticalHandle", BindingFlags.NonPublic | BindingFlags.Instance)
                     .GetValue(this, new object[0]);
-                return (IntPtr) value;
+                return (IntPtr)value;
             }
         }
 
@@ -239,7 +238,7 @@ namespace Dragablz
             width = Math.Max(MinWidth, width);
             height = Math.Max(MinHeight, height);
             //TODO must try harder.
-            left = Math.Min(left, m_windowLocationPointWhenResizeBegan.X + m_sizeWhenResizeBegan.Width - RESIZE_MARGIN*4);
+            left = Math.Min(left, m_windowLocationPointWhenResizeBegan.X + m_sizeWhenResizeBegan.Width - RESIZE_MARGIN * 4);
             //TODO must try harder.
             top = Math.Min(top, m_windowLocationPointWhenResizeBegan.Y + m_sizeWhenResizeBegan.Height - RESIZE_MARGIN * 4);
             SetCurrentValue(WidthProperty, width);

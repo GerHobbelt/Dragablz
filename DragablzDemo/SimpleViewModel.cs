@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization.Formatters;
 using DragablzDemo.Annotations;
 
 namespace DragablzDemo

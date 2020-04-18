@@ -202,7 +202,7 @@
             {
                 RestoreTabSetState(tabablzControl, branchItemState.ItemAsTabSet, viewModelFactory);
             }
-            else if(branchItemState.ItemAsBranch != null)
+            else if (branchItemState.ItemAsBranch != null)
             {
                 RestoreBranchState(tabablzControl, branchItemState.ItemAsBranch, viewModelFactory);
             }

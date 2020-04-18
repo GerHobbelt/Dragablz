@@ -19,6 +19,6 @@ namespace Dragablz
 
         public TElement Container => m_container;
 
-      public TabablzControl TabablzControl => m_tabablzControl;
+        public TabablzControl TabablzControl => m_tabablzControl;
     }
 }

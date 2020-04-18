@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Input;
 using Dragablz;
 using DragablzDemo.Annotations;
@@ -33,11 +30,11 @@ namespace DragablzDemo
             _peopleMonitor = new VerticalPositionMonitor();
             _peopleMonitor.OrderChanged += PeopleMonitorOnOrderChanged;
 
-            _people.Add(new Person {FirstName = "Albert", LastName = "Einstein"});
+            _people.Add(new Person { FirstName = "Albert", LastName = "Einstein" });
             _people.Add(new Person { FirstName = "Neil", LastName = "Tyson" });
             _people.Add(new Person { FirstName = "James", LastName = "Willock" }); //i move in esteemed circles ;)
 
-            _viewModels.Add(new SimpleViewModel { Name = "Alpha", SimpleContent = "This is the alpha content"});
+            _viewModels.Add(new SimpleViewModel { Name = "Alpha", SimpleContent = "This is the alpha content" });
             _viewModels.Add(new SimpleViewModel { Name = "Beta", SimpleContent = "Beta content", IsSelected = true });
             _viewModels.Add(new SimpleViewModel { Name = "Gamma", SimpleContent = "And here is the gamma content" });
 

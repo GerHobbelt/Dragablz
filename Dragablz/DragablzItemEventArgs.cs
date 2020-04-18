@@ -1,6 +1,5 @@
 using System;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 
 namespace Dragablz
 {
@@ -12,7 +11,7 @@ namespace Dragablz
 
         public DragablzItemEventArgs(DragablzItem dragablzItem)
         {
-            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));            
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
 
             m_dragablzItem = dragablzItem;
         }

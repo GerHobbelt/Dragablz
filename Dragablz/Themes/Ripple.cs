@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -88,7 +87,7 @@ namespace Dragablz.Themes
         public Brush Feedback
         {
             get => (Brush)GetValue(FeedbackProperty);
-          set => SetValue(FeedbackProperty, value);
+            set => SetValue(FeedbackProperty, value);
         }
 
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
@@ -137,7 +136,7 @@ namespace Dragablz.Themes
         public double RippleSize
         {
             get => (double)GetValue(RippleSizeProperty);
-          private set => SetValue(RIPPLE_SIZE_PROPERTY_KEY, value);
+            private set => SetValue(RIPPLE_SIZE_PROPERTY_KEY, value);
         }
 
         private static readonly DependencyPropertyKey RIPPLE_X_PROPERTY_KEY =
@@ -151,7 +150,7 @@ namespace Dragablz.Themes
         public double RippleX
         {
             get => (double)GetValue(RippleXProperty);
-          private set => SetValue(RIPPLE_X_PROPERTY_KEY, value);
+            private set => SetValue(RIPPLE_X_PROPERTY_KEY, value);
         }
 
         private static readonly DependencyPropertyKey RIPPLE_Y_PROPERTY_KEY =
@@ -165,7 +164,7 @@ namespace Dragablz.Themes
         public double RippleY
         {
             get => (double)GetValue(RippleYProperty);
-          private set => SetValue(RIPPLE_Y_PROPERTY_KEY, value);
+            private set => SetValue(RIPPLE_Y_PROPERTY_KEY, value);
         }
 
         /// <summary>
@@ -183,7 +182,7 @@ namespace Dragablz.Themes
         public bool RecognizesAccessKey
         {
             get => (bool)GetValue(RecognizesAccessKeyProperty);
-          set => SetValue(RecognizesAccessKeyProperty, value);
+            set => SetValue(RecognizesAccessKeyProperty, value);
         }
 
         public override void OnApplyTemplate()

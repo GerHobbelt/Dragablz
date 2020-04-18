@@ -8,7 +8,7 @@
     /// <summary>
     /// A tab content
     /// </summary>
-    public class TabContentViewModel: INotifyPropertyChanged
+    public class TabContentViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// The header

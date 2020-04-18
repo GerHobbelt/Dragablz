@@ -11,7 +11,7 @@ namespace Dragablz.Dockablz
         {
             if (branch == null) throw new ArgumentNullException(nameof(branch));
             if (tabablzControl == null) throw new ArgumentNullException(nameof(tabablzControl));
-            
+
             m_branch = branch;
             m_tabablzControl = tabablzControl;
         }
@@ -21,7 +21,7 @@ namespace Dragablz.Dockablz
         /// </summary>
         public Branch Branch => m_branch;
 
-      /// <summary>
+        /// <summary>
         /// The new tab control.
         /// </summary>
         public TabablzControl TabablzControl => m_tabablzControl;

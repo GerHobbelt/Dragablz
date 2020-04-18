@@ -11,7 +11,7 @@ namespace Dragablz.Dockablz
         public FloatTransfer(double width, double height, object content)
         {
             if (content == null) throw new ArgumentNullException(nameof(content));
-            
+
             m_width = width;
             m_height = height;
             m_content = content;
@@ -28,10 +28,10 @@ namespace Dragablz.Dockablz
         //TODO width and height transfer obsolete
         public double Width => m_width;
 
-      [Obsolete]
+        [Obsolete]
         //TODO width and height transfer obsolete
         public double Height => m_height;
 
-      public object Content => m_content;
+        public object Content => m_content;
     }
 }

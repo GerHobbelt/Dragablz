@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Media;
+using Dragablz.Core;
 
 namespace Dragablz.Dockablz
 {
@@ -15,7 +19,7 @@ namespace Dragablz.Dockablz
             if (Layout.Content is Branch branch)
                 BranchAccessor = new BranchAccessor(branch);
             else
-                TabablzControl = Layout.Content as TabablzControl;
+                TabablzControl = Layout.VisualTreeDepthFirstTraversal().OfType<TabablzControl>().FirstOrDefault();
         }
 
         public Layout Layout { get; }

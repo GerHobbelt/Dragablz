@@ -1009,6 +1009,7 @@ namespace Dragablz
                     var vector = cursorPos - m_interTabTransfer.DragStartWindowOffset;
                     myWindow.Left = vector.X;
                     myWindow.Top = vector.Y;
+ 
                 }
                 else
                 {
@@ -1021,8 +1022,21 @@ namespace Dragablz
             }
             else
             {
-                myWindow.Left += e.DragDeltaEventArgs.HorizontalChange;
+                // the following lines were replaced to support right to left window when returning tab item
+                //myWindow.Left += e.DragDeltaEventArgs.HorizontalChange;
+                //myWindow.Top += e.DragDeltaEventArgs.VerticalChange;
+
+                if (myWindow.FlowDirection == FlowDirection.RightToLeft)
+                {
+                    myWindow.Left -= e.DragDeltaEventArgs.HorizontalChange;
+                }
+                else
+                {
+                    myWindow.Left += e.DragDeltaEventArgs.HorizontalChange;
+                }
+
                 myWindow.Top += e.DragDeltaEventArgs.VerticalChange;
+
             }
 
             e.Handled = true;
@@ -1266,7 +1280,18 @@ namespace Dragablz
             {
                 newTabHost.Container.Width = ActualWidth + Math.Max(0, currentWindow.RestoreBounds.Width - layout.ActualWidth);
                 newTabHost.Container.Height = ActualHeight + Math.Max(0, currentWindow.RestoreBounds.Height - layout.ActualHeight);
-                dragStartWindowOffset = dragablzItem.TranslatePoint(new Point(), this);
+
+                if (currentWindow.FlowDirection == FlowDirection.RightToLeft)
+                {
+                    dragStartWindowOffset = dragablzItem.TranslatePoint(new Point(dragablzItem.MouseAtDragStart.X, 0), this);
+                    var d2 = currentWindow.TranslatePoint(new Point(dragStartWindowOffset.X, 0), this);
+                    dragStartWindowOffset.Offset(d2.X - dragStartWindowOffset.X - dragablzItem.MouseAtDragStart.X, 0);
+                }
+                else
+                {
+                    dragStartWindowOffset = dragablzItem.TranslatePoint(new Point(0, 0), this);
+                }
+
                 //dragStartWindowOffset.Offset(currentWindow.RestoreBounds.Width - layout.ActualWidth, currentWindow.RestoreBounds.Height - layout.ActualHeight);
             }
             else
@@ -1290,6 +1315,7 @@ namespace Dragablz
             dragStartWindowOffset.Offset(dragablzItem.MouseAtDragStart.X, dragablzItem.MouseAtDragStart.Y);
             var borderVector = currentWindow.PointToScreen(new Point()).ToWpf() - new Point(currentWindow.GetActualLeft(), currentWindow.GetActualTop());
             dragStartWindowOffset.Offset(borderVector.X, borderVector.Y);
+
             return dragStartWindowOffset;
         }
 

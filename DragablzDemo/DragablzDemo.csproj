@@ -157,9 +157,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dragablz\Dragablz.net45.csproj">
+    <ProjectReference Include="..\Dragablz\Dragablz.csproj">
       <Project>{7b11011c-7fd7-4ab0-a1ad-04e940b026de}</Project>
-      <Name>Dragablz.net45</Name>
+      <Name>Dragablz</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

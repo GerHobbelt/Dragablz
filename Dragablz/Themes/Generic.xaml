@@ -2751,13 +2751,14 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SecondItemLength, Mode=TwoWay}" />
                   </Grid.RowDefinitions>
-                  <ContentPresenter x:Name="PART_FirstContentPresenter"
-                                    <GridSplitter Grid.Row="1" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" Height="5" HorizontalAlignment="Stretch" Background="Transparent" />
-                  <GridSplitter Grid.Row="1"
-                                ResizeDirection="Rows"
-                                ResizeBehavior="PreviousAndNext"
-                                Height="5"
-                                HorizontalAlignment="Stretch" />
+                                    <ContentPresenter x:Name="PART_FirstContentPresenter" Content="{TemplateBinding FirstItem}" />
+                                    <GridSplitter 
+									Grid.Row="1" 
+									ResizeDirection="Rows" 
+									ResizeBehavior="PreviousAndNext" 
+									Height="5" 
+									HorizontalAlignment="Stretch" 
+									Background="Transparent" />
                   <ContentPresenter x:Name="PART_SecondContentPresenter"
                                     Grid.Row="2"
                                     Content="{TemplateBinding SecondItem}" />

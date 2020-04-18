@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Dragablz.Core
 {
-    internal class CollectionTeaser
+    public class CollectionTeaser
     {
         private readonly Action<object> m_addMethod;
         private readonly Action<object> m_removeMethod;

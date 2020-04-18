@@ -7,6 +7,7 @@ namespace DragablzSaveDemo
     using System.Linq;
     using Dragablz.Savablz;
     using DragablzSaveDemo.Properties;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Interaction logic for App.xaml
